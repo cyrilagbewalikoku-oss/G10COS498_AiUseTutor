@@ -2,6 +2,58 @@
 
 An AI agent prototype that teaches people how to use AI agents effectively, ethically, and critically — through adaptive instruction, interactive practice simulations, and guided reflection.
 
+## Prerequisites
+
+- [Git](https://git-scm.com/downloads)
+- [Claude Code](https://claude.ai/code) — CLI, VS Code extension, or Desktop app with an active account
+
+## Quick Start
+
+```bash
+git clone https://github.com/Elorm-K/498_Agents.git
+cd 498_Agents
+git checkout prototype/v1
+```
+
+Then launch Claude Code in one of these ways:
+
+| Method | Command |
+|--------|---------|
+| **CLI** | Run `claude` in the project directory |
+| **VS Code** | Open the folder in VS Code with the Claude Code extension installed |
+| **Desktop App** | Open the project folder in the Claude Code desktop app |
+
+The tutor activates automatically — just start talking to it.
+
+## Things to Try
+
+| What to test | Say something like |
+|--------------|--------------------|
+| Onboarding | "I'm new to AI agents" |
+| Prompt coaching | "Help me write a better prompt" |
+| Practice scenario | "I want to practice using AI" |
+| Ethical guidance | "Is it okay to paste customer data into ChatGPT?" |
+| Detect a flawed AI | "Can I practice spotting bad AI?" |
+| Check your progress | "How am I doing?" |
+
+Feel free to explore — the tutor adapts to your level and interests.
+
+## How to Give Feedback
+
+Open a [GitHub Issue](https://github.com/Elorm-K/498_Agents/issues) and include:
+
+- **What you tried** — the message or scenario you tested
+- **What happened** — the tutor's response or behavior
+- **What you expected** — how you think it should have responded
+
+## Current Limitations
+
+- This is a **prototype** — not all features are fully polished
+- User profiles do not persist between sessions
+- Requires Claude Code access (not a standalone app)
+
+---
+
 ## What This Is
 
 This is a prototype design for an AI tutoring system that helps people at all skill levels develop **AI agent literacy**. It teaches:
