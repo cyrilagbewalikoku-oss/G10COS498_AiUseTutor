@@ -1,0 +1,52 @@
+{
+  "id": "scenario-005",
+  "title": "Health Misinformation Detection",
+  "description": "User must identify misinformation in AI-generated health content, testing fact-checking instincts, source verification, and understanding of AI confidence vs accuracy.",
+  "type": "misinformation_detection",
+  "difficulty": "advanced",
+  "learningObjectives": [
+    "Recognize that AI-generated health content may contain fabricated studies and statistics",
+    "Distinguish between AI confidence in its output and actual accuracy",
+    "Apply source verification strategies to health-related claims",
+    "Understand the real-world danger of sharing unverified health information"
+  ],
+  "setup": {
+    "role": "Health content writer for a wellness blog",
+    "task": "An AI agent has drafted a blog post about the health benefits of intermittent fasting. Review the draft and identify any claims that need verification before publication.",
+    "constraints": [
+      "The blog has 50,000 monthly readers — misinformation has real impact",
+      "Health claims must be supported by peer-reviewed research",
+      "The blog's editorial policy requires citing primary sources, not AI summaries",
+      "FTC guidelines require substantiation for health benefit claims"
+    ],
+    "availableTools": ["AI assistant", "PubMed", "Google Scholar", "FDA website"],
+    "context": "Your wellness blog has published AI-assisted content before, but a recent article contained a fabricated study reference that a reader caught. Your editor wants every health claim verified against primary sources before publication. The draft contains a mix of accurate information, exaggerated claims, and at least one fabricated study reference."
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Reads the entire draft critically before accepting any claims",
+      "Identifies specific claims that need source verification",
+      "Searches for cited studies in PubMed or Google Scholar",
+      "Catches the fabricated study reference",
+      "Questions exaggerated health benefit claims",
+      "Considers the responsibility of publishing health content to 50,000 readers",
+      "Asks the AI to provide DOIs or links for cited research"
+    ],
+    "bad": [
+      "Accepts the draft as-is because it 'sounds scientific'",
+      "Publishes without verifying cited research actually exists",
+      "Shares health claims without confirming they're supported by peer-reviewed evidence",
+      "Assumes AI-generated citations are real",
+      "Doesn't consider the impact of misinformation on readers' health decisions"
+    ]
+  },
+  "evaluationCriteria": [
+    { "dimension": "outputEvaluation", "weight": 0.35, "description": "Did the user systematically verify health claims and citations?" },
+    { "dimension": "criticalThinking", "weight": 0.30, "description": "Did the user distinguish between plausible-sounding and verified claims?" },
+    { "dimension": "ethicalReasoning", "weight": 0.25, "description": "Did the user consider reader safety and publication responsibility?" },
+    { "dimension": "promptingSkill", "weight": 0.10, "description": "Did the user ask effective follow-up questions?" }
+  ],
+  "flawType": "hallucination",
+  "maxTurns": 8,
+  "estimatedMinutes": 15
+}

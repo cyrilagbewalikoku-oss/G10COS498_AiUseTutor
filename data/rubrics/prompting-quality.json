@@ -1,0 +1,62 @@
+{
+  "id": "rubric-001",
+  "name": "Prompting Quality Rubric",
+  "description": "Evaluates the quality of prompts written by learners across CRAFT dimensions and iteration behavior",
+  "dimensions": [
+    {
+      "name": "Context Provision",
+      "description": "How well the user provides background information the AI needs",
+      "levels": [
+        { "score": 1, "label": "Missing", "criteria": "No context provided. Bare task with no background.", "examples": ["'Write a summary'", "'Help me with this'"] },
+        { "score": 2, "label": "Minimal", "criteria": "Some context but critical details missing.", "examples": ["'Write a summary of this article' (no article provided, no audience specified)"] },
+        { "score": 3, "label": "Adequate", "criteria": "Key context present but could be more specific.", "examples": ["'Summarize this article about climate change for my 10th grade class'"] },
+        { "score": 4, "label": "Strong", "criteria": "Rich context including audience, purpose, and relevant background.", "examples": ["'Summarize this article for my 10th grade biology class. Students already know about the greenhouse effect. We're building toward a debate next week.'"] },
+        { "score": 5, "label": "Expert", "criteria": "Comprehensive context with edge case handling and explicit assumptions.", "examples": ["Includes prior knowledge, constraints, what to do if information is ambiguous, and how to handle conflicting data"] }
+      ]
+    },
+    {
+      "name": "Action Specificity",
+      "description": "How clearly the user defines what the AI should do",
+      "levels": [
+        { "score": 1, "label": "Vague", "criteria": "Action is unclear or overly broad.", "examples": ["'Help me with marketing'"] },
+        { "score": 2, "label": "General", "criteria": "Action identifiable but lacks specifics.", "examples": ["'Write marketing copy for my product'"] },
+        { "score": 3, "label": "Clear", "criteria": "Specific action with basic success criteria.", "examples": ["'Write 3 email subject lines for our new product launch'"] },
+        { "score": 4, "label": "Precise", "criteria": "Well-defined action with constraints and quality criteria.", "examples": ["'Write 3 email subject lines under 50 characters that create urgency without clickbait'"] },
+        { "score": 5, "label": "Expert", "criteria": "Decomposed complex tasks into clear steps with success criteria for each.", "examples": ["Breaks a complex task into a multi-step chain with clear handoffs and verification points"] }
+      ]
+    },
+    {
+      "name": "Format Specification",
+      "description": "How well the user defines the desired output structure",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "No format guidance.", "examples": ["Output format entirely left to AI's default"] },
+        { "score": 2, "label": "Implicit", "criteria": "Format implied but not stated.", "examples": ["'Give me a list' (but no detail on list structure)"] },
+        { "score": 3, "label": "Basic", "criteria": "Format specified at a high level.", "examples": ["'Use bullet points and keep it under 200 words'"] },
+        { "score": 4, "label": "Detailed", "criteria": "Specific structure with sections and formatting.", "examples": ["'Use markdown with H2 headers for each section. Include a summary table at the top.'"] },
+        { "score": 5, "label": "Expert", "criteria": "Precise format with schema or template, including handling of edge cases.", "examples": ["Provides JSON schema, template structure, or detailed formatting rules with fallback instructions"] }
+      ]
+    },
+    {
+      "name": "Constraint Handling",
+      "description": "How well the user specifies boundaries, limitations, and edge case behavior",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "No constraints specified.", "examples": ["Completely open-ended request"] },
+        { "score": 2, "label": "Basic", "criteria": "One or two simple constraints.", "examples": ["'Keep it under 500 words'"] },
+        { "score": 3, "label": "Adequate", "criteria": "Multiple relevant constraints.", "examples": ["'Under 500 words, professional tone, no jargon'"] },
+        { "score": 4, "label": "Strong", "criteria": "Constraints include edge case handling.", "examples": ["'If a data point is missing, say \"not available\" rather than estimating'"] },
+        { "score": 5, "label": "Expert", "criteria": "Comprehensive constraints including anti-hallucination instructions and fallback behaviors.", "examples": ["Explicit handling for missing data, uncertainty, out-of-scope requests, and quality validation"] }
+      ]
+    },
+    {
+      "name": "Iteration Quality",
+      "description": "How effectively the user improves prompts based on output",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "Accepts first output without revision.", "examples": ["Takes whatever the AI produces"] },
+        { "score": 2, "label": "Reactive", "criteria": "Revises only when output is obviously wrong.", "examples": ["'That's wrong, try again' without specifying what to change"] },
+        { "score": 3, "label": "Targeted", "criteria": "Identifies specific issues and adjusts prompt accordingly.", "examples": ["'The tone is too formal. Make it conversational but keep the technical accuracy.'"] },
+        { "score": 4, "label": "Strategic", "criteria": "Systematic iteration with clear improvement goals per revision.", "examples": ["Revises context, then format, then constraints — each iteration targets a specific dimension"] },
+        { "score": 5, "label": "Expert", "criteria": "Diagnostic iteration — analyzes why output fell short and adjusts the root cause.", "examples": ["'The output hallucinated because I didn't specify sources. Adding: cite only from the provided documents.'"] }
+      ]
+    }
+  ]
+}

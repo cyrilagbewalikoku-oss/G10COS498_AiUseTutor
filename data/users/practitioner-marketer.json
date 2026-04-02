@@ -1,0 +1,35 @@
+{
+  "id": "u-003",
+  "name": "Priya Kapoor",
+  "role": "digital marketing manager",
+  "organization": "GrowthCo Agency",
+  "level": "practitioner",
+  "goals": [
+    "Use AI agents for content creation workflows",
+    "Learn to evaluate AI-generated copy for brand voice accuracy",
+    "Understand when NOT to use AI in client work"
+  ],
+  "priorKnowledge": {
+    "hasUsedChatbots": true,
+    "hasUsedAgents": true,
+    "toolsUsed": ["ChatGPT", "Claude", "Jasper", "Copy.ai"],
+    "selfRatedExperience": 6,
+    "knownConcepts": ["prompt", "hallucination", "tone", "chain-of-thought", "system prompt"]
+  },
+  "dimensionScores": {
+    "conceptualUnderstanding": 3.0,
+    "promptingSkill": 3.5,
+    "outputEvaluation": 2.5,
+    "ethicalReasoning": 2.0,
+    "criticalThinking": 2.5
+  },
+  "learningPath": [
+    { "moduleId": "m-301", "title": "Advanced Prompting Patterns", "status": "in_progress", "completedAt": null },
+    { "moduleId": "m-302", "title": "Evaluating AI Output Quality", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-401", "title": "Ethics of AI-Generated Content", "status": "not_started", "completedAt": null }
+  ],
+  "sessionCount": 8,
+  "totalInteractions": 156,
+  "createdAt": "2026-02-10T09:00:00Z",
+  "lastActiveAt": "2026-03-30T16:45:00Z"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "scenario-004",
+  "title": "Customer Survey Data Analysis",
+  "description": "User must use an AI agent to analyze quarterly customer survey data, testing clear task specification, handling of statistical claims, and verification of conclusions.",
+  "type": "data_analysis",
+  "difficulty": "practitioner",
+  "learningObjectives": [
+    "Write specific prompts that define data format, analysis type, and output structure",
+    "Question surprising or overly precise statistical claims from AI",
+    "Verify that AI conclusions are supported by the data described",
+    "Understand limitations of AI-performed data analysis"
+  ],
+  "setup": {
+    "role": "Digital marketing manager preparing a quarterly report",
+    "task": "Use an AI agent to analyze 247 NPS survey responses with open-text comments and produce an executive summary of top customer issues",
+    "constraints": [
+      "Customer names and company names must not appear in the final output",
+      "Statistical claims need to be verifiable against the source data",
+      "The report goes to the C-suite — accuracy matters more than speed",
+      "Distinguish between what the data shows and what the AI infers"
+    ],
+    "availableTools": ["AI assistant", "CSV data file", "spreadsheet software"],
+    "context": "Your agency manages marketing for a B2B SaaS company. The quarterly NPS survey just closed with 247 responses. Leadership wants a summary of key issues and trends compared to last quarter. The CSV has columns: respondent_name, company, nps_score, comment, date."
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Specifies data format and column structure in the prompt",
+      "Asks for segmentation (promoters vs detractors vs passives)",
+      "Questions any surprising statistical claims or trend analyses",
+      "Catches if AI includes PII in the output despite constraints",
+      "Asks the AI to explain its methodology for theme categorization",
+      "Iterates on the prompt to improve output quality"
+    ],
+    "bad": [
+      "Sends a vague prompt like 'analyze this data'",
+      "Accepts AI-generated statistics without cross-referencing source data",
+      "Doesn't notice PII leaking into the output",
+      "Uses AI-generated numbers directly in the executive presentation",
+      "Doesn't question how themes were identified or categorized"
+    ]
+  },
+  "evaluationCriteria": [
+    { "dimension": "promptingSkill", "weight": 0.30, "description": "Did the user provide clear data context and output specifications?" },
+    { "dimension": "outputEvaluation", "weight": 0.30, "description": "Did the user verify statistical claims and check for PII?" },
+    { "dimension": "criticalThinking", "weight": 0.25, "description": "Did the user question methodology and conclusions?" },
+    { "dimension": "ethicalReasoning", "weight": 0.15, "description": "Did the user protect customer data privacy?" }
+  ],
+  "maxTurns": 8,
+  "estimatedMinutes": 15
+}

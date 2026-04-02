@@ -1,0 +1,50 @@
+{
+  "id": "scenario-003",
+  "title": "Research Paper Synthesis",
+  "description": "User must use an AI agent to synthesize findings from multiple research papers, testing citation verification, handling of conflicting results, and methodological awareness.",
+  "type": "research_synthesis",
+  "difficulty": "critical_thinker",
+  "learningObjectives": [
+    "Verify that AI-cited papers actually exist and support the stated claims",
+    "Detect when AI fills knowledge gaps with plausible-sounding inference",
+    "Handle conflicting findings across papers without forcing false consensus",
+    "Evaluate methodology quality mentioned in AI summaries"
+  ],
+  "setup": {
+    "role": "Postdoctoral researcher preparing a literature review section",
+    "task": "Use an AI agent to synthesize findings from 5 papers on the impact of social media on adolescent mental health",
+    "constraints": [
+      "Every citation must be independently verified before inclusion",
+      "Conflicting findings must be presented as such, not resolved artificially",
+      "Methodology limitations must be acknowledged",
+      "The synthesis will appear in a peer-reviewed journal submission"
+    ],
+    "availableTools": ["AI assistant", "Google Scholar", "PubMed"],
+    "context": "You are writing a literature review for a journal article. The topic is contested — studies disagree on whether social media harms adolescent mental health, and effect sizes vary widely. Your advisor expects rigorous methodology and honest treatment of conflicting evidence."
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Verifies each cited paper exists by searching for it independently",
+      "Questions specific statistics and effect sizes in the AI summary",
+      "Asks the AI to distinguish between its own inference and direct findings",
+      "Preserves conflicting findings rather than accepting AI's smoothed narrative",
+      "Checks methodology claims (sample size, study design) against actual papers",
+      "Asks about limitations the AI didn't mention"
+    ],
+    "bad": [
+      "Accepts AI-generated citations without verification",
+      "Treats the AI synthesis as authoritative for a peer-reviewed submission",
+      "Allows the AI to resolve genuine scientific disagreements with a false consensus",
+      "Doesn't question suspiciously precise statistics",
+      "Copies AI-generated synthesis directly into the paper"
+    ]
+  },
+  "evaluationCriteria": [
+    { "dimension": "outputEvaluation", "weight": 0.35, "description": "Did the user verify citations and question statistical claims?" },
+    { "dimension": "criticalThinking", "weight": 0.30, "description": "Did the user maintain intellectual integrity about conflicting findings?" },
+    { "dimension": "ethicalReasoning", "weight": 0.20, "description": "Did the user consider research integrity implications?" },
+    { "dimension": "promptingSkill", "weight": 0.15, "description": "Did the user structure requests to get verifiable, specific output?" }
+  ],
+  "maxTurns": 10,
+  "estimatedMinutes": 20
+}

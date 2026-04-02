@@ -1,0 +1,101 @@
+{
+  "id": "scenario-email-drafting-001",
+  "title": "Drafting Parent Communication About AI Classroom Policy",
+  "description": "You are a 5th-grade teacher at Maplewood Elementary. Your school district has just approved a new policy allowing limited use of AI tools (like ChatGPT) in classrooms for students in grades 4-6. You need to draft an email to parents explaining this policy, addressing likely concerns, and encouraging a positive but cautious approach. You will use an AI assistant to help you draft this communication.",
+  "type": "communication",
+  "difficulty": "novice",
+  "learningObjectives": [
+    "Practice writing clear, specific prompts for a defined communication task",
+    "Learn to specify audience, tone, and purpose when prompting AI",
+    "Develop the habit of reviewing and iterating on AI-generated content",
+    "Understand the importance of verifying facts and claims in AI output",
+    "Recognize the need to protect student privacy in AI-assisted writing"
+  ],
+  "setup": {
+    "role": "5th-grade teacher at Maplewood Elementary School",
+    "task": "Draft a parent-facing email announcing the new AI classroom policy. The email should explain what tools will be used, how they will be supervised, what safeguards are in place, and how parents can opt out.",
+    "constraints": [
+      "Do not include any real student names or identifying information",
+      "The tone must be warm, professional, and reassuring",
+      "The email should be no longer than 500 words",
+      "All policy details must match the district guidelines provided in context",
+      "The email must include information about the parent opt-out process"
+    ],
+    "availableTools": [
+      "AI text generation assistant",
+      "District policy document (provided as context)",
+      "School communication template"
+    ],
+    "context": {
+      "districtPolicy": {
+        "approvedTools": ["ChatGPT (Education tier)", "Google Gemini (school accounts only)"],
+        "gradeRange": "4-6",
+        "maxSessionLength": "20 minutes per day",
+        "supervision": "Teacher must be present and actively monitoring at all times",
+        "dataPolicy": "No student personal information may be entered into any AI tool",
+        "optOut": "Parents may opt out by contacting the front office or submitting the online form by May 15",
+        "startDate": "September 2026"
+      },
+      "schoolCulture": "Maplewood values open communication with families and emphasizes digital citizenship in its curriculum."
+    }
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Specifies the target audience (parents of 4th-6th graders) in the prompt",
+      "Requests a warm, reassuring, and professional tone explicitly",
+      "Provides the district policy details as context for the AI",
+      "Reviews the first draft for factual accuracy against the policy document",
+      "Iterates on the draft to improve clarity or adjust tone",
+      "Removes or flags any hallucinated policy details not in the source material",
+      "Asks the AI to simplify jargon that parents might not understand",
+      "Checks that the opt-out process is accurately described",
+      "Considers how different parent perspectives (supportive vs. concerned) would receive the email",
+      "Does not include any student names, even as examples"
+    ],
+    "bad": [
+      "Accepts the first AI-generated draft without reading it carefully",
+      "Uses a vague prompt like 'write an email about AI in school'",
+      "Does not verify that the AI's stated policy details match the actual district policy",
+      "Includes real or example student names in the prompt or final email",
+      "Ignores tone — the email reads as overly technical or dismissive of concerns",
+      "Fails to mention the parent opt-out process",
+      "Copies and sends the AI output without any personal editing or review",
+      "Does not consider accessibility (reading level, language barriers)",
+      "Shares the district policy document with the AI without checking data-sharing guidelines"
+    ]
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Prompt Clarity",
+      "weight": 0.20,
+      "description": "Did the user write a clear, specific prompt that included audience, purpose, tone, and key content requirements?"
+    },
+    {
+      "dimension": "Content Verification",
+      "weight": 0.25,
+      "description": "Did the user check the AI-generated content against the actual policy document for accuracy?"
+    },
+    {
+      "dimension": "Iteration Quality",
+      "weight": 0.20,
+      "description": "Did the user refine the draft through follow-up prompts or manual edits to improve quality?"
+    },
+    {
+      "dimension": "Privacy Awareness",
+      "weight": 0.15,
+      "description": "Did the user avoid sharing or including any student-identifying information?"
+    },
+    {
+      "dimension": "Audience Sensitivity",
+      "weight": 0.10,
+      "description": "Did the user consider how different parents might react and adjust the message accordingly?"
+    },
+    {
+      "dimension": "Final Output Quality",
+      "weight": 0.10,
+      "description": "Is the final email accurate, appropriately toned, complete, and ready to send?"
+    }
+  ],
+  "maxTurns": 10,
+  "estimatedMinutes": 15
+}

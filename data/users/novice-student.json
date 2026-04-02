@@ -1,0 +1,36 @@
+{
+  "id": "u-002",
+  "name": "Jake Nguyen",
+  "role": "undergraduate student, biology major",
+  "organization": "State University",
+  "level": "novice",
+  "goals": [
+    "Use AI to help with research papers without plagiarizing",
+    "Understand academic integrity with AI tools",
+    "Get better at asking AI good questions"
+  ],
+  "priorKnowledge": {
+    "hasUsedChatbots": true,
+    "hasUsedAgents": false,
+    "toolsUsed": ["ChatGPT", "Grammarly"],
+    "selfRatedExperience": 4,
+    "knownConcepts": ["chatbot", "prompt", "AI-generated text"]
+  },
+  "dimensionScores": {
+    "conceptualUnderstanding": 2.0,
+    "promptingSkill": 1.5,
+    "outputEvaluation": 1.0,
+    "ethicalReasoning": 1.5,
+    "criticalThinking": 2.0
+  },
+  "learningPath": [
+    { "moduleId": "m-101", "title": "What Are AI Agents?", "status": "completed", "completedAt": "2026-03-20T09:00:00Z" },
+    { "moduleId": "m-201", "title": "AI and Academic Integrity", "status": "in_progress", "completedAt": null },
+    { "moduleId": "m-102", "title": "Your First Prompt", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-103", "title": "Can You Trust the Output?", "status": "not_started", "completedAt": null }
+  ],
+  "sessionCount": 2,
+  "totalInteractions": 28,
+  "createdAt": "2026-03-19T16:00:00Z",
+  "lastActiveAt": "2026-03-25T11:00:00Z"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "u-004",
+  "name": "Chen Wei",
+  "role": "senior software engineer",
+  "organization": "TechStartup Inc.",
+  "level": "advanced",
+  "goals": [
+    "Master agentic workflows and tool-use patterns",
+    "Learn to audit AI agent behavior in production",
+    "Understand failure modes and safety guardrails"
+  ],
+  "priorKnowledge": {
+    "hasUsedChatbots": true,
+    "hasUsedAgents": true,
+    "toolsUsed": ["Claude Code", "GitHub Copilot", "LangChain", "AutoGPT"],
+    "selfRatedExperience": 8,
+    "knownConcepts": ["prompt engineering", "RAG", "tool use", "function calling", "hallucination", "context window", "fine-tuning", "guardrails", "agent loops"]
+  },
+  "dimensionScores": {
+    "conceptualUnderstanding": 4.5,
+    "promptingSkill": 4.0,
+    "outputEvaluation": 3.5,
+    "ethicalReasoning": 3.0,
+    "criticalThinking": 3.5
+  },
+  "learningPath": [
+    { "moduleId": "m-501", "title": "Agent Failure Mode Taxonomy", "status": "in_progress", "completedAt": null },
+    { "moduleId": "m-502", "title": "Designing Human-in-the-Loop Systems", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-503", "title": "Red-Teaming AI Agents", "status": "not_started", "completedAt": null }
+  ],
+  "sessionCount": 15,
+  "totalInteractions": 340,
+  "createdAt": "2026-01-05T12:00:00Z",
+  "lastActiveAt": "2026-04-01T09:15:00Z"
+}

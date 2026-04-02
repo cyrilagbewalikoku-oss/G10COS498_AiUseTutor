@@ -1,0 +1,51 @@
+{
+  "id": "rubric-002",
+  "name": "Output Evaluation Rubric",
+  "description": "Evaluates how well learners critically assess AI-generated content",
+  "dimensions": [
+    {
+      "name": "Fact Verification",
+      "description": "Whether the user verifies factual claims in AI output",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "Accepts all claims at face value.", "examples": ["Uses AI-generated statistics in a report without checking"] },
+        { "score": 2, "label": "Passive", "criteria": "Notices something might need checking but doesn't follow through.", "examples": ["'That sounds about right' without verification"] },
+        { "score": 3, "label": "Selective", "criteria": "Verifies some claims, especially surprising ones.", "examples": ["Checks a specific statistic that seemed high, but doesn't verify citations"] },
+        { "score": 4, "label": "Systematic", "criteria": "Verifies all specific claims, statistics, and attributions.", "examples": ["Checks each cited source, verifies numbers against primary data"] },
+        { "score": 5, "label": "Expert", "criteria": "Verifies and also identifies what SHOULD have been cited but wasn't.", "examples": ["Notices the AI made a claim without any citation that should have one, and requests sources"] }
+      ]
+    },
+    {
+      "name": "Error Detection",
+      "description": "Ability to spot errors, hallucinations, and fabrications",
+      "levels": [
+        { "score": 1, "label": "Unaware", "criteria": "Doesn't look for or recognize errors.", "examples": ["Accepts a fabricated citation without question"] },
+        { "score": 2, "label": "Catches Obvious", "criteria": "Catches clearly wrong information.", "examples": ["'The Earth isn't 2 billion years old, it's 4.5 billion'"] },
+        { "score": 3, "label": "Catches Moderate", "criteria": "Catches plausible-sounding errors with some effort.", "examples": ["Questions a statistic that seemed too precise to be real"] },
+        { "score": 4, "label": "Catches Subtle", "criteria": "Detects nuanced errors like correct framing with wrong conclusions.", "examples": ["Notices AI cited a real author but attributed the wrong finding to them"] },
+        { "score": 5, "label": "Expert", "criteria": "Identifies patterns of error and explains the underlying failure mode.", "examples": ["'This is authoritative fabrication — the AI is generating plausible sources to back up its claims'"] }
+      ]
+    },
+    {
+      "name": "Bias Recognition",
+      "description": "Ability to identify bias, one-sidedness, or cultural assumptions in AI output",
+      "levels": [
+        { "score": 1, "label": "Unaware", "criteria": "Doesn't consider bias as a possibility.", "examples": ["Accepts a one-sided summary as balanced"] },
+        { "score": 2, "label": "Aware", "criteria": "Knows bias exists but doesn't actively check for it.", "examples": ["'AI can be biased but this looks fine'"] },
+        { "score": 3, "label": "Detects Obvious", "criteria": "Catches clear one-sidedness or demographic bias.", "examples": ["Notices all recommended experts are from one demographic group"] },
+        { "score": 4, "label": "Detects Subtle", "criteria": "Identifies framing bias, cultural assumptions, or implicit preferences.", "examples": ["Notices the AI framed one viewpoint more sympathetically through word choice"] },
+        { "score": 5, "label": "Expert", "criteria": "Analyzes systemic bias patterns and considers training data implications.", "examples": ["'This likely reflects Western-centric training data — let me ask for perspectives from other contexts'"] }
+      ]
+    },
+    {
+      "name": "Completeness Assessment",
+      "description": "Whether the user evaluates if the output actually addresses the full request",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "Accepts output without checking completeness.", "examples": ["Asked for 5 items, received 3, didn't notice"] },
+        { "score": 2, "label": "Surface", "criteria": "Checks that output generally matches the request.", "examples": ["'Looks like it covered the main points'"] },
+        { "score": 3, "label": "Structured", "criteria": "Systematically checks each requested element.", "examples": ["Verifies each of the 5 requested sections is present and addressed"] },
+        { "score": 4, "label": "Deep", "criteria": "Checks depth and quality of coverage, not just presence.", "examples": ["'Section 3 is much thinner than the others — can you expand on the methodology?'"] },
+        { "score": 5, "label": "Expert", "criteria": "Identifies what's missing that wasn't explicitly requested but should be there.", "examples": ["'You covered benefits but didn't mention risks or limitations — those are essential for a balanced analysis'"] }
+      ]
+    }
+  ]
+}

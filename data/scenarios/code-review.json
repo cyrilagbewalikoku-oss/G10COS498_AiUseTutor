@@ -1,0 +1,133 @@
+{
+  "id": "scenario-code-review-001",
+  "title": "AI-Assisted Security Review of a Pull Request",
+  "description": "You are a mid-level backend developer at a fintech startup. A colleague has submitted a pull request that adds a new REST API endpoint for processing user payment refunds. You are using an AI assistant to help review the code for security vulnerabilities before approving the PR. The codebase is a Node.js/Express application with a PostgreSQL database.",
+  "type": "technical-review",
+  "difficulty": "advanced",
+  "learningObjectives": [
+    "Learn to provide sufficient codebase context when asking AI to review code",
+    "Develop critical evaluation skills for AI-generated security assessments",
+    "Practice verifying AI findings against actual code behavior",
+    "Understand the limitations of AI in detecting complex security vulnerabilities",
+    "Build the habit of asking targeted follow-up questions rather than accepting surface-level reviews"
+  ],
+  "setup": {
+    "role": "Mid-level backend developer at FinFlow, a fintech startup handling payment processing",
+    "task": "Review a pull request that adds a /api/v2/refunds endpoint. Use the AI assistant to identify security vulnerabilities, but critically evaluate every finding and probe for issues the AI might miss.",
+    "constraints": [
+      "The PR contains 4 files: a route handler, a service layer, a database query module, and a test file",
+      "The application handles real financial transactions and PCI compliance is required",
+      "You must not approve the PR until all critical and high-severity issues are resolved",
+      "You have access to the existing codebase's authentication and authorization middleware",
+      "The AI does not have access to the full codebase — only what you paste into the conversation"
+    ],
+    "availableTools": [
+      "AI code review assistant",
+      "The pull request diff (provided as context)",
+      "Existing codebase documentation",
+      "OWASP Top 10 reference"
+    ],
+    "context": {
+      "pullRequestDiff": {
+        "files": [
+          {
+            "name": "routes/refunds.js",
+            "knownIssues": [
+              "Missing rate limiting on the refund endpoint",
+              "No input validation on the refund amount field",
+              "SQL query uses string interpolation instead of parameterized queries"
+            ]
+          },
+          {
+            "name": "services/refundService.js",
+            "knownIssues": [
+              "No check that the requesting user owns the original transaction",
+              "Refund amount can exceed original transaction amount",
+              "No idempotency key to prevent duplicate refunds"
+            ]
+          },
+          {
+            "name": "db/refundQueries.js",
+            "knownIssues": [
+              "Raw SQL with string concatenation (SQL injection vulnerability)",
+              "No transaction wrapping for the multi-step refund process",
+              "Database credentials logged in debug mode"
+            ]
+          },
+          {
+            "name": "tests/refunds.test.js",
+            "knownIssues": [
+              "No tests for authorization edge cases",
+              "No tests for negative or zero refund amounts",
+              "Test uses hardcoded API keys"
+            ]
+          }
+        ],
+        "totalLinesChanged": 347
+      },
+      "existingMiddleware": {
+        "auth": "JWT-based authentication with role-based access control",
+        "logging": "Winston logger with PII redaction in production mode"
+      }
+    }
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Provides the full PR diff to the AI along with relevant context about the existing codebase",
+      "Asks the AI to focus specifically on security vulnerabilities, not just code style",
+      "Verifies each AI finding by cross-referencing with the actual code",
+      "Asks follow-up questions about edge cases the AI did not mention (e.g., race conditions, TOCTOU)",
+      "Questions the AI when it reports 'no issues found' in a file that clearly has problems",
+      "Asks about authorization checks — can any authenticated user trigger a refund for any transaction?",
+      "Probes for business logic vulnerabilities, not just technical ones",
+      "Asks the AI about the absence of idempotency handling",
+      "Checks whether the AI identified the SQL injection vulnerability in the query module",
+      "Does not approve the PR based solely on the AI's assessment"
+    ],
+    "bad": [
+      "Pastes the code and asks 'is this code good?' without specifying what to look for",
+      "Accepts an 'LGTM' or 'no major issues' response without probing further",
+      "Does not provide context about the existing auth middleware, leading the AI to miss integration issues",
+      "Trusts the AI's claim that parameterized queries are used when the code actually uses string interpolation",
+      "Ignores the test file, assuming AI will catch issues there automatically",
+      "Does not ask about business logic (e.g., refund exceeding original amount)",
+      "Approves the PR after a single round of AI review without follow-up questions",
+      "Fails to notice that the AI missed the SQL injection vulnerability",
+      "Does not consider PCI compliance implications"
+    ]
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Context Provision",
+      "weight": 0.15,
+      "description": "Did the user provide sufficient code context, including the diff and relevant existing codebase details?"
+    },
+    {
+      "dimension": "Prompt Specificity",
+      "weight": 0.15,
+      "description": "Did the user direct the AI to focus on security, authorization, and business logic rather than generic review?"
+    },
+    {
+      "dimension": "Critical Evaluation",
+      "weight": 0.25,
+      "description": "Did the user verify AI findings against the actual code and catch cases where the AI was wrong or incomplete?"
+    },
+    {
+      "dimension": "Follow-up Depth",
+      "weight": 0.20,
+      "description": "Did the user ask targeted follow-up questions to probe for vulnerabilities the AI missed?"
+    },
+    {
+      "dimension": "Vulnerability Coverage",
+      "weight": 0.15,
+      "description": "Were the major known vulnerabilities (SQL injection, missing authorization, no rate limiting, etc.) identified by the end of the session?"
+    },
+    {
+      "dimension": "Decision Quality",
+      "weight": 0.10,
+      "description": "Did the user make an appropriate approve/reject decision based on a thorough review, not just the AI's summary?"
+    }
+  ],
+  "maxTurns": 15,
+  "estimatedMinutes": 25
+}
