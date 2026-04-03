@@ -2,7 +2,6 @@
 name: level-classifier
 description: "Determine and update a learner's skill level based on assessment data. Requires demonstrated competence across ALL five dimensions to advance. Use after onboarding calibration, after a skill-evaluator assessment, or when a user requests a level-up check."
 user-invocable: true
-allowed-tools: Read Grep Glob
 ---
 
 # Level Classifier Skill

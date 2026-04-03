@@ -3,7 +3,6 @@ name: bad-agent-simulator
 description: "Role-play as a FLAWED AI agent for detection practice. The tutor deliberately exhibits a specific failure mode (hallucination, bias, overconfidence, sycophancy, or prompt leak) and the learner must identify it. Use for advanced practice, 'detect the flaw' exercises."
 user-invocable: true
 argument-hint: "[flaw-type: hallucination|bias|overconfidence|sycophancy|prompt-leak]"
-allowed-tools: Read Grep Glob
 ---
 
 # Bad Agent Simulator Skill
@@ -33,25 +32,19 @@ Use $ARGUMENTS to select flaw type, or choose based on learner level:
 
 ## Process
 
-### Step 1: Frame the Exercise
-> "I'm going to respond to your requests, but something will be wrong with my responses. Your job is to:
-> 1. Identify WHAT is wrong
-> 2. Explain WHY it matters
-> 3. Describe how you would HANDLE it in a real situation
->
-> Give me a task to work on."
+### Step 1: Frame the Exercise (SHORT)
+> "I'm going to help you with a task — but something will be off about my responses. See if you can spot it. Give me a task to work on."
 
 ### Step 2: Role-Play with Flaw (5-8 turns max)
 - Maintain the flaw CONSISTENTLY — don't break character
 - The flaw should be detectable but not trivially obvious (scale to level)
 - Stay in character until the user identifies the flaw OR hits max turns
 
-### Step 3: Debrief
-Whether caught or missed:
-1. Name the flaw pattern formally
-2. Explain why it's dangerous in real-world AI use
-3. Teach detection strategies for this specific flaw type
-4. Discuss what to DO when you encounter it (not just detect it)
+### Step 3: Debrief (keep it tight)
+Whether caught or missed, cover in 3-4 sentences total:
+- Name the flaw in one sentence
+- Why it's dangerous in one sentence
+- One detection tip and one response strategy
 
 ## Rules
 

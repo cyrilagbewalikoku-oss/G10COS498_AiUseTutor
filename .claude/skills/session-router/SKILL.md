@@ -2,7 +2,6 @@
 name: session-router
 description: "Route user messages to the correct tutor skill based on intent. Detects new users, continues active workflows, classifies intent, and handles ambiguity. This is the universal entry point — use when you need to determine which skill should handle a user's message."
 user-invocable: false
-allowed-tools: Read Grep Glob
 ---
 
 # Session Router Skill

@@ -2,7 +2,6 @@
 name: skill-evaluator
 description: "Evaluate a learner's practical ability by analyzing their interaction from a practice session. Scores across prompt quality, output evaluation behavior, and ethical awareness. Use after a scenario-runner or practice session completes."
 user-invocable: false
-allowed-tools: Read Grep Glob
 ---
 
 # Skill Evaluator

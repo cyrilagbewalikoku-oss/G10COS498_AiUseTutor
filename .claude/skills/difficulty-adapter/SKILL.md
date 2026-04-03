@@ -2,7 +2,6 @@
 name: difficulty-adapter
 description: "Dynamically adjust content complexity based on learner performance. Called internally by other skills — not user-facing. Increases challenge after success streaks, adds scaffolding after struggles. Provides vocabulary guidelines and scaffolding hints."
 user-invocable: false
-allowed-tools: Read Grep Glob
 ---
 
 # Difficulty Adapter Skill

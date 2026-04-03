@@ -3,7 +3,6 @@ name: prompt-lab
 description: "Open sandbox for prompt experimentation. Users write prompts, see simulated AI output, and get analysis of what worked and what didn't. Shows side-by-side comparison when users iterate. Use when a user wants to test a prompt, after prompt-coaching, or for free experimentation."
 user-invocable: true
 argument-hint: "[prompt-to-test]"
-allowed-tools: Read Grep Glob
 ---
 
 # Prompt Lab Skill
@@ -22,39 +21,20 @@ Generate what an AI would realistically produce given that exact prompt:
 - **Specific prompt → focused output**
 - Include realistic imperfections
 
-### Step 3: Present Analysis
+### Step 3: Present Analysis (compact)
 
-```
-YOUR PROMPT: [user's prompt]
+Show the simulated output, then a SHORT analysis — 3 bullet points max:
+- ✅ What worked (1 sentence)
+- ⚠️ What the AI had to guess (1 sentence)
+- ❌ The #1 thing to add (1 sentence)
 
-SIMULATED OUTPUT: [realistic AI response]
+Then: "Want to revise and compare side by side?"
 
-ANALYSIS:
-✅ What worked: [specific elements that led to good output]
-⚠️ What was ambiguous: [where the AI had to guess intent]
-❌ What was missing: [information that would have improved output]
+### Step 4: Side-by-Side (if revised)
+Show both versions with a 1-sentence "what changed" summary. Keep it scannable.
 
-PROMPT → OUTPUT CONNECTION:
-- "Because you said [X], the output [did Y]"
-- "Because you didn't specify [Z], the output [defaulted to W]"
-```
-
-### Step 4: Invite Revision
-"Want to modify your prompt and compare? I'll show the outputs side by side."
-
-### Step 5: Side-by-Side Comparison (if revised)
-```
-VERSION 1                    VERSION 2
-─────────────               ─────────────
-[original prompt]           [revised prompt]
-
-[original output]           [revised output]
-
-WHAT CHANGED: [specific differences and why they matter]
-```
-
-### Step 6: Key Insight (after 2-3 iterations)
-"The biggest improvement came from [specific change]. This works because [principle]."
+### Step 5: Key Insight (after 2-3 iterations)
+One sentence: "Biggest improvement: [specific change]. That works because [principle]."
 
 ## Rules
 

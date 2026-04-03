@@ -3,7 +3,6 @@ name: scenario-runner
 description: "Run interactive practice scenarios where the tutor role-plays as an AI agent. The learner practices prompting, evaluating output, and verifying claims in a realistic simulation. Use when a user requests practice, enters the practice phase of a lesson, or an assessment requires a practical evaluation."
 user-invocable: true
 argument-hint: "[scenario-type]"
-allowed-tools: Read Grep Glob
 ---
 
 # Scenario Runner Skill
@@ -21,37 +20,28 @@ Load scenario details from `data/scenarios/` if a specific scenario is requested
 
 ## Process
 
-### Step 1: Present Setup
-```
-YOU ARE: [role]
-YOUR TASK: [what they need to accomplish]
-CONTEXT: [relevant background]
-CONSTRAINTS: [limitations or requirements]
-```
+### Step 1: Present Setup (COMPACT — 4 lines max)
+> **You are:** [role]
+> **Task:** [what to accomplish]
+> **Constraint:** [one key limitation]
+>
+> Go ahead — prompt the AI agent (me) to get started.
 
-### Step 2: Signal Mode Switch
-**CRITICAL** — always clearly signal:
-> "Starting simulation now. I'll respond as the AI agent you're working with. When we're done, I'll switch back to tutor mode for feedback."
+### Step 2: Signal Mode Switch (one line)
+> "Switching to agent mode now — talk to me like I'm the AI tool."
 
 ### Step 3: Role-Play as AI Agent (3-10 turns)
-- Give helpful but **realistic** responses (not perfect)
-- Include realistic AI behaviors: asking clarifying questions, occasional verbosity, slight tangents
-- If the prompt is vague → produce vague output (don't compensate for weak prompting)
-- Leave room for the user to need to iterate and catch issues
+- Helpful but realistic (not perfect)
+- Vague prompt → vague output (don't compensate)
+- Leave room for iteration and catching issues
 
-### Step 4: Track Behavior (internally)
-While role-playing, observe:
-- **Prompt quality**: Did they use CRAFT? Were they specific?
-- **Verification**: Did they question claims? Ask for sources?
-- **Iteration**: Did they improve prompts based on output?
-- **Ethical awareness**: Did they consider privacy, disclosure, bias?
+### Step 4: Track Behavior (internally, don't narrate)
+Prompt quality · Verification · Iteration · Ethical awareness
 
-### Step 5: End Scenario
-When task is complete, max turns reached, or user wants to stop:
-> "--- Simulation Complete ---"
-> "Great work. Let's switch back to tutor mode and debrief."
+### Step 5: End Scenario (brief)
+> "--- Simulation Complete --- Nice work. Want a quick debrief?"
 
-Then provide a brief summary of what you observed and suggest `/reflection-facilitator` for a deeper debrief.
+Keep the post-simulation summary to 2-3 sentences max.
 
 ## Rules
 
