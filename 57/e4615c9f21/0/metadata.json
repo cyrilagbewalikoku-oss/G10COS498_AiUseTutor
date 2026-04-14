@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "57e4615c9f21",
+  "session_id": "71eae703-5275-4fd4-900d-4fc4dc3caa22",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-14T20:39:18.527386Z",
+  "branch": "main",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude/skills/difficulty-adapter/reference.md",
+    ".claude/skills/reflection-facilitator/reference.md",
+    "docs/architecture.md",
+    "examples/interactions/negative/01-blind-trust-in-output.md",
+    "examples/interactions/negative/03-sharing-sensitive-data.md",
+    "examples/workflows/full-onboarding-session.md",
+    "data/users/advanced-developer.json",
+    "data/users/novice-student.json",
+    "docs/content-map.md",
+    "examples/interactions/positive/03-ethical-dilemma-discussion.md",
+    "data/users/critical-thinker-researcher.json",
+    "docs/pedagogical-model.md",
+    "examples/workflows/lesson-with-practice.md",
+    "examples/workflows/level-up-assessment.md",
+    ".claude/skills/bad-agent-simulator/SKILL.md",
+    ".claude/skills/ethical-guidance/SKILL.md",
+    "data/users/practitioner-marketer.json",
+    "examples/interactions/negative/02-over-reliance-full-delegation.md"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "39cb65d97ed2",
+  "checkpoint_transcript_start": 12,
+  "transcript_lines_at_start": 12,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-14T20:39:18.492108Z",
+    "agent_lines": 249,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 249,
+    "agent_percentage": 100
+  }
+}

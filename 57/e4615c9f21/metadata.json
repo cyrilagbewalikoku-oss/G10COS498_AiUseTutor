@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "57e4615c9f21",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude/skills/bad-agent-simulator/SKILL.md",
+    ".claude/skills/difficulty-adapter/reference.md",
+    ".claude/skills/ethical-guidance/SKILL.md",
+    ".claude/skills/reflection-facilitator/reference.md",
+    "data/users/advanced-developer.json",
+    "data/users/critical-thinker-researcher.json",
+    "data/users/novice-student.json",
+    "data/users/practitioner-marketer.json",
+    "docs/architecture.md",
+    "docs/content-map.md",
+    "docs/pedagogical-model.md",
+    "examples/interactions/negative/01-blind-trust-in-output.md",
+    "examples/interactions/negative/02-over-reliance-full-delegation.md",
+    "examples/interactions/negative/03-sharing-sensitive-data.md",
+    "examples/interactions/positive/03-ethical-dilemma-discussion.md",
+    "examples/workflows/full-onboarding-session.md",
+    "examples/workflows/lesson-with-practice.md",
+    "examples/workflows/level-up-assessment.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/57/e4615c9f21/0/metadata.json",
+      "transcript": "/57/e4615c9f21/0/full.jsonl",
+      "context": "/57/e4615c9f21/0/context.md",
+      "content_hash": "/57/e4615c9f21/0/content_hash.txt",
+      "prompt": "/57/e4615c9f21/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  }
+}
