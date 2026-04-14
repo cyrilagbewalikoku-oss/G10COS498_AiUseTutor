@@ -1,0 +1,80 @@
+{
+  "id": "scenario-workflow-design-001",
+  "title": "Designing an AI-Assisted Research Workflow",
+  "description": "Learners design a multi-step process for using AI in a research task, deciding where AI fits, where humans must check in, and what verification steps are needed.",
+  "type": "workflow_design",
+  "practiceType": "workflow_design",
+  "difficulty": "practitioner",
+  "learningObjectives": [
+    "Design a multi-step workflow that includes AI at appropriate points",
+    "Identify where human checkpoints are essential in an AI-assisted workflow",
+    "Plan verification steps for AI-generated content within a workflow",
+    "Understand the concept of human-in-the-loop design"
+  ],
+  "setup": {
+    "role": "A marketing analyst at a mid-size company",
+    "task": "Your company wants to use AI to help produce a quarterly market analysis report. Design the complete workflow from data collection to final report, showing where AI is used, where humans check in, and what verification happens at each stage.",
+    "constraints": [
+      "The report will be shared with executives and clients",
+      "All statistics and claims must be verified before inclusion",
+      "The company has a policy that AI-generated content must be reviewed by a human before external distribution"
+    ],
+    "availableTools": [
+      "AI text generation assistant",
+      "AI data analysis tool",
+      "Web search for market data",
+      "Company's internal CRM data",
+      "Human reviewers (2 available)"
+    ],
+    "context": {
+      "reportPurpose": "Quarterly market analysis for executive leadership and key clients",
+      "timeline": "2 weeks to produce",
+      "audience": "CEO, CMO, and 3 major clients"
+    }
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Identifies at least 3 points in the workflow where human review is essential",
+      "Plans verification steps for AI-generated statistics and claims",
+      "Separates AI-appropriate tasks (data gathering, draft writing) from human-essential tasks (judgment, client-facing decisions)",
+      "Includes a final human approval step before distribution",
+      "Considers data privacy when deciding what to share with AI tools"
+    ],
+    "bad": [
+      "Plans a fully automated workflow with no human checkpoints",
+      "Doesn't plan verification for AI-generated statistics",
+      "Treats AI output as final without review",
+      "Doesn't consider data privacy when feeding information to AI",
+      "Omits the final approval step before client distribution"
+    ]
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Checkpoint Design",
+      "weight": 0.25,
+      "description": "Does the workflow include appropriate human checkpoints at critical stages?"
+    },
+    {
+      "dimension": "Verification Planning",
+      "weight": 0.25,
+      "description": "Are there specific verification steps for AI-generated content?"
+    },
+    {
+      "dimension": "Task-AI Fit",
+      "weight": 0.20,
+      "description": "Is AI assigned to appropriate tasks while humans handle judgment and accountability?"
+    },
+    {
+      "dimension": "Data Privacy",
+      "weight": 0.15,
+      "description": "Does the workflow protect sensitive data from unnecessary AI exposure?"
+    },
+    {
+      "dimension": "Completeness",
+      "weight": 0.15,
+      "description": "Does the workflow cover the full process from data collection to final distribution?"
+    }
+  ],
+  "maxTurns": 10,
+  "estimatedMinutes": 20
+}

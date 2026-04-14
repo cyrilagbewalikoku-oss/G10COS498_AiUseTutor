@@ -1,0 +1,78 @@
+{
+  "id": "scenario-output-evaluation-errors-001",
+  "title": "Identifying Errors in AI-Generated Feedback",
+  "description": "Learners receive AI-generated feedback on a piece of writing that contains specific errors — fabricated statistics, logical contradictions, and unsubstantiated claims. They must identify what's accurate, what's misleading, and what's missing.",
+  "type": "output_evaluation",
+  "practiceType": "output_evaluation",
+  "difficulty": "practitioner",
+  "learningObjectives": [
+    "Identify factual errors and fabricated statistics in AI output",
+    "Distinguish between locally accurate but globally misleading content",
+    "Practice systematic verification of AI-generated claims",
+    "Recognize the pattern of AI outputs that sound authoritative but contain errors"
+  ],
+  "setup": {
+    "role": "A student in SOC 101 reviewing AI feedback on your essay draft",
+    "task": "An AI tool has generated feedback on your essay about social media's effects on adolescent well-being. Read the feedback carefully and identify what is accurate, what is misleading or wrong, and what is missing.",
+    "constraints": [
+      "You have access to Google Scholar to verify claims",
+      "Your textbook covers the main findings on this topic",
+      "The feedback may contain fabricated citations or statistics"
+    ],
+    "availableTools": [
+      "Google Scholar for verification",
+      "Your SOC 101 textbook",
+      "The original essay you submitted"
+    ],
+    "context": {
+      "aiOutput": "Here's my feedback on your essay:\n\n1. Your thesis about social media increasing anxiety is well-supported. A 2023 study by Dr. Sarah Mitchell in the Journal of Adolescent Psychology found that teens who use social media more than 3 hours daily are 2.4 times more likely to report anxiety symptoms.\n\n2. You should cite the Pew Research Center's 2024 report showing 95% of teens have access to a smartphone.\n\n3. The correlation between social media use and depression is strong and causal — research consistently shows that social media directly causes depression in teenagers.\n\n4. Your argument about sleep disruption is solid. Studies show that blue light exposure from screens delays melatonin production by approximately 90 minutes.\n\n5. Consider adding that Instagram was found to be the most harmful platform for teen mental health in the Internal Research study leaked in 2021.\n\nOverall, your essay has good structure but needs more evidence. I'd recommend expanding it to 2500 words and adding at least 8 more citations.",
+      "groundTruth": "Point 1: The 'Dr. Sarah Mitchell' study does not exist — this is a fabricated citation. The general direction is supported by real research, but the specific study and statistic are invented.\nPoint 2: The Pew Research statistic is approximately correct (their data shows ~95% teen smartphone access).\nPoint 3: This is a significant overstatement. Research shows correlation but the causal claim is disputed. Saying it 'directly causes depression' is misleading.\nPoint 4: The 90-minute claim is plausible but not well-established. The actual research shows more variable delays.\nPoint 5: The Instagram finding is approximately correct based on the leaked internal research, though the characterization could be more precise.\nThe recommendation to add 8 more citations is generic advice that could lead to more fabricated citations if followed uncritically."
+    }
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Identifies the fabricated 'Dr. Sarah Mitchell' citation as unverifiable",
+      "Questions the causal claim about social media and depression",
+      "Verifies the Pew Research statistic as approximately correct",
+      "Notes that the 90-minute melatonin claim is plausible but needs verification",
+      "Recognizes that adding 8 more citations could lead to more fabricated references",
+      "Evaluates the overall framing: locally plausible points that create a misleading picture"
+    ],
+    "bad": [
+      "Accepts all the statistics as fact without verification",
+      "Doesn't question the causal claim about depression",
+      "Treats the fabricated citation as legitimate",
+      "Follows the advice to add 8 more citations without questioning where they'll come from",
+      "Doesn't notice that the overall framing creates a misleading impression"
+    ]
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Fact Verification",
+      "weight": 0.30,
+      "description": "Did the learner verify factual claims and identify the fabricated citation?"
+    },
+    {
+      "dimension": "Error Detection",
+      "weight": 0.25,
+      "description": "Did the learner catch the causal overstatement and the uncertain melatonin claim?"
+    },
+    {
+      "dimension": "Framing Analysis",
+      "weight": 0.20,
+      "description": "Did the learner evaluate the overall framing — locally plausible but globally misleading?"
+    },
+    {
+      "dimension": "Practical Judgment",
+      "weight": 0.15,
+      "description": "Did the learner recognize that following generic AI advice (add 8 citations) could compound the problem?"
+    },
+    {
+      "dimension": "Verification Approach",
+      "weight": 0.10,
+      "description": "Did the learner describe a systematic approach to verifying claims?"
+    }
+  ],
+  "maxTurns": 10,
+  "estimatedMinutes": 20
+}

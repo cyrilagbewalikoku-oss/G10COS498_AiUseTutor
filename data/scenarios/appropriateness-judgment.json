@@ -1,0 +1,70 @@
+{
+  "id": "scenario-appropriateness-judgment-001",
+  "title": "Should You Use AI for This Task?",
+  "description": "Learners practice deciding when AI is and isn't appropriate to use. They are given a series of task scenarios and must judge whether AI should be used, how, and with what safeguards.",
+  "type": "appropriateness_judgment",
+  "practiceType": "appropriateness_judgment",
+  "difficulty": "novice",
+  "learningObjectives": [
+    "Distinguish between tasks where AI adds value vs. introduces risk",
+    "Identify when human judgment, empathy, or accountability is essential",
+    "Develop a framework for deciding when to use AI vs. when not to",
+    "Understand the concept of AI appropriateness in context"
+  ],
+  "setup": {
+    "role": "A student deciding which tasks to use AI for this semester",
+    "task": "You'll be given several academic and personal tasks. For each one, decide: (a) should you use AI at all? (b) if yes, how? (c) what safeguards do you need?",
+    "constraints": [
+      "Consider academic integrity policies",
+      "Think about whether AI adds genuine value or just speed",
+      "Consider who is affected by the decision"
+    ],
+    "context": "You're starting a new semester. You have access to AI tools like ChatGPT and Claude. Your professor has given general guidelines about AI use but hasn't been specific about every assignment type."
+  },
+  "expectedBehaviors": {
+    "good": [
+      "Asks 'what kind of task is this?' before deciding to use AI",
+      "Distinguishes between tasks where AI is a tool vs. a substitute",
+      "Considers who is affected and what accountability looks like",
+      "Identifies tasks where AI could cause harm (e.g., writing a condolence message)",
+      "Proposes safeguards when using AI (e.g., verification, transparency)"
+    ],
+    "bad": [
+      "Defaults to using AI for everything without consideration",
+      "Treats all AI use as equivalent regardless of task type",
+      "Doesn't consider the audience or stakes of the task",
+      "Ignores academic integrity implications",
+      "Uses AI for tasks requiring genuine human empathy or accountability"
+    ]
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Task Classification",
+      "weight": 0.30,
+      "description": "Does the learner correctly categorize tasks as appropriate, inappropriate, or conditional for AI use?"
+    },
+    {
+      "dimension": "Reasoning Quality",
+      "weight": 0.25,
+      "description": "Does the learner provide clear, principled reasoning for their judgments?"
+    },
+    {
+      "dimension": "Safeguard Identification",
+      "weight": 0.20,
+      "description": "When AI is appropriate, does the learner identify necessary safeguards (verification, transparency, human oversight)?"
+    },
+    {
+      "dimension": "Stakeholder Awareness",
+      "weight": 0.15,
+      "description": "Does the learner consider who is affected by the AI use decision?"
+    },
+    {
+      "dimension": "Principled Consistency",
+      "weight": 0.10,
+      "description": "Are the learner's judgments consistent across similar task types?"
+    }
+  ],
+  "appropriatenessType": "depends_on_context",
+  "maxTurns": 8,
+  "estimatedMinutes": 15
+}

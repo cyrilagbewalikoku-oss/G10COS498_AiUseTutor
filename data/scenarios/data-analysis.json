@@ -3,6 +3,7 @@
   "title": "Customer Survey Data Analysis",
   "description": "User must use an AI agent to analyze quarterly customer survey data, testing clear task specification, handling of statistical claims, and verification of conclusions.",
   "type": "data_analysis",
+  "practiceType": "prompt_crafting",
   "difficulty": "practitioner",
   "learningObjectives": [
     "Write specific prompts that define data format, analysis type, and output structure",

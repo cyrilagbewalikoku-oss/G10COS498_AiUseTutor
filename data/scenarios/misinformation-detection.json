@@ -3,6 +3,7 @@
   "title": "Health Misinformation Detection",
   "description": "User must identify misinformation in AI-generated health content, testing fact-checking instincts, source verification, and understanding of AI confidence vs accuracy.",
   "type": "misinformation_detection",
+  "practiceType": "output_evaluation",
   "difficulty": "advanced",
   "learningObjectives": [
     "Recognize that AI-generated health content may contain fabricated studies and statistics",

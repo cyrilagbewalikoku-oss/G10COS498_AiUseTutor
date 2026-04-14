@@ -1,119 +1,40 @@
-# Positive Interaction: Novice Learns Prompting Through Iteration
+# Positive Interaction: Novice Learns Prompting Through Scaffolded Feedback
 
-**User Profile**: Maria Santos (Novice, HS English teacher)
-**Skills Used**: prompt-coaching, prompt-lab, reflection-facilitator
-**Learning Objective**: Write effective prompts using the CRAFT framework
-**Session Duration**: ~15 minutes
+**User Profile**: First-year student in SOC 101  
+**Skills Used**: scenario-runner (prompt-crafting type), reflection-facilitator  
+**Learning Objective**: Practice writing effective prompts and understand AI citation behavior  
+**Practice Type**: Prompt Crafting  
+**Session Duration**: ~10 minutes
 
 ---
 
 ## Interaction Transcript
 
-**TUTOR**: Let's practice writing prompts! Imagine you want an AI agent to help you plan a lesson about photosynthesis for your 10th grade biology class. Go ahead and write your first prompt — don't overthink it.
+**LEARNER**: @SAGE I want to practice using AI better. I'm in SOC 101 and we have a paper due.
 
-**MARIA**: Write me a lesson plan about photosynthesis.
+**SAGE**: Welcome! Let's start with something tied to your SOC 101 context. Here's the situation:
 
-**TUTOR**: Good start — you have a clear action ("write a lesson plan") and a clear topic ("photosynthesis"). That's more than many people start with!
+You're writing a short paper on social media's effects on adolescent well-being. You want to find relevant academic sources. You're about to ask an AI chatbot for help.
 
-But let's make it stronger. I use a framework called CRAFT to think about prompts:
+Write the prompt you would use — just type it here as if you were talking to the AI.
 
-- **C**ontext: Background info the AI needs
-- **R**ole: What expertise should the AI bring?
-- **A**ction: The specific task
-- **F**ormat: How the output should be structured
-- **T**one: The communication style
+**LEARNER**: Find me 5 academic sources about social media effects on teen mental health published after 2020.
 
-Your prompt has the Action, but it's missing Context and Format. Without them, the AI has to guess:
-- What grade level? (A 3rd grade lesson looks very different from a 10th grade one)
-- How long is the class?
-- What do students already know?
-- Do you want an outline? A detailed plan? Slides?
+**SAGE** (ACKNOWLEDGE): Okay, I can see what you're going for — you added a topic, a number, a type, and a date range. That's more structured than many first attempts.
 
-Try revising with at least Context and Format added.
+**SAGE** (NUDGE): But let me ask you something before I go further: what do you think the model is actually doing when it gets a request like "find me 5 academic sources"? Is it searching a database?
 
-**MARIA**: Create a 50-minute lesson plan for 10th grade biology on photosynthesis. Students already understand cell structure. Include a hands-on activity and a 5-question quiz. Make it engaging for teenagers.
+**LEARNER**: I guess I assumed it was looking things up somewhere. But now that you ask… I think it's just generating text that looks like citations?
 
-**TUTOR**: Excellent revision! Let's compare:
+**SAGE** (EXPLAIN): That's exactly right — and the fact that you caught that distinction is important. Language models generate plausible-sounding text, including plausible-sounding citations. They don't search databases. So when you ask for "5 academic sources," you're likely to get a mix of real and fabricated references that all look legitimate. A stronger approach would be to use the model for what it does well: generating search terms and strategies. Something like: "Suggest 5 search term combinations I could use in Google Scholar or PsycINFO for a paper on social media and adolescent well-being, and explain why each might surface different types of results." That keeps you in the verification loop — the AI helps you search, but you verify what you find.
 
-**BEFORE** (7 words):
-> "Write me a lesson plan about photosynthesis"
-
-**AFTER** (32 words):
-> "Create a 50-minute lesson plan for 10th grade biology on photosynthesis. Students already understand cell structure. Include a hands-on activity and a 5-question quiz. Make it engaging for teenagers."
-
-Here's what changed and why it matters:
-
-| Added | Why It Matters |
-|-------|---------------|
-| "10th grade" | Prevents getting a 3rd-grade-level plan |
-| "50-minute" | Structures the pacing appropriately |
-| "Students already understand cell structure" | AI won't waste time on prerequisites |
-| "hands-on activity and quiz" | Specifies format components you need |
-| "engaging for teenagers" | Sets the tone |
-
-The second prompt would produce dramatically better results because the AI doesn't have to guess about any of those details.
-
-What did you notice was the biggest improvement?
-
-**MARIA**: Adding the grade level and time constraint — those change everything about what the plan should look like.
-
-**TUTOR**: Exactly right. Constraints aren't limitations — they're guidance. An AI without constraints will give you generic output. An AI with clear constraints will give you something you can actually use.
-
-Want to see what this prompt produces? I can simulate an AI response so we can evaluate the output together.
-
-**MARIA**: Sure, let's try it.
-
-**TUTOR**: *[Switches to simulation mode]*
-
-Here's what an AI might produce from your prompt:
-
----
-
-**Lesson Plan: Photosynthesis (10th Grade Biology)**
-**Duration**: 50 minutes
-
-**Warm-Up (5 min)**: Show a time-lapse of a plant growing. Ask: "Where does this plant get its food? Most people say soil — but that's not quite right."
-
-**Direct Instruction (15 min)**: Light-dependent vs light-independent reactions. Build on cell structure knowledge — chloroplasts as the "kitchen" of the cell. Diagram: sunlight → chloroplast → glucose + oxygen.
-
-**Hands-On Activity (20 min)**: Elodea experiment — students observe oxygen bubbles under different light intensities. Record data in groups of 3.
-
-**Quiz (10 min)**: 5 multiple-choice questions covering the equation, location in the cell, role of sunlight, inputs/outputs, and relationship to cellular respiration.
-
----
-
-*[Back to tutor mode]*
-
-Not bad! But let's evaluate this critically. Can you spot anything that might need your attention before using this plan?
-
-**MARIA**: The quiz is multiple choice — I might want short answer for 10th graders. And I'd want to check that the Elodea experiment actually takes 20 minutes. I've done lab activities that ran way over time.
-
-**TUTOR**: Those are both sharp observations. You just did two important things:
-
-1. **Format adjustment**: You recognized that the AI's default (multiple choice) doesn't match your teaching goals. This is why YOU need to review AI output — it optimizes for "plausible" not "best for your specific students."
-
-2. **Practical verification**: You flagged the timing based on your real experience. An AI has never run a lab with 10th graders. Your expertise is irreplaceable for this kind of judgment call.
-
-This is a key principle: **AI generates, you evaluate.** The AI's job is to give you a strong starting point. Your job is to apply your professional judgment to make it actually work.
-
-Let's reflect: What's the most important thing you learned in this exercise?
-
-**MARIA**: That being specific in my prompt saves me editing time later. And that I still need to check everything against my own experience — the AI doesn't know my classroom.
-
-**TUTOR**: That's a perfect summary. Two principles to remember:
-
-1. **Specificity up front saves revision later** — invest 30 seconds in a better prompt to save 30 minutes of editing
-2. **AI is a drafting tool, not a final product** — your professional expertise is what transforms AI output into something good
-
-Great session! Your prompting skill is already improving. Next time, we'll practice evaluating AI output more systematically — learning to spot when something "sounds right" but isn't.
+**SAGE** (CLOSING REFLECTION): One quick thing to carry with you: in what other assignments have you asked AI to produce information you then used without checking? What made it feel safe to trust it?
 
 ---
 
 ## Why This Interaction Is Beneficial
 
-1. **User writes first, then learns** — the CRAFT framework arrives as a solution to a problem they just experienced, not as an abstract lecture
-2. **Before/after comparison** makes the improvement concrete and memorable
-3. **User identifies the key insight themselves** ("grade level and constraints") — more durable than being told
-4. **Simulated output creates evaluation practice** — the user naturally starts assessing quality
-5. **Principles are named and summarized** — "AI generates, you evaluate" is a transferable mental model
-6. **Session ends with the user's own words** — the tutor validates their synthesis rather than imposing one
+1. **Scaffolding pattern is explicit**: ACKNOWLEDGE → NUDGE → EXPLAIN — SAGE never explains before the learner reflects
+2. **The nudge question prompts self-discovery**: The learner realizes the citation problem themselves before being told
+3. **Closing reflection is lightweight**: One question, not a multi-step debrief
+4. **The principle is named after the learner discovers it**: "Verification loop" — not before

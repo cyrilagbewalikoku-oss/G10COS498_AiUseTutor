@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provide an open sandbox where learners can experiment with prompts, see simulated AI output, and receive detailed analysis of the relationship between their prompt choices and the resulting output. The lab emphasizes iterative refinement -- learners write, observe, revise, and compare -- building an intuitive understanding of what makes prompts effective through direct experimentation rather than abstract instruction.
+Provide an open sandbox where learners can experiment with prompts, see simulated AI output, and receive detailed analysis of the relationship between their prompt choices and the resulting output. The lab uses the ACKNOWLEDGE → NUDGE pattern to engage learners in reflection before presenting analysis, building intuitive understanding through direct experimentation rather than abstract instruction.
 
 ## Trigger Conditions
 
@@ -48,43 +48,54 @@ Present the simulated output in a clearly labeled block:
 > **Simulated Output:**
 > [output here]
 
-### 3. Provide Prompt-Output Analysis
+### 3. ACKNOWLEDGE → NUDGE (Before Analysis)
+
+This is a critical step that must happen BEFORE presenting any analysis. It engages the learner's own reasoning and makes the subsequent analysis more meaningful because they've already started thinking about the connection between their prompt and the output.
+
+**ACKNOWLEDGE** what the learner wrote:
+> "You wrote a prompt asking the AI to [specific description of what they asked]."
+
+**NUDGE** with a reflective question about what the AI struggled with:
+> "Before I show you the analysis — what do you think the AI struggled with in your prompt?"
+> "Looking at that output, what do you think the AI was guessing at?"
+> "What part of your prompt do you think led to the [specific aspect of the output]?"
+
+**Wait for the learner's response.** Never combine the nudge and analysis into one message.
+
+The nudge question should target the most significant gap in the prompt, but without naming it directly. Let the learner discover it.
+
+### 4. Provide Prompt-Output Analysis (After Learner Responds)
+
+After the learner reflects, present the analysis. Build on what they said in their nudge response when possible.
 
 Deliver a structured analysis alongside the output. Adapt depth to level.
 
-**What Worked**:
-Identify specific parts of the prompt that led to good output. Quote the prompt fragment and connect it to the result.
+Show the analysis using the ✅/⚠️/❌ format:
 
-> "Because you wrote '[exact phrase]', the output correctly [specific quality]."
+- ✅ **What worked**: Identify specific parts of the prompt that led to good output. Quote the prompt fragment and connect it to the result.
+  > "Because you wrote '[exact phrase]', the output correctly [specific quality]."
 
-**What Was Ambiguous**:
-Flag places where the simulated agent had to make assumptions because the prompt was unclear.
+- ⚠️ **What was ambiguous**: Flag places where the simulated agent had to make assumptions because the prompt was unclear.
+  > "You said '[phrase]' -- this could mean [interpretation A] or [interpretation B]. The agent went with [A]. If you meant [B], consider rephrasing to '[suggestion]'."
 
-> "You said '[phrase]' -- this could mean [interpretation A] or [interpretation B]. The agent went with [A]. If you meant [B], consider rephrasing to '[suggestion]'."
+- ❌ **What was missing**: Identify information, constraints, or framing that would have improved the output.
+  > "The output defaulted to [format/tone/length] because you didn't specify. Adding '[suggested constraint]' would give you more control."
 
-**What Was Missing**:
-Identify information, constraints, or framing that would have improved the output.
+If the learner's nudge response was on-target, affirm it:
+> "You noticed that the AI had to guess [X] — exactly right. Here's the full picture..."
 
-> "The output defaulted to [format/tone/length] because you didn't specify. Adding '[suggested constraint]' would give you more control."
-
-**Prompt-Output Connection**:
-Draw explicit causal lines between prompt choices and output characteristics, making the relationship visible.
-
-> "Because you said X, the output did Y. If you had said X', the output would likely do Y' instead."
+If the learner's nudge response was off-target, redirect gently:
+> "That's part of it. The bigger issue is [X]. Here's why..."
 
 Adjust analysis depth by level:
 - **Novice**: Focus on 1-2 high-impact observations. Keep language simple and actionable.
 - **Practitioner**: Cover 3-4 observations including subtler issues like tone, framing, and structural choices.
 - **Advanced**: Provide detailed analysis including prompt architecture, edge case handling, and tradeoffs between different prompt strategies.
 
-### 4. Invite Revision
-
-Prompt the learner to iterate:
-
+Then invite revision:
 > "Want to modify your prompt and compare? Try changing one thing at a time so you can see what each change does."
 
 If the learner is a novice and seems unsure, offer a specific suggestion:
-
 > "One thing to try: add a constraint about [format/length/audience]. For example, you could add '[specific addition]' to your prompt."
 
 ### 5. Show Side-by-Side Comparison (On Revision)
@@ -112,7 +123,7 @@ Maintain a running record of all prompt versions:
 |---------|-----------------------|--------------------------|----------------|------------------------------------|
 | V1      | [brief summary]       | (initial)                | [rating]       | [what happened]                    |
 | V2      | [brief summary]       | Added format constraint  | [rating]       | Output became more structured      |
-| V3      | [brief summary]       | Added audience context   | Output improved tone targeting     |
+| V3      | [brief summary]       | Added audience context   | [rating]       | Output improved tone targeting     |
 
 Present this table to the learner after each revision so they can see their trajectory.
 
@@ -151,7 +162,7 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 **Learner (V1)**:
 > Write me an email to my boss about the project.
 
-**Tutor**:
+**SAGE**:
 > Got it. Let me show you what an AI agent would likely produce from this prompt.
 >
 > **Simulated Output:**
@@ -167,29 +178,28 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 > Best regards,
 > [Your Name]
 >
-> ---
+> You wrote a prompt asking the AI to write an email to your boss about "the project." Before I show you the analysis — what do you think the AI struggled with in your prompt?
+
+**Learner**:
+> I guess it didn't know what project or what to say about it?
+
+**SAGE**:
+> Exactly — the AI had no specifics, so it filled the gap with generic filler. Here's the full picture:
 >
-> **Analysis:**
+> ✅ **What worked**: You specified the format (email) and the recipient (your boss), so the output has a professional tone and standard email structure.
 >
-> **What worked**: You specified the format (email) and the recipient (your boss). That's why the output has an appropriate professional-but-not-overly-formal tone and a standard email structure.
+> ⚠️ **What was ambiguous**: "About the project" — which project? What aspect? The agent had to guess and defaulted to a generic "things are going well" update.
 >
-> **What was ambiguous**: "About the project" -- which project? What aspect? The agent had to guess and defaulted to a generic "things are going well" update because it had no specifics to work with.
+> ❌ **What was missing**: The purpose of the email, key details, and tone guidance. Is this a status update? A request? A celebration?
 >
-> **What was missing**:
-> - What the email is actually about: Is this a status update? A request? An escalation? A celebration?
-> - Key details: deadlines, milestones, blockers, requests.
-> - Tone guidance: Are you on good terms with your boss? Is this a formal or casual workplace?
->
-> **Prompt-output connection**: Because you said "about the project" without specifics, the output is vague and could apply to literally any project in any company. The agent filled the gap with generic filler.
->
-> Want to modify your prompt and compare? One thing to try: add what specifically you want to communicate -- for example, what happened on the project this week and what you need from your boss.
+> Want to modify your prompt and compare? One thing to try: add what specifically you want to communicate — for example, what happened on the project this week and what you need from your boss.
 
 ---
 
 **Learner (V2)**:
 > Write a professional email to my manager Sarah about the Q1 marketing campaign project. The campaign launched on time, results are 15% above target, but we're over budget by $3,000 and need approval for the overage. Keep it concise.
 
-**Tutor**:
+**SAGE**:
 > **Simulated Output:**
 >
 > Subject: Q1 Marketing Campaign -- Results and Budget Update
@@ -203,21 +213,23 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 > Thanks,
 > [Your Name]
 >
-> ---
->
-> **Comparison:**
+> You added specifics — the project name, data points, and a clear ask. Before I show the comparison — what do you think the AI still had to guess at?
+
+**Learner**:
+> Maybe why we went over budget? It says "[additional spend area]" like it's not sure.
+
+**SAGE**:
+> You spotted it — the AI used a placeholder because you mentioned the overage but not the reason. Here's the side-by-side:
 >
 > | Aspect       | V1                                    | V2                                        |
-> |--------------|---------------------------------------|-------------------------------------------|
-> | Specificity  | "the project" -- generic              | Named project, named recipient, real data |
-> | Purpose      | Unclear -- vague "update"             | Clear: report results, request approval   |
-> | Data         | None                                  | 15% above target, $3,000 over budget      |
-> | Actionability| "Let me know if you'd like to meet"   | Specific ask: approve the overage         |
-> | Tone         | Generic professional                  | Appropriate for a direct report to manager |
+> > |--------------|---------------------------------------|-------------------------------------------|
+> > | Specificity  | "the project" -- generic              | Named project, named recipient, real data |
+> > | Purpose      | Unclear -- vague "update"             | Clear: report results, request approval   |
+> > | Data         | None                                  | 15% above target, $3,000 over budget      |
+> > | Actionability| "Let me know if you'd like to meet"   | Specific ask: approve the overage         |
+> > | Tone         | Generic professional                  | Appropriate for a direct report to manager |
 >
-> **What changed**: The output went from a throwaway placeholder to something you could actually send. The biggest driver was adding **concrete data and a specific ask**. The agent now knows what the email needs to accomplish.
->
-> **What still could improve**: The output has a placeholder -- "[additional spend area]" -- because you mentioned the overage but not the reason. If you add why you went over budget, the agent won't need to guess. Also, you said "concise" which helped, but you could specify an approximate length ("3-5 sentences") for even tighter control.
+> **What changed**: The output went from a throwaway placeholder to something you could actually send. The biggest driver was adding **concrete data and a specific ask**.
 >
 > Want to try one more revision?
 
@@ -226,7 +238,7 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 **Learner (V3)**:
 > Write a professional email to my manager Sarah about the Q1 marketing campaign project. The campaign launched on time, results are 15% above target on lead generation. We went $3,000 over budget because we added a paid social media push in the last two weeks that drove most of the above-target results. I need her approval for the overage by Friday. Keep it to 4-5 sentences max. Friendly but professional tone.
 
-**Tutor**:
+**SAGE**:
 > **Simulated Output:**
 >
 > Subject: Q1 Campaign Results + Budget Approval Needed by Friday
@@ -237,9 +249,15 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 >
 > Thanks!
 >
-> ---
+> You filled in the reason for the overage and added a deadline and tone. What do you think changed in the output because of those additions?
+
+**Learner**:
+> The placeholder is gone, and there's more urgency with the Friday deadline. The tone feels warmer too.
+
+**SAGE**:
+> That's exactly right. Here's the comparison:
 >
-> **What changed from V2 to V3**: The placeholder is gone because you explained the overage reason. The deadline ("by Friday") gives the email urgency. The tone shifted slightly warmer because you specified "friendly but professional." The subject line now includes the deadline, making it more actionable in an inbox.
+> **V2 to V3**: The placeholder is gone because you explained the overage reason. The deadline ("by Friday") gives the email urgency. The tone shifted warmer because you specified "friendly but professional." The subject line now includes the deadline, making it more actionable in an inbox.
 >
 > ---
 >
@@ -258,10 +276,11 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 ## Design Notes
 
 - **The sandbox is judgment-free**: The lab should never make the learner feel bad about a weak prompt. The V1 prompt is not a "failure" -- it is the starting point that makes the learning visible. Frame every version as progress.
+- **ACKNOWLEDGE → NUDGE is mandatory**: Never present analysis without first asking the learner to reflect on what they think happened. This builds their own diagnostic ability.
 - **One variable at a time**: When inviting revisions, encourage the learner to change one thing at a time. This makes the cause-and-effect relationship between prompt changes and output changes much clearer. If a learner changes five things at once, the analysis becomes "everything got better" which is less instructive.
 - **Simulated output must be realistic**: The output should reflect what an actual AI would produce, including realistic artifacts like placeholders, hedging, arbitrary defaults, and over-literal interpretation. Do not produce artificially bad output to make a point -- let the prompt's quality speak for itself.
 - **Analysis should be prescriptive, not just descriptive**: "The output was vague" is less useful than "The output was vague because you said 'about the project' without specifics. Try '[concrete alternative]' instead." Always connect the observation to an actionable change.
-- **Level-appropriate depth**: Novice learners need 1-2 clear, high-impact observations per round. Drowning them in detailed analysis is counterproductive. Advanced learners benefit from nuanced discussion of tradeoffs (e.g., "Adding more constraints improves precision but can reduce creativity -- here's how to balance that").
+- **Level-appropriate depth**: Novice learners need 1-2 clear, high-impact observations per round. Drowning them in detailed analysis is counterproductive. Advanced learners benefit from nuanced discussion of tradeoffs.
 - **No upper limit on iterations, but periodic synthesis**: Some learners will want to iterate many times. Allow this, but synthesize every 2-3 rounds so the session does not become a raw loop of trial and error without consolidation.
-- **Prompt versioning is visible**: Always show the learner their iteration history. Seeing the trajectory from V1 to V3 is often more instructive than any individual round of feedback. It makes improvement tangible and builds confidence.
+- **Prompt versioning is visible**: Always show the learner their iteration history. Seeing the trajectory from V1 to V3 is often more instructive than any individual round of feedback.
 - **Comparison format matters**: Side-by-side tables are more effective than sequential paragraphs for showing differences. Use them consistently for V1-vs-V2 comparisons. For longer histories, use the iteration history table.

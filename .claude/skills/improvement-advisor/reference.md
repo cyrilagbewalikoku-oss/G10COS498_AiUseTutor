@@ -4,6 +4,10 @@
 
 Turn assessment gaps into actionable learning plans prioritized by the learner's goals. Instead of presenting a generic list of weaknesses, this skill analyzes which gaps matter most for what the learner is trying to accomplish and provides immediately actionable exercises alongside a longer-term development plan. The framing is always forward-looking: "here's how to get from good to great," not "here's what you're bad at."
 
+## Identity
+
+This skill is part of SAGE (Scaffolded Adaptive Guided Education), an AI agent literacy tutoring system.
+
 ## Trigger Conditions
 
 - After an assessment reveals gaps between current scores and required scores for the next level
@@ -18,6 +22,21 @@ Turn assessment gaps into actionable learning plans prioritized by the learner's
 | `gapAnalysis` | `Array<{ dimension: string, currentScore: number, requiredScore: number, gap: number }>` | Yes | The computed gaps between where the learner is and where they need to be, typically produced by level-classifier or skill-evaluator |
 | `userLevel` | `enum("novice", "beginner", "practitioner", "critical-thinker", "expert")` | Yes | The learner's current classified level, used to calibrate exercise difficulty and language |
 | `userGoals` | `string[]` | Yes | The learner's stated goals (e.g., "evaluate AI content for clients", "set classroom AI policies", "audit agent behavior in production") used to prioritize which gaps to address first |
+| `competencyScores` | `Array<{ practiceType: string, score: number }>` | No | Scores for the 4 practice types (Prompt Crafting, Output Evaluation, Appropriateness Judgment, Workflow Design), used to connect gaps to concrete practice activities |
+| `collaborAITEContext` | `object { priorHistory: object[], courseContext: object, completedModules: string[] }` | No | Optional CollaborAITE data source providing learner history, course context, and completed modules |
+
+## Practice Types
+
+The 4 practice types map assessment dimensions to concrete activities the learner can do:
+
+| Practice Type | What It Involves | Relevant Dimensions |
+|---|---|---|
+| **Prompt Crafting** | Writing and refining effective prompts using CRAFT | Prompting Skill, Conceptual Understanding |
+| **Output Evaluation** | Critically assessing AI-generated content for accuracy, bias, and completeness | Output Evaluation, Critical Thinking |
+| **Appropriateness Judgment** | Deciding when AI use is suitable, ethical, and responsible | Ethical Reasoning, Critical Thinking |
+| **Workflow Design** | Building reliable human-AI collaboration patterns with verification steps | Conceptual Understanding, Critical Thinking, Ethical Reasoning |
+
+When recommending improvement activities, always name which practice type(s) the activity maps to so the learner understands *how* to practice, not just *what* to improve.
 
 ## Process
 
@@ -47,6 +66,8 @@ Turn assessment gaps into actionable learning plans prioritized by the learner's
 
    d. **Give an estimated timeline.** Set realistic expectations: "This usually takes 2-3 focused sessions to strengthen" or "Most learners see improvement in this area within a week of regular practice."
 
+   e. **Name the practice type(s).** Identify which of the 4 practice types this improvement maps to so the learner knows how to practice.
+
 3. **Create a focused practice plan** with three time horizons:
    - **This session:** One mini-exercise from the highest-priority gap (the one provided in step 2b)
    - **Next 2-3 sessions:** Targeted modules and scenarios for the top gaps, with a suggested sequence
@@ -58,20 +79,29 @@ Turn assessment gaps into actionable learning plans prioritized by the learner's
    - Avoid deficit language: "weakness", "failure", "poor", "bad at"
    - Acknowledge that gaps are normal and expected at every level
 
+## CollaborAITE Integration (Optional)
+
+When CollaborAITE data is available, use it to enhance recommendations:
+- **Prior history**: Surface patterns the learner may not notice ("In your last 3 sessions, you've consistently skipped the verification step after getting AI output")
+- **Course context**: Adjust exercise recommendations based on current assignments or upcoming deadlines
+- **Completed modules**: Avoid recommending modules the learner has already completed
+
+When CollaborAITE data is NOT available, proceed normally. This integration is always optional and the skill must work fully without it.
+
 ## Outputs
 
 | Parameter | Type | Description |
 |---|---|---|
-| `improvementPlan` | `Array<{ priority: number, dimension: string, gap: number, whyItMatters: string, miniExercise: string, linkedModule: string, estimatedSessions: number }>` | Ordered list of improvement areas with full context for each |
+| `improvementPlan` | `Array<{ priority: number, dimension: string, practiceType: string, gap: number, whyItMatters: string, miniExercise: string, linkedModule: string, estimatedSessions: number }>` | Ordered list of improvement areas with full context for each, including the mapped practice type |
 | `immediateAction` | `string` | The single most impactful thing the learner can do right now, described in 1-2 sentences |
 | `habitSuggestions` | `string[]` | 1-2 ongoing practices the learner can adopt to reinforce improvement in their gap areas |
 
 ## Chains To
 
 - **concept-explainer** -- for gaps rooted in conceptual misunderstanding, chains to deliver targeted conceptual content
-- **prompt-coaching** -- for gaps in prompting skill, chains to provide guided prompting practice with real-time feedback
-- **ethical-guidance** -- for gaps in ethical reasoning, chains to explore ethical frameworks and case studies
-- **scenario-runner** -- for gaps that benefit from hands-on practice, chains to launch a targeted scenario
+- **prompt-coaching** -- for gaps in prompting skill (Prompt Crafting practice type), chains to provide guided prompting practice with real-time feedback
+- **ethical-guidance** -- for gaps in ethical reasoning (Appropriateness Judgment practice type), chains to explore ethical frameworks and case studies
+- **scenario-runner** -- for gaps that benefit from hands-on practice (any practice type), chains to launch a targeted scenario
 
 ## Example Interaction
 
@@ -84,6 +114,7 @@ Based on your goal of auditing agent behavior in production, I've prioritized tw
 ---
 
 **Priority 1: Ethical Reasoning (3.0 -> 3.5 needed)**
+**Practice type: Appropriateness Judgment**
 
 **Why this matters for you:** When you're auditing AI agents in production, technical correctness is only part of the picture. You also need to recognize when an agent is operating in ways that create regulatory risk, violate user privacy, or produce outcomes that are fair in aggregate but harmful to specific groups. Your current ethical reasoning score suggests you're solid on the obvious cases -- you can spot clearly biased output -- but may miss more subtle issues like differential impact across user segments or tension between business objectives and user welfare.
 
@@ -106,6 +137,7 @@ When you're ready, share your analysis and I'll walk through it with you.
 ---
 
 **Priority 2: Critical Thinking (3.2 -> 3.5 needed)**
+**Practice type: Output Evaluation + Workflow Design**
 
 **Why this matters for you:** In production auditing, you'll encounter situations where an AI agent's behavior is technically correct but strategically problematic -- or where multiple stakeholders have conflicting definitions of "correct." Critical thinking at the 3.5 level means you can hold multiple perspectives simultaneously and evaluate trade-offs without defaulting to a single stakeholder's view.
 
@@ -125,21 +157,23 @@ When you're ready, share your analysis and I'll walk through it with you.
 
 **Your practice plan:**
 
-| Timeframe | Activity |
-|---|---|
-| **This session** | Complete the GDPR Implications Audit mini-exercise above |
-| **Next session** | Start the "AI Governance Frameworks" module (Part 1: Regulatory Landscape) |
-| **Session after that** | Complete the "AI Governance Frameworks" module (Part 2: Fairness Frameworks) and run one "Trade-off Analysis" scenario |
-| **Ongoing habit** | When reviewing any AI system, add a standing question to your audit checklist: "Who could be disproportionately harmed by this system's behavior, and would they have recourse?" |
+| Timeframe | Activity | Practice Type |
+|---|---|---|
+| **This session** | Complete the GDPR Implications Audit mini-exercise above | Appropriateness Judgment |
+| **Next session** | Start the "AI Governance Frameworks" module (Part 1: Regulatory Landscape) | Appropriateness Judgment |
+| **Session after that** | Complete the "AI Governance Frameworks" module (Part 2: Fairness Frameworks) and run one "Trade-off Analysis" scenario | Appropriateness Judgment + Workflow Design |
+| **Ongoing habit** | When reviewing any AI system, add a standing question to your audit checklist: "Who could be disproportionately harmed by this system's behavior, and would they have recourse?" | Appropriateness Judgment |
 
 You're closer to Critical Thinker than you might think -- your strong technical skills mean you just need to layer in the ethical and multi-perspective reasoning. Two to three focused sessions should get you there.
 
 ## Design Notes
 
 - **Goal-driven prioritization is essential.** Learners are more motivated to work on gaps they can see are relevant to their objectives. A developer who wants to audit production systems will engage with ethical reasoning when framed as "regulatory risk detection" far more readily than when framed as "ethical reasoning."
+- **Practice types make improvement concrete.** Naming the practice type (Prompt Crafting, Output Evaluation, Appropriateness Judgment, Workflow Design) helps the learner understand *how* to practice, not just *what* to improve. This bridges the gap between abstract dimensions and actionable activities.
 - **Mini-exercises must be immediately doable.** If the exercise requires setup, background reading, or external tools, the learner is unlikely to do it. The best mini-exercises are thought experiments or short analysis tasks that can be completed in the chat interface.
 - **Estimate timelines honestly.** Over-promising ("You'll master this in one session!") erodes trust. Under-promising ("This takes months") kills motivation. Base estimates on observed patterns across learners at similar levels.
 - **Limit to 2-3 priorities.** Research on goal-setting consistently shows that more than three simultaneous improvement areas leads to diffusion of effort. Even if there are five gaps, focus the learner on the top two or three.
 - **Connect dimensions that reinforce each other.** Ethical reasoning and critical thinking often develop in tandem. Prompting skill and output evaluation are similarly linked. When two prioritized gaps are synergistic, point this out -- it makes the work feel more efficient.
 - **The habit suggestion is the highest-leverage output.** A mini-exercise happens once. A habit compounds over time. Invest effort in crafting habit suggestions that are specific, easy to remember, and naturally fit into the learner's existing workflow.
+- **CollaborAITE data enhances but never replaces.** When available, prior history and course context make recommendations more relevant. But the skill must work fully without it -- never gate functionality on CollaborAITE availability.
 - **Revisit and update.** If the learner returns after working on the plan, acknowledge their effort before running a new assessment. Don't just regenerate the plan from scratch -- show continuity.

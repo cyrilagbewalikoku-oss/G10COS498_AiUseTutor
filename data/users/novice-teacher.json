@@ -16,12 +16,23 @@
     "selfRatedExperience": 2,
     "knownConcepts": ["chatbot", "AI"]
   },
+  "courseEnrollment": {
+    "courseId": "SOC-101-2026",
+    "courseName": "Introduction to Sociology",
+    "discipline": "education"
+  },
   "dimensionScores": {
     "conceptualUnderstanding": 1.5,
     "promptingSkill": 1.0,
     "outputEvaluation": 1.0,
     "ethicalReasoning": 2.0,
     "criticalThinking": 2.5
+  },
+  "competencyScores": {
+    "promptCrafting": 1.0,
+    "outputEvaluation": 0.5,
+    "appropriatenessJudgment": 1.5,
+    "workflowDesign": 0.5
   },
   "learningPath": [
     { "moduleId": "m-101", "title": "What Are AI Agents?", "status": "completed", "completedAt": "2026-03-15T10:00:00Z" },

@@ -1,6 +1,10 @@
 # Skill: Skill Evaluator
 
-**Purpose**: Evaluate a learner's practical ability by analyzing their interaction logs from practice sessions across multiple competency dimensions.
+**Purpose**: Evaluate a learner's practical ability by analyzing their interaction logs from practice sessions across multiple competency dimensions and practice types, including assessment of how well the learner responds to scaffolding.
+
+## Identity
+
+This skill is part of SAGE (Scaffolded Adaptive Guided Education), an AI agent literacy tutoring system.
 
 ## Trigger Conditions
 
@@ -16,6 +20,7 @@
 | rubric | string | no | Specific rubric to apply (default: general) |
 | userLevel | enum | yes | Current level for calibration |
 | focusDimensions | string[] | no | Specific dimensions to prioritize |
+| scaffoldingLog | Array<{ nudge: string, learnerResponse: string, responseType: enum("reflective", "surface", "none") }> | no | Record of scaffolding nudges and how the learner responded |
 
 ## Process
 
@@ -52,9 +57,31 @@ Evaluate whether the user considered ethical dimensions during practice:
 | Bias awareness | No bias consideration | Recognized obvious bias | Proactively checked for and addressed bias |
 | Accountability | Deferred entirely to AI | Some human oversight | Clear human accountability for all outputs |
 
-### Step 4: Generate Dimensional Scores
+### Step 4: Evaluate Practice Type Competencies
 
-Aggregate scores across the three analysis areas into five dimensions:
+Score the learner across the 4 practice types, drawing evidence from Steps 1-3:
+
+| Practice Type | Score 1 | Score 3 | Score 5 |
+|---|---------|---------|---------|
+| **Prompt Crafting** | Wrote vague, context-free prompts; accepted first output | Added some context and constraints; iterated once | Used CRAFT consistently; iterated with targeted improvements; handled edge cases |
+| **Output Evaluation** | Accepted all AI output without question | Checked some claims for accuracy | Systematically verified facts, detected errors, assessed quality and completeness |
+| **Appropriateness Judgment** | Used AI for every task without considering suitability | Paused on some clearly inappropriate use cases | Proactively evaluated when AI is suitable, considered ethical and practical trade-offs |
+| **Workflow Design** | No verification or human-in-the-loop steps | Added basic verification steps | Designed reliable human-AI patterns with checkpoints, fallbacks, and oversight |
+
+### Step 5: Evaluate Scaffolding Effectiveness
+
+Assess how the learner responded to scaffolding nudges during the session:
+
+| Criterion | Score 1 | Score 3 | Score 5 |
+|-----------|---------|---------|---------|
+| Self-reflection | Gave short answers with no insight when nudged | Reflected briefly before responding | Nudges prompted genuine reflection and new insight |
+| Self-correction | Did not adjust approach when nudged toward a gap | Partially adjusted approach | Actively changed approach based on scaffolding feedback |
+
+This evaluation informs the difficulty-adapter: if the learner is not responding to nudges, the calling skill should increase scaffolding (more analogies, smaller steps, more explicit guidance).
+
+### Step 6: Generate Dimensional Scores
+
+Aggregate scores across the analysis areas into five dimensions:
 
 1. **Conceptual Understanding** (derived from how they described their thinking)
 2. **Prompting Skill** (from Step 1 analysis)
@@ -62,22 +89,27 @@ Aggregate scores across the three analysis areas into five dimensions:
 4. **Ethical Reasoning** (from Step 3 analysis)
 5. **Critical Thinking** (composite of Steps 2 and 3)
 
-### Step 5: Produce Evaluation Report
+### Step 7: Produce Evaluation Report
 
 Structure the report as:
 1. Overall assessment (1-2 sentences)
-2. Strengths with specific evidence from the interaction
-3. Growth areas with specific evidence and recommendations
-4. Comparison to previous evaluation (if available)
+2. Dimensional scores
+3. Competency scores (4 practice types)
+4. Scaffolding response assessment
+5. Strengths with specific evidence from the interaction
+6. Growth areas with specific evidence and recommendations
+7. Comparison to previous evaluation (if available)
 
 ## Outputs
 
 | Field | Type | Description |
 |-------|------|-------------|
 | dimensionScores | object | { conceptualUnderstanding, promptingSkill, outputEvaluation, ethicalReasoning, criticalThinking } each 0-5 |
+| competencyScores | object | { promptCrafting, outputEvaluation, appropriatenessJudgment, workflowDesign } each 0-5 |
+| scaffoldingResponse | object | { selfReflection: 0-5, selfCorrection: 0-5, summary: string } |
 | overallAssessment | string | 1-2 sentence summary |
-| strengths | array | { dimension, evidence, score } |
-| growthAreas | array | { dimension, evidence, score, recommendation } |
+| strengths | array | { dimension or competency, evidence, score } |
+| growthAreas | array | { dimension or competency, evidence, score, recommendation } |
 | levelRecommendation | string | Whether level change is suggested |
 
 ## Chains To
@@ -85,16 +117,36 @@ Structure the report as:
 - `level-classifier` (to determine if level change is warranted)
 - `reflection-facilitator` (to discuss the evaluation with the learner)
 - `improvement-advisor` (if growth areas identified)
+- `difficulty-adapter` (to inform scaffolding adjustments based on learner response)
 
 ## Example Evaluation Output
 
 ```
 EVALUATION SUMMARY: Priya demonstrates strong prompting skills and good 
 instincts for output evaluation, but consistently overlooks ethical 
-implications of AI-generated content in professional contexts.
+implications of AI-generated content in professional contexts. She 
+responded to scaffolding nudges with reflection on prompting but gave 
+surface responses on ethics-related nudges.
+
+DIMENSIONAL SCORES:
+- Conceptual Understanding: 3.5/5
+- Prompting Skill: 4.0/5
+- Output Evaluation: 3.5/5
+- Ethical Reasoning: 2.0/5
+- Critical Thinking: 2.5/5
+
+COMPETENCY SCORES:
+- Prompt Crafting: 4.0/5
+- Output Evaluation: 3.5/5
+- Appropriateness Judgment: 2.0/5
+- Workflow Design: 2.0/5
+
+SCAFFOLDING RESPONSE:
+- Self-reflection: 3.0/5 [engaged with prompting nudges, surface on ethics]
+- Self-correction: 2.0/5 [adjusted prompts but did not address ethical gaps]
 
 STRENGTHS:
-- Prompting (4.0/5): Used CRAFT framework consistently. Added constraints 
+- Prompt Crafting (4.0/5): Used CRAFT framework consistently. Added constraints 
   for ambiguous data. Iterated twice with targeted improvements.
   Evidence: Turn 3 — revised prompt added brand voice guidelines and 
   formatting constraints.
@@ -105,16 +157,22 @@ STRENGTHS:
   rating? I should verify that."
 
 GROWTH AREAS:
-- Ethical Reasoning (2.0/5): Did not consider disclosure to clients 
+- Appropriateness Judgment (2.0/5): Did not consider disclosure to clients 
   about AI-generated content. Did not flag potential FTC issues with 
   unverified claims.
   Evidence: Turns 6-8 — proceeded to finalize copy with fabricated 
   endorsement without raising transparency concerns.
   Recommendation: Complete "Ethics of AI-Generated Content" module.
 
-- Critical Thinking (2.5/5): Good at catching factual errors but did 
-  not consider systemic implications (what if all marketing teams do this?).
-  Recommendation: Practice with ethical-reasoning scenarios.
+- Workflow Design (2.0/5): No verification checkpoints or fallback steps 
+  in the content creation workflow.
+  Recommendation: Practice with workflow design scenarios that require 
+  human-in-the-loop patterns.
+
+SCAFFOLDING NOTE: Learner responds well to technical nudges but gives 
+surface responses to ethical ones. Consider increasing scaffolding for 
+ethics-related topics: add more analogies, break into smaller steps, 
+use relatable real-world examples.
 ```
 
 ## Design Notes
@@ -124,3 +182,6 @@ GROWTH AREAS:
 - Evaluations should feel like coaching, not grading
 - Weight dimensions differently based on the user's goals (a developer cares more about prompting; a manager cares more about evaluation)
 - Track evaluations over time to show improvement trajectories
+- Practice type competencies make evaluation actionable: they tell the learner *what kind of practice* they need, not just which abstract dimension is weak
+- Scaffolding effectiveness data feeds directly to difficulty-adapter: if the learner is not reflecting, the system needs to increase scaffolding, not just repeat the same nudge
+- Surface responses to nudges are a signal, not a failure — they indicate the scaffolding approach needs adjustment, not that the learner is resistant

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Interaction Log",
-  "description": "Record of a single interaction session between the tutor and learner",
+  "description": "Log of a learner interaction with SAGE",
   "type": "object",
   "properties": {
     "id": { "type": "string", "format": "uuid" },
@@ -9,6 +9,11 @@
     "sessionId": { "type": "string", "description": "Groups interactions within a session" },
     "timestamp": { "type": "string", "format": "date-time" },
     "skillUsed": { "type": "string", "description": "Primary skill active during this interaction" },
+    "practiceType": {
+      "type": "string",
+      "enum": ["prompt_crafting", "output_evaluation", "appropriateness_judgment", "workflow_design", null],
+      "description": "Type of practice session (null if not a practice session)"
+    },
     "scenarioId": { "type": "string", "description": "Scenario ID if a simulation was running" },
     "turns": {
       "type": "array",
@@ -16,7 +21,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "role": { "type": "string", "enum": ["tutor", "learner", "simulated_agent"] },
+          "role": { "type": "string", "enum": ["sage", "learner", "simulated_agent"] },
           "content": { "type": "string" },
           "timestamp": { "type": "string", "format": "date-time" },
           "metadata": {
@@ -25,11 +30,34 @@
             "properties": {
               "skillTransition": { "type": "string" },
               "scoreEvent": { "type": "object" },
-              "simulationMode": { "type": "boolean" }
+              "simulationMode": { "type": "string", "enum": ["helpful_agent", "flawed_agent", "lab_mode"] },
+              "scaffoldingStep": { "type": "string", "enum": ["acknowledge", "nudge", "explain", null], "description": "Which step of the ACKNOWLEDGE→NUDGE→EXPLAIN pattern this turn represents" }
             }
           }
         },
         "required": ["role", "content", "timestamp"]
+      }
+    },
+    "scaffoldingSteps": {
+      "type": "array",
+      "description": "Tracking of ACKNOWLEDGE → NUDGE → EXPLAIN steps during feedback",
+      "items": {
+        "type": "object",
+        "properties": {
+          "turnIndex": { "type": "integer", "description": "Index of the turn where scaffolding occurred" },
+          "step": { "type": "string", "enum": ["acknowledge", "nudge", "explain"] },
+          "content": { "type": "string" },
+          "learnerRespondedToNudge": { "type": "boolean" }
+        }
+      }
+    },
+    "closingReflection": {
+      "type": "object",
+      "description": "The closing reflection question and response",
+      "properties": {
+        "questionAsked": { "type": "string" },
+        "responseGiven": { "type": "string" },
+        "skipped": { "type": "boolean" }
       }
     },
     "outcome": {
@@ -46,8 +74,14 @@
         "turnCount": { "type": "integer" },
         "durationSeconds": { "type": "integer" },
         "promptQualityScore": { "type": "number", "minimum": 0, "maximum": 5 },
-        "verificationAttempted": { "type": "boolean", "description": "Did the user try to verify AI output?" }
+        "verificationAttempted": { "type": "boolean", "description": "Did the user try to verify AI output?" },
+        "nudgeResponseQuality": { "type": "number", "minimum": 0, "maximum": 5, "description": "How thoughtfully the learner responded to scaffolding nudges" }
       }
+    },
+    "contextSourcesUsed": {
+      "type": "array",
+      "description": "Which CollaborAITE data sources were referenced during this interaction",
+      "items": { "type": "string", "enum": ["class_slides", "channel_conversations", "user_profile", "prior_assignments", "anonymized_transcripts"] }
     }
   },
   "required": ["id", "userId", "sessionId", "timestamp", "skillUsed", "turns"]

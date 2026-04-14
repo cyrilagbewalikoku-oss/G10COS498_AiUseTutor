@@ -9,8 +9,13 @@
     "description": { "type": "string", "description": "What this scenario tests and teaches" },
     "type": {
       "type": "string",
-      "enum": ["email_drafting", "code_review", "research_synthesis", "data_analysis", "misinformation_detection", "general"],
+      "enum": ["email_drafting", "code_review", "research_synthesis", "data_analysis", "misinformation_detection", "appropriateness_judgment", "workflow_design", "output_evaluation", "general"],
       "description": "Category of the scenario"
+    },
+    "practiceType": {
+      "type": "string",
+      "enum": ["prompt_crafting", "output_evaluation", "appropriateness_judgment", "workflow_design"],
+      "description": "Which of the 4 practice types this scenario exercises"
     },
     "difficulty": {
       "type": "string",
@@ -20,6 +25,10 @@
       "type": "array",
       "items": { "type": "string" },
       "description": "What the learner should gain from completing this scenario"
+    },
+    "contextualizedFrom": {
+      "type": "string",
+      "description": "Reference to course materials or CollaborAITE data used to contextualize this scenario (optional)"
     },
     "setup": {
       "type": "object",
@@ -58,8 +67,13 @@
       "enum": ["hallucination", "bias", "overconfidence", "sycophancy", "prompt_leak"],
       "description": "For bad-agent-simulator scenarios: what flaw the simulated agent exhibits"
     },
+    "appropriatenessType": {
+      "type": "string",
+      "enum": ["clear_yes", "clear_no", "conditional", "depends_on_context"],
+      "description": "For appropriateness_judgment scenarios: whether AI is appropriate and how clear-cut the answer is"
+    },
     "maxTurns": { "type": "integer", "description": "Maximum interaction turns before ending" },
     "estimatedMinutes": { "type": "integer", "description": "Expected duration in minutes" }
   },
-  "required": ["id", "title", "description", "type", "difficulty", "learningObjectives", "setup", "maxTurns"]
+  "required": ["id", "title", "description", "type", "practiceType", "difficulty", "learningObjectives", "setup", "maxTurns"]
 }

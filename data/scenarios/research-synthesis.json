@@ -3,6 +3,7 @@
   "title": "Research Paper Synthesis",
   "description": "User must use an AI agent to synthesize findings from multiple research papers, testing citation verification, handling of conflicting results, and methodological awareness.",
   "type": "research_synthesis",
+  "practiceType": "workflow_design",
   "difficulty": "critical_thinker",
   "learningObjectives": [
     "Verify that AI-cited papers actually exist and support the stated claims",

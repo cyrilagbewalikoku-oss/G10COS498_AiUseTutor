@@ -2,7 +2,8 @@
   "id": "scenario-email-drafting-001",
   "title": "Drafting Parent Communication About AI Classroom Policy",
   "description": "You are a 5th-grade teacher at Maplewood Elementary. Your school district has just approved a new policy allowing limited use of AI tools (like ChatGPT) in classrooms for students in grades 4-6. You need to draft an email to parents explaining this policy, addressing likely concerns, and encouraging a positive but cautious approach. You will use an AI assistant to help you draft this communication.",
-  "type": "communication",
+  "type": "email_drafting",
+  "practiceType": "prompt_crafting",
   "difficulty": "novice",
   "learningObjectives": [
     "Practice writing clear, specific prompts for a defined communication task",

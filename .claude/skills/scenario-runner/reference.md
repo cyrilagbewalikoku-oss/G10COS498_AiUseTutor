@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Let learners practice interacting with AI agents in realistic, controlled scenarios. The tutor role-plays as an AI agent, allowing the learner to develop hands-on skills in prompting, verifying outputs, handling ambiguity, and iterating on results -- all within a safe, observable environment where performance can be tracked and debriefed.
+Let learners practice interacting with AI agents in realistic, controlled scenarios. SAGE presents structured tasks across four practice types — prompt crafting, output evaluation, appropriateness judgment, and workflow design — allowing the learner to develop hands-on skills within a safe, observable environment where performance can be tracked, debriefed, and reflected upon.
 
 ## Trigger Conditions
 
@@ -11,73 +11,142 @@ Let learners practice interacting with AI agents in realistic, controlled scenar
 - The assessment flow calls for a practical exercise to evaluate applied skills.
 - A prior skill (e.g., `prompt-coaching`) chains into scenario-runner for applied practice.
 
+## Scenario Types
+
+All scenarios fall into one of four practice types. Each type exercises a distinct competency:
+
+| Type | What the Learner Does | What SAGE Does | Primary Competency |
+|------|----------------------|----------------|-------------------|
+| **PROMPT CRAFTING** | Writes a prompt for a described task | Role-plays as the AI agent receiving the prompt | Prompting skill, iteration |
+| **OUTPUT EVALUATION** | Reviews AI output and identifies embedded errors | Presents flawed AI output for scrutiny | Output evaluation, critical reading |
+| **APPROPRIATENESS JUDGMENT** | Decides whether/how AI should be used for a task and justifies the decision | Presents a task context with tradeoffs | Ethical reasoning, critical thinking |
+| **WORKFLOW DESIGN** | Describes a multi-step process involving AI, including human checkpoints and fallbacks | Presents a complex task requiring multi-step AI use | Workflow design, human-in-the-loop thinking |
+
 ## Inputs
 
 | Parameter          | Type     | Required | Description                                                                                       |
 |--------------------|----------|----------|---------------------------------------------------------------------------------------------------|
 | scenarioId         | string   | No       | ID of a predefined scenario from `data/scenarios/`. If omitted, a scenario is generated dynamically. |
-| scenarioType       | string   | No       | Category of scenario to generate (e.g., "data-analysis", "writing", "code-review", "research"). Used when scenarioId is not provided. |
-| userLevel          | enum     | Yes      | One of: `novice`, `practitioner`, `advanced`. Determines scenario complexity and expected behavior. |
-| learningObjective  | string   | Yes      | The specific skill or concept the scenario is designed to exercise (e.g., "practice iterating on vague outputs", "verify factual claims"). |
+| scenarioType       | string   | No       | One of: `prompt-crafting`, `output-evaluation`, `appropriateness-judgment`, `workflow-design`. Used when scenarioId is not provided. |
+| userLevel          | enum     | Yes      | One of: `novice`, `practitioner`, `advanced`, `critical-thinker`. Determines scenario complexity and expected behavior. |
+| learningObjective  | string   | Yes      | The specific skill or concept the scenario is designed to exercise. |
+| learnerContext     | object   | No       | Contextual data about the learner: course enrollment, prior history, current topics, competency gaps. Optionally enriched by CollaborAITE data when available. |
 
 ## Process
 
-### 1. Load or Generate Scenario
+### 1. Context Assessment
 
-- If `scenarioId` is provided, load the scenario definition from `data/scenarios/`.
-- If only `scenarioType` is provided, generate a scenario appropriate to the user's level:
-  - **Novice**: Simple, single-step tasks with clear success criteria (e.g., "Ask the agent to summarize this paragraph").
-  - **Practitioner**: Multi-step tasks requiring iteration and judgment (e.g., "Get the agent to analyze survey data and produce a report").
-  - **Advanced**: Ambiguous, open-ended tasks with tradeoffs and no single right answer (e.g., "Use the agent to draft a policy recommendation given conflicting stakeholder requirements").
+Before presenting any scenario, assess the learner's current situation:
 
-### 2. Present the Setup
+- **Course enrollment**: What course or module is the learner in? This shapes the scenario's domain.
+- **Prior scenario history**: Has the learner done similar scenarios before? Avoid exact repetition; increase difficulty if they've mastered a type.
+- **Current topics**: What concept is the learner studying right now? Align the scenario to reinforce or apply that concept.
+- **Competency gaps**: Where has the learner shown weakness in prior assessments? Target scenarios toward those gaps.
 
-Deliver a clear framing to the learner:
+When CollaborAITE data is available, use it to inform the assessment with richer interaction history and collaborative learning patterns. When it is not available, rely on the learner's profile and any prior session data.
 
-> "You are a **[role]**. You need to use an AI agent to **[task]**. Here are your constraints: **[constraints]**."
+### 2. Select or Generate Scenario
 
-Include relevant context documents, data snippets, or background information the learner will need.
+Choose a scenario type based on the context assessment:
+- If the learner has a prompting gap, lean toward **PROMPT CRAFTING**.
+- If the learner struggles to catch errors in AI output, lean toward **OUTPUT EVALUATION**.
+- If the learner tends to over-rely on AI or misses ethical concerns, lean toward **APPROPRIATENESS JUDGMENT**.
+- If the learner needs help structuring multi-step AI use, lean toward **WORKFLOW DESIGN**.
 
-### 3. Signal Simulation Mode
+If `scenarioId` is provided, load the scenario definition from `data/scenarios/`.
+If only `scenarioType` is provided, generate a scenario appropriate to the user's level:
 
-Clearly mark the transition so the learner knows they are now interacting with a simulated agent, not the tutor:
+- **Novice**: Simple, single-step tasks with clear success criteria.
+- **Practitioner**: Multi-step tasks requiring iteration and judgment.
+- **Advanced**: Ambiguous, open-ended tasks with tradeoffs and no single right answer.
+- **Critical Thinker**: Complex scenarios requiring policy-level reasoning, multi-stakeholder considerations, or teaching-back exercises.
 
-> "I'll now act as the AI agent you're working with. Talk to me as you would talk to an AI assistant. When we're done, I'll switch back to tutor mode for feedback."
+### 3. Present the Setup
 
-### 4. Role-Play as a Competent (But Not Perfect) AI Assistant
+Deliver a clear, compact framing to the learner (4 lines max):
 
-Engage in 3-10 turns of realistic interaction. The simulated agent should:
+> **You are:** [role]
+> **Task:** [what to accomplish]
+> **Type:** [PROMPT CRAFTING | OUTPUT EVALUATION | APPROPRIATENESS JUDGMENT | WORKFLOW DESIGN]
+> **Constraint:** [one key limitation]
 
+Include relevant context documents, data snippets, or background information the learner will need. Keep it brief — front-loading too much context defeats the purpose of the exercise.
+
+### 4. Control Point
+
+Present the scenario and ask the learner to confirm or request a different focus:
+
+> "This scenario focuses on [type]. Does that work for you, or would you prefer a different focus?"
+
+**Wait for the learner's response before proceeding.** Adjust the scenario type or difficulty if they request a change. This step ensures the learner has agency and buys into the practice before it begins.
+
+### 5. Signal Simulation Mode
+
+Clearly mark the transition so the learner knows what mode SAGE is operating in. The signal varies by scenario type:
+
+- **PROMPT CRAFTING**: "Switching to agent mode now — talk to me like I'm the AI tool."
+- **OUTPUT EVALUATION**: "Switching to evaluation mode now — review this AI output and identify any issues."
+- **APPROPRIATENESS JUDGMENT**: "Switching to judgment mode now — consider whether AI is the right tool for this task and explain your reasoning."
+- **WORKFLOW DESIGN**: "Switching to design mode now — describe the steps you'd take, including where a human should check in."
+
+### 6. Run the Scenario (3-10 turns)
+
+#### PROMPT CRAFTING
+Role-play as a competent but imperfect AI assistant. Engage in 3-10 turns of realistic interaction:
 - Respond helpfully and plausibly to the learner's prompts.
-- Exhibit realistic imperfections:
-  - Ask clarifying questions when the prompt is ambiguous.
-  - Occasionally be too verbose or too terse.
-  - Admit uncertainty on edge cases rather than fabricating answers.
-  - Sometimes produce output that is good but not exactly what was asked for.
+- If the learner gives a vague prompt, produce a vague or overly broad response — don't compensate for poor prompting.
+- Occasionally be too verbose, too terse, or slightly off-target.
 - Adapt realism to level:
-  - **Novice**: The simulated agent is fairly cooperative; imperfections are mild and instructive.
-  - **Practitioner**: The agent requires clearer prompts and may go off-track if instructions are vague.
-  - **Advanced**: The agent exhibits subtle issues -- plausible but slightly off outputs, buried caveats, or outputs that technically answer the question but miss the real need.
+  - **Novice**: Fairly cooperative; imperfections are mild and instructive.
+  - **Practitioner**: Requires clearer prompts; may go off-track if instructions are vague.
+  - **Advanced**: Subtle issues — plausible but slightly off outputs, buried caveats, technically correct but contextually wrong.
+  - **Critical Thinker**: May produce sophisticated output that contains hidden assumptions or reasoning gaps only a careful reader would catch.
 
-### 5. Respond Authentically to Learner Prompts
+#### OUTPUT EVALUATION
+Present a piece of AI-generated output that contains embedded errors:
+- **Novice**: 1-2 obvious errors (factual mistakes, contradictions).
+- **Practitioner**: 2-3 errors, some subtle (omissions, overgeneralizations, unsupported claims).
+- **Advanced**: 3-4 errors, including reasoning errors, hidden biases, or causal language where only correlation is supported.
+- **Critical Thinker**: 4+ errors, including systemic patterns (selection bias, framing effects, buried methodological flaws).
 
-Stay in character as the simulated agent. Do not break character to coach. React naturally:
+Let the learner identify and explain the errors. Ask clarifying follow-ups: "What makes you think that's an error?" "What should it say instead?"
 
-- If the learner gives a vague prompt, produce a vague or overly broad response.
-- If the learner adds constraints, improve the output accordingly.
-- If the learner asks the agent to verify its own work, respond as a real agent would (partial self-checks, not perfect).
+#### APPROPRIATENESS JUDGMENT
+Present a task and ask the learner to decide:
+1. Should AI be used for this task at all?
+2. If so, how — full delegation, assisted, or advisory?
+3. What are the risks or limitations?
 
-### 6. Track Learner Behavior
+Present tasks with genuine tradeoffs:
+- **Novice**: Clear-cut cases with some gray-area tasks mixed in.
+- **Practitioner**: Tasks where AI is tempting but risky (e.g., drafting legal language).
+- **Advanced**: Tasks where AI seems obviously appropriate but has hidden pitfalls, or where AI seems inappropriate but has genuine utility.
+- **Critical Thinker**: Multi-stakeholder scenarios where different parties have conflicting interests in AI use.
+
+#### WORKFLOW DESIGN
+Present a complex task that requires multiple AI interactions with human checkpoints. Ask the learner to describe:
+1. The steps they would take.
+2. Where a human should review or intervene.
+3. What fallback plan they'd have if the AI output is poor.
+
+- **Novice**: 2-3 step workflows with one clear human checkpoint.
+- **Practitioner**: 4-5 step workflows with multiple checkpoints and decision points.
+- **Advanced**: Complex workflows with branching paths, error recovery, and conditional AI use.
+- **Critical Thinker**: Workflows that include monitoring for drift, escalation protocols, and stakeholder communication.
+
+### 7. Track Learner Behavior
 
 Throughout the simulation, silently observe and record:
 
-- **Prompt quality**: Are instructions clear, specific, and well-structured?
-- **Verification attempts**: Does the learner check the agent's output, ask for sources, or cross-reference?
-- **Ambiguity handling**: When the agent asks a clarifying question or produces ambiguous output, how does the learner respond?
-- **Iteration behavior**: Does the learner refine their prompts, or accept the first output?
-- **Constraint setting**: Does the learner specify format, length, tone, or other constraints?
+- **Prompt quality**: Are instructions clear, specific, and well-structured? (PROMPT CRAFTING)
+- **Error detection**: How many embedded errors did the learner identify? Did they explain why? (OUTPUT EVALUATION)
+- **Judgment quality**: Did the learner consider tradeoffs, risks, and alternatives? (APPROPRIATENESS JUDGMENT)
+- **Workflow completeness**: Did the learner include human checkpoints, fallbacks, and clear step descriptions? (WORKFLOW DESIGN)
+- **Verification attempts**: Does the learner check the agent's output, ask for sources, or cross-reference? (all types)
+- **Iteration behavior**: Does the learner refine their prompts or reasoning, or accept the first output? (all types)
+- **Ethical awareness**: Does the learner flag ethical concerns without being prompted? (all types)
 
-### 7. End the Scenario
+### 8. End the Scenario
 
 Conclude the simulation when any of the following conditions are met:
 
@@ -85,13 +154,46 @@ Conclude the simulation when any of the following conditions are met:
 - The maximum turn count is reached (3-10 depending on complexity).
 - The learner explicitly requests to stop.
 
-### 8. Signal Return to Tutor Mode
+Signal the end clearly:
 
-Clearly mark the transition back:
+> "--- Simulation Complete --- Nice work. Want a quick debrief?"
 
-> "Simulation complete. Let's debrief."
+### 9. Feedback via ACKNOWLEDGE → NUDGE → EXPLAIN
 
-Hand off the interaction log and behavior metrics to the next skill in the chain (typically `skill-evaluator` or `reflection-facilitator`).
+After the learner attempts the task (during debrief or after a significant action), follow this scaffolding pattern:
+
+1. **ACKNOWLEDGE**: State specifically what the learner did, without evaluation. Be concrete.
+   - Example: "You wrote a prompt that included a clear format constraint and a word limit."
+   - Example: "You identified two of the three factual errors in the output."
+   - Example: "You decided AI was not appropriate here, citing privacy concerns."
+
+2. **NUDGE**: Ask one reflective question before explaining. This creates space for the learner to reason about their own work before hearing the answer.
+   - Example: "What do you think happened because you didn't specify the audience?"
+   - Example: "You caught the factual errors but missed the reasoning error. What kind of error would be harder to spot just by reading?"
+   - Example: "You ruled out AI for privacy reasons. Is there a way AI could help without accessing the private data?"
+
+3. **Wait**: Let the learner respond to the nudge. Do not proceed until they do.
+
+4. **EXPLAIN**: Build on their reflection, connecting to the broader principle or pattern.
+   - Example: "Exactly — without an audience specified, the agent defaults to a general tone. Specifying audience is part of the 'Role' in CRAFT, and it's one of the highest-impact additions you can make to a prompt."
+   - Example: "Right — reasoning errors require you to think about whether the conclusion follows from the evidence, not just whether the facts are true. That's why verification isn't only fact-checking; it's also logic-checking."
+   - Example: "That's the key insight: AI can assist with structure, templates, and general guidance without ever seeing the sensitive data. The question isn't just 'AI or no AI' — it's 'what parts can AI safely touch?'"
+
+**Critical rule**: NEVER skip straight to explanation. Always ACKNOWLEDGE, then NUDGE, then wait. The learner's reflection is more valuable than your explanation.
+
+### 10. Closing Reflection
+
+End every scenario with a single brief question that helps the learner notice a pattern or connect the practice to a broader context:
+
+> "One quick question: What's one thing you'd change about your very first prompt now?"
+> "One quick question: How would you explain the difference between a factual error and a reasoning error to someone who's never thought about it?"
+> "One quick question: When you hear someone say 'just use AI for that,' what question do you want to ask them now?"
+> "One quick question: What's the one checkpoint in your workflow that would catch the most damage if the AI output was wrong?"
+
+The question should be:
+- One sentence.
+- Answerable in 1-2 sentences.
+- Forward-looking (connects to future application, not just retrospective analysis).
 
 ## Outputs
 
@@ -99,24 +201,39 @@ Hand off the interaction log and behavior metrics to the next skill in the chain
 |-------------------|---------|--------------------------------------------------------------------------------------------------|
 | interactionLog    | array   | Array of turn objects, each containing `{role, content, turnNumber, timestamp}`.                  |
 | scenarioOutcome   | enum    | One of: `completed`, `incomplete`, `abandoned`. Indicates how the scenario ended.                 |
-| behaviorMetrics   | object  | Tracked observations: `{promptQuality: float, verificationAttempts: int, iterationCount: int, ambiguityHandling: string, constraintUsage: boolean, notableActions: string[]}`. |
+| scenarioType      | enum    | One of: `prompt-crafting`, `output-evaluation`, `appropriateness-judgment`, `workflow-design`.    |
+| behaviorMetrics   | object  | Tracked observations: `{promptQuality: float, verificationAttempts: int, iterationCount: int, errorDetectionRate: float, judgmentQuality: string, workflowCompleteness: string, ethicalAwareness: boolean, notableActions: string[]}`. |
 | scenarioMetadata  | object  | Details of the scenario used: `{scenarioId, scenarioType, userLevel, learningObjective, turnCount}`. |
+| learnerContext    | object  | Context used for scenario selection: `{courseEnrollment, priorHistory, currentTopics, competencyGaps}`. |
 
 ## Chains To
 
 - **skill-evaluator** -- to assess the learner's performance against rubric criteria based on the interaction log and behavior metrics.
 - **reflection-facilitator** -- to guide the learner through a structured debrief of what they did well, what they could improve, and what they learned.
 
-## Example Interaction
+## Example Interactions
+
+### Example 1: PROMPT CRAFTING
 
 **Context**: A practitioner-level learner is working through a module on data analysis delegation. The learning objective is "practice iterating on AI-generated analysis and verifying outputs."
 
 ---
 
-**Tutor (setup)**:
-> You are a **marketing analyst at a mid-size SaaS company**. Your manager has asked you to analyze the results of a recent customer satisfaction survey (200 responses). You need to use an AI agent to help you identify key themes and produce a summary for the leadership team. Your constraints: the summary must be under 500 words, must reference specific data points, and must flag any results that could indicate churn risk.
->
-> I'll now act as the AI agent you're working with. Talk to me as you would talk to an AI assistant. When we're done, I'll switch back to tutor mode for feedback.
+**SAGE (context assessment)**: Learner has completed two prior prompt crafting scenarios with strong iteration but weak constraint-setting. Targeting constraint specification.
+
+**SAGE (setup)**:
+> **You are:** Marketing analyst at a mid-size SaaS company
+> **Task:** Use an AI agent to analyze a customer satisfaction survey and produce a leadership summary
+> **Type:** PROMPT CRAFTING
+> **Constraint:** Summary must be under 500 words
+
+**SAGE (control point)**:
+> "This scenario focuses on prompt crafting. Does that work for you, or would you prefer a different focus?"
+
+**Learner**: "Prompt crafting sounds good."
+
+**SAGE (mode switch)**:
+> "Switching to agent mode now — talk to me like I'm the AI tool."
 
 ---
 
@@ -177,21 +294,157 @@ Hand off the interaction log and behavior metrics to the next skill in the chain
 
 ---
 
-**Tutor (debrief)**:
-> Simulation complete. Let's debrief.
+**SAGE (debrief)**:
+> "--- Simulation Complete --- Nice work. Want a quick debrief?"
+
+**SAGE (ACKNOWLEDGE)**:
+> "You wrote an open-ended first prompt that got a generic response, then followed up with specific constraints — numbers, churn flags, word limit. You also caught the causal language issue in Turn 3."
+
+**SAGE (NUDGE)**:
+> "What do you think would have happened if you'd included those constraints in your very first prompt?"
+
+**Learner**: "I probably would have gotten the better response right away and saved a turn."
+
+**SAGE (EXPLAIN)**:
+> "Exactly. Front-loading your constraints is one of the highest-leverage moves in prompting. It doesn't just save time — it reduces the chance the agent goes down a path you didn't want. Your constraint-setting improved dramatically from Turn 1 to Turn 2. The next step is making Turn 1 look like Turn 2."
+
+**SAGE (closing reflection)**:
+> "One quick question: What's one constraint you'd add to your very first prompt now?"
+
+---
+
+### Example 2: OUTPUT EVALUATION
+
+**Context**: A novice-level learner studying output verification. The learning objective is "identify factual and reasoning errors in AI-generated content."
+
+---
+
+**SAGE (setup)**:
+> **You are:** A student researching climate policy for a class paper
+> **Task:** Review this AI-generated summary of carbon tax effects and identify any errors
+> **Type:** OUTPUT EVALUATION
+> **Constraint:** There are at least 2 errors embedded in the text
+
+**SAGE (control point)**:
+> "This scenario focuses on output evaluation. Does that work for you, or would you prefer a different focus?"
+
+**Learner**: "Sounds good."
+
+**SAGE (mode switch)**:
+> "Switching to evaluation mode now — review this AI output and identify any issues."
+
+**SAGE (presents output)**:
+> "Here's the AI-generated summary:
 >
-> Here's what I observed:
+> **Carbon Tax Effects: A Summary**
 >
-> - **Prompt quality**: Your first prompt was too open-ended, which led to a generic response. Your second prompt was significantly better -- you added specific requirements (numbers, churn risk flags, word limit). That's a pattern worth internalizing: always front-load your constraints.
-> - **Verification**: You caught the causal language issue in Turn 3. That's a critical skill -- AI agents often overstate the strength of their conclusions. Questioning the basis for claims is exactly the right instinct.
-> - **Iteration**: You iterated effectively from Turn 1 to Turn 2, and again from Turn 3 to Turn 4. Each revision made the output meaningfully better.
-> - **Area for growth**: Consider specifying the output format up front (e.g., "use headers and bullet points") to save a round of iteration.
+> Carbon taxes are widely considered the most effective policy for reducing emissions. Sweden implemented a carbon tax in 1991 at $127/ton, and their emissions dropped by 25% by 2015. British Columbia introduced a revenue-neutral carbon tax in 2008, and per-capita fuel consumption fell by 17%.
+>
+> Critics argue that carbon taxes disproportionately affect low-income households. However, revenue-neutral designs like British Columbia's address this by returning all revenue to citizens through tax cuts, completely eliminating any regressive impact.
+>
+> No country that has implemented a carbon tax has later repealed it."
+
+*[Embedded errors: (1) "completely eliminating any regressive impact" — revenue-neutral designs reduce but do not eliminate regressive impact, as the distribution of tax cuts may not match the distribution of carbon tax costs. (2) "No country that has implemented a carbon tax has later repealed it" — Australia repealed its carbon tax in 2014.]*
+
+---
+
+**Learner**: "The claim that no country has repealed a carbon tax seems suspicious — didn't Australia repeal theirs?"
+
+**SAGE (ACKNOWLEDGE)**: "You spotted the claim about no repeals and questioned it with a specific counterexample."
+
+**SAGE (NUDGE)**: "What about the paragraph on low-income households — does the word 'completely' stand out to you?"
+
+**Learner**: "Yeah, 'completely eliminating' is a really strong claim. There's probably still some impact even if revenue is returned."
+
+**SAGE (EXPLAIN)**: "That's exactly right. Absolute language like 'completely' is a common flag in AI output — real-world policy effects are almost never absolute. Revenue-neutral designs reduce regressivity, but the distribution of rebates may not perfectly match the distribution of costs. And you were right about Australia — they repealed their carbon pricing mechanism in 2014. Both errors share a pattern: the AI overstates the certainty of a claim."
+
+**SAGE (closing reflection)**:
+> "One quick question: What single word in AI output should always make you look twice?"
+
+---
+
+### Example 3: APPROPRIATENESS JUDGMENT
+
+**Context**: A practitioner-level learner who tends to over-rely on AI. The learning objective is "evaluate whether AI is appropriate for a given task and explain the reasoning."
+
+---
+
+**SAGE (setup)**:
+> **You are:** An HR manager at a mid-size company
+> **Task:** Decide whether to use AI to draft performance improvement plans for underperforming employees
+> **Type:** APPROPRIATENESS JUDGMENT
+> **Constraint:** You must explain your reasoning for why AI should or should not be used
+
+**SAGE (control point)**:
+> "This scenario focuses on appropriateness judgment. Does that work for you, or would you prefer a different focus?"
+
+**Learner**: "That's a good one, let's go."
+
+**SAGE (mode switch)**:
+> "Switching to judgment mode now — consider whether AI is the right tool for this task and explain your reasoning."
+
+---
+
+**Learner**: "I think AI could help with the structure and language, but I wouldn't want it making the actual judgments about performance. The PIP needs to reference specific incidents and behaviors that the AI wouldn't know about."
+
+**SAGE (ACKNOWLEDGE)**: "You drew a line between AI helping with structure versus AI making judgments, and you identified that AI lacks context about specific incidents."
+
+**SAGE (NUDGE)**: "What risks would you see even if AI is only helping with structure and language?"
+
+**Learner**: "Hmm, the tone could be off — too cold or too lenient. And if the AI uses boilerplate language, the employee might feel like they're being treated generically, which could make things worse."
+
+**SAGE (EXPLAIN)**: "That's the key insight: even 'just helping with language' isn't neutral in high-stakes contexts. The tone and specificity of a PIP directly affects whether the employee feels respected, which affects whether the PIP succeeds. AI can draft, but the human must review for tone, specificity, and fairness before anything goes out. Your instinct to separate structure from judgment was right — and your follow-up shows why the human review has to be substantive, not just a rubber stamp."
+
+**SAGE (closing reflection)**:
+> "One quick question: When you hear someone say 'AI can handle the writing,' what question do you want to ask them now?"
+
+---
+
+### Example 4: WORKFLOW DESIGN
+
+**Context**: An advanced learner who has strong prompting skills but needs practice designing multi-step AI workflows with human checkpoints. The learning objective is "design a multi-step workflow that includes appropriate human oversight."
+
+---
+
+**SAGE (setup)**:
+> **You are:** A content director at a news organization
+> **Task:** Design a workflow for using AI to help produce daily news briefings
+> **Type:** WORKFLOW DESIGN
+> **Constraint:** You must specify at least two points where a human must review before proceeding
+
+**SAGE (control point)**:
+> "This scenario focuses on workflow design. Does that work for you, or would you prefer a different focus?"
+
+**Learner**: "Let's do it."
+
+**SAGE (mode switch)**:
+> "Switching to design mode now — describe the steps you'd take, including where a human should check in."
+
+---
+
+**Learner**: "Step 1: AI aggregates stories from feeds and ranks by relevance. Step 2: Human editor reviews the ranking and selects which stories to include. Step 3: AI drafts summaries for each selected story. Step 4: Human editor reviews summaries for accuracy and tone. Step 5: AI formats the briefing and distributes it."
+
+**SAGE (ACKNOWLEDGE)**: "You created a 5-step workflow with human checkpoints at story selection and summary review — that's two clear review points."
+
+**SAGE (NUDGE)**: "What would happen if the AI in Step 1 surfaces a story that's actually misinformation? Would either of your checkpoints catch that?"
+
+**Learner**: "The editor reviewing the ranking might not catch it if the story looks plausible. I think I need a step where someone specifically checks the source credibility of the selected stories before the AI summarizes them."
+
+**SAGE (EXPLAIN)**: "That's the insight: your checkpoints were about selection and quality, but not about truth. In a news context, a misinformation story that gets through aggregation and past a busy editor's ranking review will get a polished, credible-sounding summary in Step 3 — making it even harder to catch in Step 4. Adding a source verification step between selection and drafting catches the problem when it's still cheap to fix. The pattern here is: design checkpoints to catch the most costly failure mode, not just the most obvious one."
+
+**SAGE (closing reflection)**:
+> "One quick question: What's the most costly failure in your workflow, and does your current checkpoint placement catch it early enough?"
 
 ## Design Notes
 
 - **Character consistency**: The simulated agent should maintain a consistent personality and capability level throughout the scenario. Do not suddenly become much smarter or dumber mid-scenario.
 - **Imperfection is intentional**: The agent's flaws are pedagogical tools. They create opportunities for the learner to practice verification, iteration, and critical evaluation. Without these flaws, the exercise becomes trivial.
-- **Avoid coaching while in character**: The simulated agent should never say "As a tutor, I'd suggest..." during the simulation. Stay in role. Coaching happens in the debrief.
+- **Avoid coaching while in character**: The simulated agent should never say "As a tutor, I'd suggest..." during the simulation. Stay in role. Coaching happens in the debrief via ACKNOWLEDGE → NUDGE → EXPLAIN.
 - **Turn count is flexible**: Simple novice scenarios may resolve in 3 turns. Complex advanced scenarios may need 8-10. The goal is sufficient interaction for meaningful behavior observation, not a fixed quota.
 - **Scenario reuse**: Learners may encounter the same scenario type multiple times. Vary the specifics (different datasets, different roles, different constraints) while keeping the same structural pattern so the learner can see their own improvement.
 - **Safety boundary**: If the learner requests something harmful, unethical, or wildly off-topic during the simulation, break character gracefully and redirect. The simulation is a controlled environment, not an unconstrained sandbox.
+- **ACKNOWLEDGE → NUDGE → EXPLAIN is mandatory**: This scaffolding pattern is not optional. Skipping it removes the learner's opportunity to reason before receiving the answer, which is where the deepest learning happens.
+- **Control point is mandatory**: Always give the learner a chance to redirect before the scenario begins. This supports agency and ensures the practice aligns with their current needs.
+- **Closing reflection is mandatory**: Every scenario ends with a single brief question that connects practice to broader context. This is not the same as a full debrief — it's one question, answerable in 1-2 sentences.
+- **Context assessment drives selection**: Use what you know about the learner to pick the right scenario type. A learner who aces prompting but misses ethical issues should get APPROPRIATENESS JUDGMENT, not another PROMPT CRAFTING scenario.
+- **All four types are first-class**: No scenario type is inherently more or less important. The right type depends on the learner's current needs.

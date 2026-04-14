@@ -2,7 +2,8 @@
   "id": "scenario-code-review-001",
   "title": "AI-Assisted Security Review of a Pull Request",
   "description": "You are a mid-level backend developer at a fintech startup. A colleague has submitted a pull request that adds a new REST API endpoint for processing user payment refunds. You are using an AI assistant to help review the code for security vulnerabilities before approving the PR. The codebase is a Node.js/Express application with a PostgreSQL database.",
-  "type": "technical-review",
+  "type": "code_review",
+  "practiceType": "output_evaluation",
   "difficulty": "advanced",
   "learningObjectives": [
     "Learn to provide sufficient codebase context when asking AI to review code",
