@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assessment Result",
+  "description": "Result of a knowledge check, skill evaluation, or level classification",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "userId": { "type": "string" },
+    "assessmentType": {
+      "type": "string",
+      "enum": ["knowledge_check", "skill_evaluation", "level_classification"],
+      "description": "Type of assessment performed"
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "skillArea": { "type": "string", "description": "Topic or skill being assessed" },
+    "questions": {
+      "type": "array",
+      "description": "Individual question results (for knowledge_check type)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "questionId": { "type": "string" },
+          "question": { "type": "string" },
+          "userAnswer": { "type": "string" },
+          "correctAnswer": { "type": "string" },
+          "isCorrect": { "type": "boolean" },
+          "feedback": { "type": "string" }
+        },
+        "required": ["questionId", "question", "userAnswer", "isCorrect"]
+      }
+    },
+    "dimensionScores": {
+      "type": "object",
+      "properties": {
+        "conceptualUnderstanding": { "type": "number", "minimum": 0, "maximum": 5 },
+        "promptingSkill": { "type": "number", "minimum": 0, "maximum": 5 },
+        "outputEvaluation": { "type": "number", "minimum": 0, "maximum": 5 },
+        "ethicalReasoning": { "type": "number", "minimum": 0, "maximum": 5 },
+        "criticalThinking": { "type": "number", "minimum": 0, "maximum": 5 }
+      }
+    },
+    "overallScore": { "type": "number", "minimum": 0, "maximum": 100 },
+    "level": {
+      "type": "string",
+      "enum": ["novice", "practitioner", "advanced", "critical_thinker"]
+    },
+    "levelUpReady": { "type": "boolean", "description": "Whether user meets all thresholds for next level" },
+    "strengths": { "type": "array", "items": { "type": "string" } },
+    "gaps": { "type": "array", "items": { "type": "string" } },
+    "recommendations": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["id", "userId", "assessmentType", "timestamp"]
+}

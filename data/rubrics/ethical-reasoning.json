@@ -1,0 +1,62 @@
+{
+  "id": "rubric-003",
+  "name": "Ethical Reasoning Rubric",
+  "description": "Evaluates the quality of ethical reasoning about AI use",
+  "dimensions": [
+    {
+      "name": "Stakeholder Identification",
+      "description": "Ability to identify who is affected by an AI-related decision",
+      "levels": [
+        { "score": 1, "label": "Self Only", "criteria": "Only considers impact on themselves.", "examples": ["'This saves me time' without considering who else is affected"] },
+        { "score": 2, "label": "Immediate", "criteria": "Considers immediate, obvious stakeholders.", "examples": ["Identifies direct users but not downstream affected parties"] },
+        { "score": 3, "label": "Broad", "criteria": "Identifies multiple stakeholder groups including indirect ones.", "examples": ["Considers users, clients, end customers, and team members"] },
+        { "score": 4, "label": "Systemic", "criteria": "Identifies systemic stakeholders and power dynamics.", "examples": ["Considers how AI decisions affect people with less power: job applicants, students, patients"] },
+        { "score": 5, "label": "Expert", "criteria": "Maps full stakeholder ecosystem including absent voices.", "examples": ["'Who ISN'T represented in this data? Whose perspective is the AI unlikely to reflect?'"] }
+      ]
+    },
+    {
+      "name": "Consequence Analysis",
+      "description": "Ability to reason about potential positive and negative outcomes",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "Doesn't consider consequences.", "examples": ["Acts without thinking about outcomes"] },
+        { "score": 2, "label": "Obvious", "criteria": "Considers only immediate, obvious consequences.", "examples": ["'If the AI is wrong, the report will be inaccurate'"] },
+        { "score": 3, "label": "Extended", "criteria": "Considers second-order effects and longer-term outcomes.", "examples": ["'If we publish inaccurate content, we lose credibility, which affects future client trust'"] },
+        { "score": 4, "label": "Probabilistic", "criteria": "Weighs likelihood and severity of different outcomes.", "examples": ["'The probability of harm is low but the severity is high, so we should still be cautious'"] },
+        { "score": 5, "label": "Expert", "criteria": "Considers precedent-setting effects and systemic consequences.", "examples": ["'If every company does this, what happens to the industry? To public trust in AI?'"] }
+      ]
+    },
+    {
+      "name": "Principle Application",
+      "description": "Ability to apply ethical principles (transparency, privacy, fairness, accountability, human oversight)",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "No ethical principles considered.", "examples": ["Pure efficiency reasoning with no ethical dimension"] },
+        { "score": 2, "label": "Intuitive", "criteria": "Applies principles implicitly without naming them.", "examples": ["'That doesn't feel right' without being able to articulate why"] },
+        { "score": 3, "label": "Named", "criteria": "Applies and names relevant principles.", "examples": ["'This violates the transparency principle — users should know AI is involved'"] },
+        { "score": 4, "label": "Balanced", "criteria": "Weighs competing principles when they conflict.", "examples": ["'Transparency says disclose, but privacy says protect. Here's how I'd balance them...'"] },
+        { "score": 5, "label": "Expert", "criteria": "Critiques limitations of principles themselves and adapts to context.", "examples": ["'The standard framework doesn't fully address this because it assumes individual agency, but here the decision affects a group'"] }
+      ]
+    },
+    {
+      "name": "Pressure Resilience",
+      "description": "Ability to maintain ethical position under organizational or social pressure",
+      "levels": [
+        { "score": 1, "label": "Capitulates", "criteria": "Abandons ethical position when challenged.", "examples": ["'If my boss says it's fine, I guess it's fine'"] },
+        { "score": 2, "label": "Uncomfortable", "criteria": "Expresses discomfort but doesn't propose alternatives.", "examples": ["'I'm not sure about this but I don't know what else to do'"] },
+        { "score": 3, "label": "Stands Ground", "criteria": "Maintains position but may not persuade effectively.", "examples": ["'I still think we should disclose, even if competitors don't'"] },
+        { "score": 4, "label": "Proposes Alternatives", "criteria": "Offers practical compromises that preserve ethical core.", "examples": ["'I understand the time pressure. Here's a hybrid approach that addresses both the deadline and the ethical concern'"] },
+        { "score": 5, "label": "Expert", "criteria": "Reframes the conversation from cost-of-ethics to cost-of-not-ethics.", "examples": ["'The real risk isn't slowing down — it's what happens when this comes out. Let me show you the liability calculation.'"] }
+      ]
+    },
+    {
+      "name": "Action Commitment",
+      "description": "Whether ethical reasoning leads to specific, actionable commitments",
+      "levels": [
+        { "score": 1, "label": "None", "criteria": "No action taken or planned.", "examples": ["Acknowledges the issue but does nothing"] },
+        { "score": 2, "label": "Vague", "criteria": "Commits to general improvement without specifics.", "examples": ["'I'll be more careful next time'"] },
+        { "score": 3, "label": "Specific", "criteria": "Commits to a specific personal behavior change.", "examples": ["'I'll verify every AI citation before including it in my research'"] },
+        { "score": 4, "label": "Systemic", "criteria": "Creates processes or tools to prevent the issue.", "examples": ["'I'll create a verification checklist for my team and add it to our review process'"] },
+        { "score": 5, "label": "Expert", "criteria": "Drives organizational or community-level change.", "examples": ["'I'll propose an AI use policy to the department and offer to lead the drafting committee'"] }
+      ]
+    }
+  ]
+}

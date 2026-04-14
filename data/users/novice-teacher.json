@@ -1,0 +1,37 @@
+{
+  "id": "u-001",
+  "name": "Maria Santos",
+  "role": "high school English teacher",
+  "organization": "Lincoln High School",
+  "level": "novice",
+  "goals": [
+    "Learn what AI agents can do so I can guide my students",
+    "Understand risks so I can set classroom policies",
+    "Try using AI for lesson planning"
+  ],
+  "priorKnowledge": {
+    "hasUsedChatbots": true,
+    "hasUsedAgents": false,
+    "toolsUsed": ["ChatGPT (a few times)"],
+    "selfRatedExperience": 2,
+    "knownConcepts": ["chatbot", "AI"]
+  },
+  "dimensionScores": {
+    "conceptualUnderstanding": 1.5,
+    "promptingSkill": 1.0,
+    "outputEvaluation": 1.0,
+    "ethicalReasoning": 2.0,
+    "criticalThinking": 2.5
+  },
+  "learningPath": [
+    { "moduleId": "m-101", "title": "What Are AI Agents?", "status": "completed", "completedAt": "2026-03-15T10:00:00Z" },
+    { "moduleId": "m-102", "title": "Your First Prompt", "status": "in_progress", "completedAt": null },
+    { "moduleId": "m-103", "title": "Can You Trust the Output?", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-104", "title": "AI in the Classroom", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-105", "title": "Setting AI Policies", "status": "not_started", "completedAt": null }
+  ],
+  "sessionCount": 3,
+  "totalInteractions": 42,
+  "createdAt": "2026-03-14T08:00:00Z",
+  "lastActiveAt": "2026-03-28T14:30:00Z"
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User Profile",
+  "description": "Profile for a learner in the AI Agent Use Trainer system",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid", "description": "Unique user identifier" },
+    "name": { "type": "string", "description": "User's display name" },
+    "role": { "type": "string", "description": "Job title or role", "examples": ["teacher", "student", "marketer", "developer", "researcher"] },
+    "organization": { "type": "string", "description": "School, company, or institution" },
+    "level": {
+      "type": "string",
+      "enum": ["novice", "practitioner", "advanced", "critical_thinker"],
+      "description": "Current skill level"
+    },
+    "goals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What the user wants to achieve with AI agents"
+    },
+    "priorKnowledge": {
+      "type": "object",
+      "description": "What the user already knows about AI",
+      "properties": {
+        "hasUsedChatbots": { "type": "boolean" },
+        "hasUsedAgents": { "type": "boolean" },
+        "toolsUsed": { "type": "array", "items": { "type": "string" } },
+        "selfRatedExperience": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "knownConcepts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "dimensionScores": {
+      "type": "object",
+      "description": "Scores across the 5 assessment dimensions (0-5 scale)",
+      "properties": {
+        "conceptualUnderstanding": { "type": "number", "minimum": 0, "maximum": 5 },
+        "promptingSkill": { "type": "number", "minimum": 0, "maximum": 5 },
+        "outputEvaluation": { "type": "number", "minimum": 0, "maximum": 5 },
+        "ethicalReasoning": { "type": "number", "minimum": 0, "maximum": 5 },
+        "criticalThinking": { "type": "number", "minimum": 0, "maximum": 5 }
+      }
+    },
+    "learningPath": {
+      "type": "array",
+      "description": "Ordered list of modules in the user's curriculum",
+      "items": {
+        "type": "object",
+        "properties": {
+          "moduleId": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string", "enum": ["not_started", "in_progress", "completed"] },
+          "completedAt": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "required": ["moduleId", "title", "status"]
+      }
+    },
+    "sessionCount": { "type": "integer", "description": "Total number of tutor sessions" },
+    "totalInteractions": { "type": "integer", "description": "Total number of message exchanges" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "lastActiveAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "name", "level"]
+}

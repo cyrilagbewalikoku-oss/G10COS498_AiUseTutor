@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interaction Log",
+  "description": "Record of a single interaction session between the tutor and learner",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "userId": { "type": "string", "description": "Reference to user profile ID" },
+    "sessionId": { "type": "string", "description": "Groups interactions within a session" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "skillUsed": { "type": "string", "description": "Primary skill active during this interaction" },
+    "scenarioId": { "type": "string", "description": "Scenario ID if a simulation was running" },
+    "turns": {
+      "type": "array",
+      "description": "Sequence of conversation turns",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string", "enum": ["tutor", "learner", "simulated_agent"] },
+          "content": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "metadata": {
+            "type": "object",
+            "description": "Optional metadata like skill transitions, scoring events",
+            "properties": {
+              "skillTransition": { "type": "string" },
+              "scoreEvent": { "type": "object" },
+              "simulationMode": { "type": "boolean" }
+            }
+          }
+        },
+        "required": ["role", "content", "timestamp"]
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "properties": {
+        "completed": { "type": "boolean", "description": "Whether the interaction reached its intended end" },
+        "objectiveMet": { "type": "boolean", "description": "Whether the learning objective was achieved" },
+        "notes": { "type": "string" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "turnCount": { "type": "integer" },
+        "durationSeconds": { "type": "integer" },
+        "promptQualityScore": { "type": "number", "minimum": 0, "maximum": 5 },
+        "verificationAttempted": { "type": "boolean", "description": "Did the user try to verify AI output?" }
+      }
+    }
+  },
+  "required": ["id", "userId", "sessionId", "timestamp", "skillUsed", "turns"]
+}

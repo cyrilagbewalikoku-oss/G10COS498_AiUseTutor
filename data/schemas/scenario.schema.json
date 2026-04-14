@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scenario",
+  "description": "Definition of a simulation scenario for practice or assessment",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique scenario identifier" },
+    "title": { "type": "string" },
+    "description": { "type": "string", "description": "What this scenario tests and teaches" },
+    "type": {
+      "type": "string",
+      "enum": ["email_drafting", "code_review", "research_synthesis", "data_analysis", "misinformation_detection", "general"],
+      "description": "Category of the scenario"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["novice", "practitioner", "advanced", "critical_thinker"]
+    },
+    "learningObjectives": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What the learner should gain from completing this scenario"
+    },
+    "setup": {
+      "type": "object",
+      "description": "The scenario context presented to the learner",
+      "properties": {
+        "role": { "type": "string", "description": "Who the learner is playing" },
+        "task": { "type": "string", "description": "What they need to accomplish" },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "availableTools": { "type": "array", "items": { "type": "string" } },
+        "context": { "type": "string", "description": "Background information" }
+      },
+      "required": ["role", "task", "context"]
+    },
+    "expectedBehaviors": {
+      "type": "object",
+      "description": "What good and bad learner behaviors look like",
+      "properties": {
+        "good": { "type": "array", "items": { "type": "string" } },
+        "bad": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "evaluationCriteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dimension": { "type": "string" },
+          "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+          "description": { "type": "string" }
+        },
+        "required": ["dimension", "weight", "description"]
+      }
+    },
+    "flawType": {
+      "type": "string",
+      "enum": ["hallucination", "bias", "overconfidence", "sycophancy", "prompt_leak"],
+      "description": "For bad-agent-simulator scenarios: what flaw the simulated agent exhibits"
+    },
+    "maxTurns": { "type": "integer", "description": "Maximum interaction turns before ending" },
+    "estimatedMinutes": { "type": "integer", "description": "Expected duration in minutes" }
+  },
+  "required": ["id", "title", "description", "type", "difficulty", "learningObjectives", "setup", "maxTurns"]
+}
