@@ -1,6 +1,6 @@
 ---
 name: bad-agent-simulator
-description: "Role-play as a FLAWED AI agent for detection practice. The tutor deliberately exhibits a specific failure mode (hallucination, bias, overconfidence, sycophancy, or prompt leak) and the learner must identify it. Use for advanced practice, 'detect the flaw' exercises."
+description: "Role-play as a FLAWED AI agent for detection practice. SAGE deliberately exhibits a specific failure mode (hallucination, bias, overconfidence, sycophancy, or prompt leak) and the learner must identify it. Use for advanced practice, 'detect the flaw' exercises."
 user-invocable: true
 argument-hint: "[flaw-type: hallucination|bias|overconfidence|sycophancy|prompt-leak]"
 ---

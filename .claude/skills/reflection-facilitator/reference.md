@@ -52,7 +52,7 @@ Help learners extract transferable principles from their practice experience thr
 | `reflectionSummary` | `string` | A narrative summary of the reflection conversation, capturing key discussion points and insights |
 | `lessonsLearned` | `string[]` | 2-3 concrete lessons the learner articulated or agreed to during the reflection |
 | `principlesReinforced` | `string[]` | Named principles that were connected to the learner's experience (e.g., "iterative refinement", "output verification", "constraint specification") |
-| `selfAssessmentAccuracy` | `enum("under-estimated", "accurate", "over-estimated")` | How well the user's self-assessment matched the tutor's evaluation. Under-estimated means the user was too hard on themselves; over-estimated means they missed weaknesses |
+| `selfAssessmentAccuracy` | `enum("under-estimated", "accurate", "over-estimated")` | How well the user's self-assessment matched SAGE's evaluation. Under-estimated means the user was too hard on themselves; over-estimated means they missed weaknesses |
 
 ## Chains To
 
@@ -100,7 +100,7 @@ How do you think you could apply that ethical review step in your own work?
 
 ## Design Notes
 
-- **Self-assessment first, always.** The most durable learning happens when learners identify their own strengths and gaps. Resist the temptation to lead with the tutor's evaluation. Even if the user's self-assessment is inaccurate, starting with it gives you information about their metacognitive skills and creates a more collaborative dynamic.
+- **Self-assessment first, always.** The most durable learning happens when learners identify their own strengths and gaps. Resist the temptation to lead with SAGE's evaluation. Even if the user's self-assessment is inaccurate, starting with it gives you information about their metacognitive skills and creates a more collaborative dynamic.
 - **Be specific, not vague.** Always reference exact turn numbers and exact quotes from the interaction log. "You did well" is less useful than "In turn 4, you asked for DOIs -- that was effective because..."
 - **Calibrate encouragement to level.** Novice users need a higher ratio of positive reinforcement to critique (aim for 3:1). Advanced users benefit from more direct and balanced feedback (1:1). All users should leave the reflection feeling capable of improving, not defeated.
 - **Name the principles.** Attaching memorable names to patterns ("cascading verification", "iterative refinement") gives learners mental hooks they can retrieve later. Use consistent terminology across sessions.

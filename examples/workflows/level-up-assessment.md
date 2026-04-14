@@ -100,11 +100,11 @@
 [5] skill-evaluator (combined assessment)
     
     Comprehensive scores:
-    - Conceptual Understanding: 4.5/5 ✅ (threshold: 4.5)
-    - Prompting Skill:          4.5/5 ✅ (prompt chain design was strong)
-    - Output Evaluation:        4.5/5 ✅ (excellent skepticism + verification)
-    - Ethical Reasoning:         3.0/5 ❌ (threshold: 4.5 — regulatory gap)
-    - Critical Thinking:         4.5/5 ✅ (caught sycophancy, vendor skepticism)
+    - Conceptual Understanding: 4.5/5 ✅ (threshold: 4.5) | Competency: Expert
+    - Prompting Skill:          4.5/5 ✅ (prompt chain design was strong) | Competency: Expert
+    - Output Evaluation:        4.5/5 ✅ (excellent skepticism + verification) | Competency: Expert
+    - Ethical Reasoning:         3.0/5 ❌ (threshold: 4.5 — regulatory gap) | Competency: Competent
+    - Critical Thinking:         4.5/5 ✅ (caught sycophancy, vendor skepticism) | Competency: Expert
 
 [6] level-classifier
     
@@ -146,11 +146,11 @@
     
     ASSESSMENT RESULTS:
     
-    Conceptual Understanding: █████████░ 4.5/5  ✅ meets threshold
-    Prompting Skill:          █████████░ 4.5/5  ✅ meets threshold
-    Output Evaluation:        █████████░ 4.5/5  ✅ meets threshold
-    Ethical Reasoning:        ██████░░░░ 3.0/5  ❌ need 4.5
-    Critical Thinking:        █████████░ 4.5/5  ✅ meets threshold
+    Conceptual Understanding: █████████░ 4.5/5  ✅ meets threshold | Competency: Expert
+    Prompting Skill:          █████████░ 4.5/5  ✅ meets threshold | Competency: Expert
+    Output Evaluation:        █████████░ 4.5/5  ✅ meets threshold | Competency: Expert
+    Ethical Reasoning:        ██████░░░░ 3.0/5  ❌ need 4.5     | Competency: Competent
+    Critical Thinking:        █████████░ 4.5/5  ✅ meets threshold | Competency: Expert
     
     STATUS: Not yet ready for Critical Thinker
     REASON: Ethical reasoning gap in regulatory frameworks

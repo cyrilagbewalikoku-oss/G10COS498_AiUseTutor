@@ -206,10 +206,10 @@ more everyday and relatable.
 
 ## Design Notes
 
-- This skill should be invisible to the user — they should feel the tutor naturally adapting, not see explicit difficulty changes
+- This skill should be invisible to the user — they should feel SAGE naturally adapting, not see explicit difficulty changes
 - Never drop difficulty too aggressively — one failure might be a bad question, not a competence issue
 - The 3-success-streak threshold prevents premature difficulty increase from lucky guesses
-- Vocabulary guidelines prevent the tutor from either talking down to or over the head of the learner
+- Vocabulary guidelines prevent SAGE from either talking down to or over the head of the learner
 - Track difficulty adjustments over time: if a user consistently needs -0.5 at their current level, consider whether their level classification is wrong
 - **Scaffolding pattern awareness prevents the "nudge loop."** If a learner is not responding to nudges, repeating the same nudge harder doesn't help. Instead, change the scaffolding approach: switch from abstract to concrete, add analogies, break into smaller steps.
 - **Surface answers are a signal, not a failure.** When a learner gives short answers to reflective prompts, it usually means the nudge wasn't concrete enough, not that the learner is resistant. Adjust the approach, not the learner.

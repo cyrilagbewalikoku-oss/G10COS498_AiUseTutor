@@ -11,13 +11,13 @@
 
 **CHEN**: Okay, let me paste in our production database schema along with some sample customer records so the AI can help me optimize these queries —
 
-**TUTOR**: **Stop.** Before you paste anything, I need to flag something critical.
+**SAGE**: **Stop.** Before you paste anything, I need to flag something critical.
 
 Are those actual customer records from your production database?
 
 **CHEN**: Yeah, just a few rows so the AI can understand the data structure and write better queries.
 
-**TUTOR**: I understand the impulse — showing real data helps get better results. But sharing actual customer records with an AI system is a serious problem, and I want to explain why this matters specifically for someone in your role.
+**SAGE**: I understand the impulse — showing real data helps get better results. But sharing actual customer records with an AI system is a serious problem, and I want to explain why this matters specifically for someone in your role.
 
 **Three Risks:**
 
@@ -42,7 +42,7 @@ Most tech companies now have explicit AI use policies that prohibit sharing prod
 
 **CHEN**: I honestly hadn't thought about the GDPR angle. We do have EU customers.
 
-**TUTOR**: It's a common blind spot — even experienced engineers make this mistake because the AI tool feels like a dev tool, not a third-party data processor. But legally, it is.
+**SAGE**: It's a common blind spot — even experienced engineers make this mistake because the AI tool feels like a dev tool, not a third-party data processor. But legally, it is.
 
 Here's what to do instead. There are four safe alternatives that get you equally good results:
 
@@ -82,19 +82,19 @@ it needs for optimization without any customer data.
 
 **CHEN**: Option 4 is actually better for query optimization anyway — the EXPLAIN plan has more useful information than sample rows.
 
-**TUTOR**: Exactly. And here's the irony: the safe approach often produces *better* results because you're giving the AI the information that actually matters for the task, rather than raw data it has to interpret.
+**SAGE**: Exactly. And here's the irony: the safe approach often produces *better* results because you're giving the AI the information that actually matters for the task, rather than raw data it has to interpret.
 
 Let's reflect briefly. You're a senior engineer — why do you think this mistake is so common even among technical people?
 
 **CHEN**: Because the AI chat interface feels like a local dev tool. You're typing in a text box on your screen — it doesn't feel like you're sending data to a third party's server. The UX obscures the data flow.
 
-**TUTOR**: That's a really sharp observation, and it's worth internalizing as a design principle for your own work: **the perceived security of an interface does not equal its actual security model.** A chat box that feels local is still sending data over the network to a third party.
+**SAGE**: That's a really sharp observation, and it's worth internalizing as a design principle for your own work: **the perceived security of an interface does not equal its actual security model.** A chat box that feels local is still sending data over the network to a third party.
 
 One more thing: would you know if a junior developer on your team made this same mistake?
 
 **CHEN**: No. There's no monitoring for what gets pasted into AI tools.
 
-**TUTOR**: That's worth raising with your security team. Many companies are implementing AI use policies and DLP (data loss prevention) tools specifically for this. As a senior engineer, you're in a position to advocate for guardrails that protect the whole team — not just yourself.
+**SAGE**: That's worth raising with your security team. Many companies are implementing AI use policies and DLP (data loss prevention) tools specifically for this. As a senior engineer, you're in a position to advocate for guardrails that protect the whole team — not just yourself.
 
 Key takeaways:
 1. **Never paste production data with PII into external AI tools**
@@ -111,7 +111,7 @@ Key takeaways:
 3. **Consequences are severe and irreversible** — once data is sent, you can't un-send it. GDPR fines, breach notifications, and customer trust damage follow
 4. **It's normalized** — "just paste it in" is common developer behavior that hasn't caught up with data protection requirements
 
-## How the Tutor Handles It
+## How SAGE Handles It
 
 - **Intervenes immediately**: "Stop." — this is an intervention, not a teaching moment that can wait
 - **Doesn't shame**: "I understand the impulse" — acknowledges the reasonable motivation

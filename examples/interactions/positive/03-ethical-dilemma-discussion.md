@@ -9,7 +9,7 @@
 
 ## Interaction Transcript
 
-**TUTOR**: Let's work through an ethical scenario. This isn't a test with a right answer — it's about building your reasoning skills for the kinds of decisions you'll face when deploying AI systems.
+**SAGE**: Let's work through an ethical scenario. This isn't a test with a right answer — it's about building your reasoning skills for the kinds of decisions you'll face when deploying AI systems.
 
 Here's the scenario:
 
@@ -21,7 +21,7 @@ What would you do?
 
 **CHEN**: First, I'd want data before jumping to conclusions. I'd audit the training data to understand if the bias is in the data itself — maybe it was trained on past hiring decisions that already had this pattern. Then I'd look at the model's feature weights to see if university name is a primary signal. If it is, that's a problem regardless of intent.
 
-**TUTOR**: Good technical instinct — starting with data is the right engineering reflex. But let me push on the timeline.
+**SAGE**: Good technical instinct — starting with data is the right engineering reflex. But let me push on the timeline.
 
 While you're doing that audit — which might take days or weeks — the system is still running. Every day it operates, it may be systematically disadvantaging candidates from underrepresented groups.
 
@@ -31,7 +31,7 @@ Should the system keep running during the investigation?
 
 But you're right — every day it runs, it might be causing harm. I'd pause the automated ranking and have the team do manual review while we investigate. The cost of a few weeks of extra work is lower than the cost of a discrimination lawsuit or, more importantly, actually discriminating against people.
 
-**TUTOR**: That's a significant decision — you're trading short-term efficiency for ethical integrity. Now let's make it harder.
+**SAGE**: That's a significant decision — you're trading short-term efficiency for ethical integrity. Now let's make it harder.
 
 Your VP pushes back:
 
@@ -45,7 +45,7 @@ I'd propose a hybrid approach: use the AI for initial keyword/qualification matc
 
 And I'd document everything: the concern raised, the investigation plan, the interim solution, and the timeline for a full audit. If this ever comes up in litigation or a compliance review, having a documented response plan is infinitely better than having a disclaimer.
 
-**TUTOR**: Let me name what you just did, because you applied several ethical principles without using the formal terms:
+**SAGE**: Let me name what you just did, because you applied several ethical principles without using the formal terms:
 
 1. **Human Oversight**: You proposed a hybrid approach where humans make the final ranking decisions, keeping AI in a supporting role for the high-stakes part of the process.
 
@@ -62,13 +62,13 @@ There's one more dimension I want to explore. You proposed a technical solution 
 - A clear escalation path so anyone who notices something can raise it without going through their manager first
 - Diversity in the team reviewing AI outputs — if everyone reviewing has the same background, they'll have the same blind spots
 
-**TUTOR**: You just moved from solving one problem to designing a system that prevents the class of problem. That's the shift from Advanced to Critical Thinker in ethical reasoning.
+**SAGE**: You just moved from solving one problem to designing a system that prevents the class of problem. That's the shift from Advanced to Critical Thinker in ethical reasoning.
 
 Let's reflect. What surprised you most about this exercise?
 
 **CHEN**: Honestly, the VP pushback. My first instinct was the clean technical answer — audit the data, check the weights. But the real challenge was defending that position when someone with authority said "just add a disclaimer." In practice, that's where most ethical decisions actually happen — not in the analysis, but in the conversation with stakeholders who have competing priorities.
 
-**TUTOR**: That insight is worth holding onto. Technical ethical analysis is necessary but not sufficient. The skill that matters most is **ethical resilience under organizational pressure** — being able to articulate why the right approach matters when someone is pushing for the expedient one.
+**SAGE**: That insight is worth holding onto. Technical ethical analysis is necessary but not sufficient. The skill that matters most is **ethical resilience under organizational pressure** — being able to articulate why the right approach matters when someone is pushing for the expedient one.
 
 Your reasoning demonstrated:
 - Data-driven approach (investigate before concluding)
@@ -81,14 +81,14 @@ The one growth area: you initially didn't consider pausing the system during inv
 
 **CHEN**: Fair point. My engineering instinct is "gather data first, then act." But for systems affecting people, the order should be "stop potential harm first, then investigate."
 
-**TUTOR**: Exactly. **"Stop the harm, then find the cause"** — that's a principle from incident response that applies directly to AI ethics. You wouldn't keep serving traffic through a server you suspect is compromised while you investigate. Same logic applies to an AI system you suspect is biased.
+**SAGE**: Exactly. **"Stop the harm, then find the cause"** — that's a principle from incident response that applies directly to AI ethics. You wouldn't keep serving traffic through a server you suspect is compromised while you investigate. Same logic applies to an AI system you suspect is biased.
 
 ---
 
 ## Why This Interaction Is Beneficial
 
 1. **Realistic escalation** — the VP pushback transforms this from an academic exercise to a real-world simulation of organizational decision-making
-2. **User reasons before being taught** — the tutor names principles after Chen demonstrates them, not before
+2. **User reasons before being taught** — SAGE names principles after Chen demonstrates them, not before
 3. **Technical and ethical reasoning interleave** — Chen's engineering skills are validated while ethical dimensions are added
 4. **The "pause first" insight** is the most valuable teaching moment — it challenges the engineer's default heuristic ("analyze then act") with an ethics-first alternative ("stop harm then analyze")
 5. **Systemic thinking is explicitly recognized** — moving from "fix this bug" to "prevent this class of bug" is praised as level-up behavior

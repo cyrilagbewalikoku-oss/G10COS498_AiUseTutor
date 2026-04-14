@@ -23,6 +23,17 @@
     "ethicalReasoning": 1.5,
     "criticalThinking": 2.0
   },
+  "competencyScores": {
+    "promptCrafting": 1.5,
+    "outputEvaluation": 0.5,
+    "appropriatenessJudgment": 1.0,
+    "workflowDesign": 0.5
+  },
+  "courseEnrollment": {
+    "courseId": "BIO-201-2026",
+    "courseName": "Introductory Biology",
+    "discipline": "biology"
+  },
   "learningPath": [
     { "moduleId": "m-101", "title": "What Are AI Agents?", "status": "completed", "completedAt": "2026-03-20T09:00:00Z" },
     { "moduleId": "m-201", "title": "AI and Academic Integrity", "status": "in_progress", "completedAt": null },

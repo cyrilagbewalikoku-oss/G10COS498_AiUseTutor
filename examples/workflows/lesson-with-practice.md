@@ -92,24 +92,26 @@
     - Critical Thinking: 3.0 (good instincts, needs systematic approach)
 
 [7] reflection-facilitator
-    "What went well?"
-    Priya: "I caught the fake endorsement right away."
+    SAGE (ACKNOWLEDGE): "You caught the fabricated endorsement right 
+    away — that's strong pattern recognition."
     
-    Tutor highlights Turn 6: "You asked for sources on the statistics — 
+    SAGE (NUDGE): "You also asked for sources on the statistics — 
     great instinct. The AI provided a source for one of them. Did you 
     verify that the source actually says what the AI claimed?"
     Priya: "...no. I assumed if it gave a source, the source was correct."
     
-    Tutor: "This is a more advanced form of hallucination: the source 
-    is real, but the AI misrepresents what it says. The pattern is 
-    'real source, wrong claim.' Your verification process should include 
-    not just 'does this source exist?' but 'does this source say what 
-    the AI claims it says?'"
+    SAGE (EXPLAIN): "This is a more advanced form of hallucination: 
+    the source is real, but the AI misrepresents what it says. The 
+    pattern is 'real source, wrong claim.' Your verification process 
+    should include not just 'does this source exist?' but 'does this 
+    source say what the AI claims it says?'"
     
     Principle named: "Verify the claim-source connection, not just 
     the source existence."
     
-    Priya: "That's a level of checking I hadn't considered."
+    SAGE (CLOSING REFLECTION): "When you've used AI-generated sources 
+    in your work before, which level of checking did you tend to stop 
+    at — and what would it take to make the deeper check a habit?"
 
 [8] progress-reporter
     Session summary:

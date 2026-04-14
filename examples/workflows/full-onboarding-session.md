@@ -15,7 +15,7 @@
     Output: Route to onboarding
     
 [2] onboarding
-    ├─ Welcome + explain tutor purpose
+    ├─ Welcome + explain SAGE purpose
     ├─ Calibration Q1: AI experience → "ChatGPT a few times for newsletters"
     ├─ Calibration Q2: Chatbot vs agent → "Aren't they the same?"
     ├─ Calibration Q3: Risk awareness → "Students copying without thinking"

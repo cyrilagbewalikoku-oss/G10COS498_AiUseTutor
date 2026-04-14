@@ -23,6 +23,17 @@
     "ethicalReasoning": 3.0,
     "criticalThinking": 3.5
   },
+  "competencyScores": {
+    "promptCrafting": 4.0,
+    "outputEvaluation": 3.5,
+    "appropriatenessJudgment": 3.0,
+    "workflowDesign": 3.5
+  },
+  "courseEnrollment": {
+    "courseId": "CS-612-2026",
+    "courseName": "AI Systems Engineering",
+    "discipline": "computer_science"
+  },
   "learningPath": [
     { "moduleId": "m-501", "title": "Agent Failure Mode Taxonomy", "status": "in_progress", "completedAt": null },
     { "moduleId": "m-502", "title": "Designing Human-in-the-Loop Systems", "status": "not_started", "completedAt": null },

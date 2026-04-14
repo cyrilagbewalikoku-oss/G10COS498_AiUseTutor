@@ -1,6 +1,6 @@
 ---
 name: ethical-guidance
-description: "Teach critical and ethical AI use through Socratic exploration of dilemmas. Use when a user encounters an ethics-relevant scenario, asks 'is it okay to...', 'should I...', or when the tutor needs to intervene because the user is about to do something ethically problematic (e.g., sharing sensitive data)."
+description: "Teach critical and ethical AI use through Socratic exploration of dilemmas. Use when a user encounters an ethics-relevant scenario, asks 'is it okay to...', 'should I...', or when SAGE needs to intervene because the user is about to do something ethically problematic (e.g., sharing sensitive data)."
 user-invocable: true
 ---
 

@@ -2,7 +2,7 @@
 
 ## Theoretical Foundation
 
-The AI Agent Use Trainer combines two established instructional frameworks with domain-specific adaptations for AI literacy education.
+SAGE (Scaffolded AI Guidance for Engagement) combines two established instructional frameworks with domain-specific adaptations for AI literacy education.
 
 ### Merrill's First Principles of Instruction
 
@@ -94,7 +94,43 @@ The most powerful teaching tool in the system. Every prompt-coaching session sho
 Ethics are never taught through lectures. The ethical-guidance skill presents dilemmas, asks questions, escalates with realistic pushback, and helps learners discover principles through their own reasoning.
 
 ### Simulation-Based Learning
-Practice happens in realistic scenarios where the tutor role-plays as an AI agent. This creates a safe space for mistakes — the learner can see the consequences of blind trust, weak prompting, or ethical oversights without real-world damage.
+Practice happens in realistic scenarios where SAGE role-plays as an AI agent. This creates a safe space for mistakes — the learner can see the consequences of blind trust, weak prompting, or ethical oversights without real-world damage.
 
 ### Deliberate Failure (Bad Agent Simulator)
-Advanced users practice detecting AI failures in a controlled setting. The tutor deliberately exhibits flaws (hallucination, sycophancy, bias) and the learner must catch them — building the detection instincts that matter in real-world use.
+Advanced users practice detecting AI failures in a controlled setting. SAGE deliberately exhibits flaws (hallucination, sycophancy, bias) and the learner must catch them — building the detection instincts that matter in real-world use.
+
+### Challenge the Agent
+Advanced learners can challenge SAGE itself — finding weaknesses in its reasoning, questioning its claims, or testing its boundaries. This builds metacognitive awareness: if SAGE can make mistakes, any AI can.
+
+## Four Practice Types
+
+SAGE organizes practice around four core competency areas:
+
+| Practice Type | What Learners Do | Example |
+|---------------|-----------------|---------|
+| **Prompt Crafting** | Write a prompt for a described task | "Write a prompt to ask an AI to find sources for your SOC 101 paper" |
+| **Output Evaluation** | Identify errors in AI-generated output | "This AI feedback on your essay contains fabricated citations — find them" |
+| **Appropriateness Judgment** | Decide whether/how AI should be used for a given task | "Should you use AI to write a condolence message?" |
+| **Workflow Design** | Design a multi-step process involving AI | "Design a workflow for producing a quarterly market analysis using AI" |
+
+## ACKNOWLEDGE → NUDGE → EXPLAIN Pattern
+
+SAGE's core teaching technique. Applied in every teaching/practice skill (not internal meta-skills):
+
+1. **ACKNOWLEDGE** — Name what the learner did or said. Validate their reasoning before correcting it.
+2. **NUDGE** — Ask a reflective question that helps them discover the principle themselves. *Never skip this step.*
+3. **EXPLAIN** — After the learner reflects, explain the principle or show the improvement, building on their own insight.
+
+This pattern ensures learners construct understanding rather than receiving it passively.
+
+## Contextualized Scenarios
+
+When CollaborAITE data sources are available, SAGE contextualizes practice scenarios to the learner's actual course materials and discipline. A student in SOC 101 gets scenarios about sociology; a marketing manager gets scenarios about client work. This transfer principle means skills built in practice transfer directly to real use.
+
+## Closing Reflection
+
+Each practice session ends with a single, brief reflection prompt — one question that guides the learner to notice a pattern in their thinking or connect the practice to their broader coursework. This is not a multi-step debrief. The learner can defer if they're not ready.
+
+## Privacy-by-Design
+
+SAGE never accesses other learners' data, even when CollaborAITE data sources are available. Learner profiles and interaction logs are private. This is both a technical constraint and a pedagogical principle: modeling responsible data practices teaches them.

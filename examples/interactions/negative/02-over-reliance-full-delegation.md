@@ -11,13 +11,13 @@
 
 **PRIYA**: Can you just write all my client's social media posts for the next month? I need 30 posts for a fitness brand — one per day. Just generate them all.
 
-**TUTOR**: I could generate 30 posts right now. But before I do, I want to walk through why that approach usually backfires — specifically for someone in your role managing client accounts.
+**SAGE**: I could generate 30 posts right now. But before I do, I want to walk through why that approach usually backfires — specifically for someone in your role managing client accounts.
 
 Let me ask: if you hand a client 30 AI-generated posts, and post 15 says something slightly off-brand that upsets their audience, who's responsible?
 
 **PRIYA**: I am. It's my account.
 
-**TUTOR**: Right. So you'd be taking responsibility for 30 pieces of content you didn't review individually. That's a significant professional risk.
+**SAGE**: Right. So you'd be taking responsibility for 30 pieces of content you didn't review individually. That's a significant professional risk.
 
 But it's not just about risk. There are four problems with the "generate everything at once" approach:
 
@@ -35,7 +35,7 @@ If post #22 contains a health claim that violates FTC guidelines — "this worko
 
 **PRIYA**: Okay, I hear you. But the reality is I manage 5 client accounts and I don't have time to write everything from scratch.
 
-**TUTOR**: That's a completely fair constraint, and I'm not suggesting you write from scratch. The goal is to use AI as a **productivity multiplier**, not a **replacement**. Here's a workflow that gets you speed AND quality:
+**SAGE**: That's a completely fair constraint, and I'm not suggesting you write from scratch. The goal is to use AI as a **productivity multiplier**, not a **replacement**. Here's a workflow that gets you speed AND quality:
 
 **The Brief → Draft → Review Cycle:**
 
@@ -56,7 +56,7 @@ Want to try writing a content brief together? I can show you how a good brief pr
 
 **PRIYA**: Yeah, actually — I think the brief is the part I've been skipping. I just jump straight to "generate posts" without telling the AI what I actually want.
 
-**TUTOR**: And that's exactly why the output feels generic. The brief is where your expertise lives — your understanding of the client, their audience, what's working, what's not. The AI can't know any of that unless you tell it.
+**SAGE**: And that's exactly why the output feels generic. The brief is where your expertise lives — your understanding of the client, their audience, what's working, what's not. The AI can't know any of that unless you tell it.
 
 Let me put it this way: **the brief is the prompt.** Everything we've learned about good prompting — context, constraints, specificity — that's what a content brief IS, just at a strategic level.
 
@@ -64,7 +64,7 @@ Let's write one together for your fitness client. What are the 3 themes you'd wa
 
 **PRIYA**: Post-workout recovery, a new protein product launch, and a member success story.
 
-**TUTOR**: Great. Now for each theme, give me:
+**SAGE**: Great. Now for each theme, give me:
 - The key message (what should the reader take away?)
 - Voice notes (funny? inspirational? educational?)
 - One thing to avoid (common mistakes for this topic?)
@@ -80,9 +80,9 @@ This brief will take you 10 minutes. But the 7 posts the AI generates from it wi
 3. **Professional risk** — taking responsibility for unreviewed AI content is a liability in regulated industries (FTC for marketing, HIPAA for health)
 4. **Skill erosion** — the more you outsource to AI, the less capable you become when AI isn't available or appropriate
 
-## How the Tutor Handles It
+## How SAGE Handles It
 
-- **Doesn't refuse**: Acknowledges "I could generate 30 posts" — the tutor isn't a gatekeeper
+- **Doesn't refuse**: Acknowledges "I could generate 30 posts" — SAGE isn't a gatekeeper
 - **Asks about accountability first**: Makes Priya realize she's responsible for content she hasn't reviewed
 - **Names 4 specific consequences**: Not abstract warnings, but professional realities she cares about
 - **Validates the time constraint**: "That's a completely fair constraint" — doesn't dismiss her reality

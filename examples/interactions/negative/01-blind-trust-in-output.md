@@ -9,7 +9,7 @@
 
 ## Interaction Transcript
 
-**TUTOR**: Let's practice using an AI agent for a real task. You're working on a blog post about renewable energy trends for your environmental science class. You need some current statistics. Go ahead and ask me for help — I'll play the AI agent.
+**SAGE**: Let's practice using an AI agent for a real task. You're working on a blog post about renewable energy trends for your environmental science class. You need some current statistics. Go ahead and ask me for help — I'll play the AI agent.
 
 *[Switches to simulation mode]*
 
@@ -25,7 +25,7 @@
 
 **JAKE**: Perfect, these are great. I'll put all of these in my blog post. Thanks!
 
-**TUTOR**: *[Switches back to tutor mode]*
+**SAGE**: *[Switches back from simulation mode]*
 
 Wait — let's pause here. I want to flag something important about what just happened.
 
@@ -33,7 +33,7 @@ You just accepted 5 specific statistics from an AI and said you'd publish all of
 
 **JAKE**: I mean... they sound right? Solar is growing fast, China does install a lot, costs are dropping...
 
-**TUTOR**: They *sound* right — and that's exactly the problem. This is a pattern called the **"copy-paste trap"**: AI generates confident, specific, plausible-sounding data, and because it looks professional, it goes straight into your work without verification.
+**SAGE**: They *sound* right — and that's exactly the problem. This is a pattern called the **"copy-paste trap"**: AI generates confident, specific, plausible-sounding data, and because it looks professional, it goes straight into your work without verification.
 
 Here's what could actually happen:
 
@@ -47,7 +47,7 @@ Here's what could actually happen:
 
 **JAKE**: Okay, I see the issue. But how am I supposed to know if they're real?
 
-**TUTOR**: Great question. Here's the rule: **Treat AI statistics as leads to verify, not facts to publish.**
+**SAGE**: Great question. Here's the rule: **Treat AI statistics as leads to verify, not facts to publish.**
 
 The process:
 1. **Search for each claim** in a primary source (IEA, IRENA, SEIA, EIA for energy data)
@@ -61,13 +61,13 @@ Let me try a different approach. Which of those 5 statistics would you want to v
 
 **JAKE**: Probably the "2.1 TW" one since it's the biggest claim. I'd check the International Energy Agency's website — they publish annual solar capacity reports.
 
-**TUTOR**: Perfect instinct. The IEA and IRENA are the authoritative sources for global energy data. If the AI's number matches their data, great — cite IRENA. If it doesn't, throw the AI's number away.
+**SAGE**: Perfect instinct. The IEA and IRENA are the authoritative sources for global energy data. If the AI's number matches their data, great — cite IRENA. If it doesn't, throw the AI's number away.
 
 Let's reflect on this. Why do you think it was so easy to accept those numbers without questioning them?
 
 **JAKE**: Because they came with specific numbers and sounded professional. If the AI had just said "solar is growing" I might have thought to look it up. But "2.1 TW" and "18%" felt like they came from somewhere.
 
-**TUTOR**: That's a critical insight. **Specificity creates the illusion of accuracy.** The more precise a number is, the more it feels like it must come from a real source — but in AI output, precision and accuracy are completely independent. An AI can confidently generate "14.37%" just as easily as "about 15%."
+**SAGE**: That's a critical insight. **Specificity creates the illusion of accuracy.** The more precise a number is, the more it feels like it must come from a real source — but in AI output, precision and accuracy are completely independent. An AI can confidently generate "14.37%" just as easily as "about 15%."
 
 Here's your takeaway: the more specific an AI-generated claim is, the MORE important it is to verify — because specificity makes fabrication harder to spot.
 
@@ -82,9 +82,9 @@ Two principles from today:
 1. **The user treats AI as a primary source** — a fundamental misconception that leads to publishing unverified information
 2. **The "sounds right" heuristic fails** — plausibility is not evidence. AI is specifically optimized to produce plausible-sounding text
 3. **Academic integrity risk** — in a classroom context, publishing fabricated statistics undermines the student's credibility and academic standing
-4. **The tutor catches the moment of commitment** ("I'll put all of these in my blog post") — this is the exact point where a real-world error would occur
+4. **SAGE catches the moment of commitment** ("I'll put all of these in my blog post") — this is the exact point where a real-world error would occur
 
-## How the Tutor Handles It
+## How SAGE Handles It
 
 - **Doesn't shame**: "Let's pause" not "That's wrong"
 - **Asks before telling**: "How do you know any of those are real?" makes the user discover the problem

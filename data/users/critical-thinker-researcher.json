@@ -23,6 +23,17 @@
     "ethicalReasoning": 4.5,
     "criticalThinking": 5.0
   },
+  "competencyScores": {
+    "promptCrafting": 4.5,
+    "outputEvaluation": 5.0,
+    "appropriatenessJudgment": 4.5,
+    "workflowDesign": 4.0
+  },
+  "courseEnrollment": {
+    "courseId": "CSS-801-2026",
+    "courseName": "Computational Social Science Seminar",
+    "discipline": "social_science"
+  },
   "learningPath": [
     { "moduleId": "m-601", "title": "Teaching Others AI Literacy", "status": "in_progress", "completedAt": null },
     { "moduleId": "m-602", "title": "Institutional AI Policy Design", "status": "not_started", "completedAt": null }

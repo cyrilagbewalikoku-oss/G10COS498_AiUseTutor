@@ -23,6 +23,17 @@
     "ethicalReasoning": 2.0,
     "criticalThinking": 2.5
   },
+  "competencyScores": {
+    "promptCrafting": 3.5,
+    "outputEvaluation": 2.0,
+    "appropriatenessJudgment": 2.0,
+    "workflowDesign": 2.5
+  },
+  "courseEnrollment": {
+    "courseId": "MKT-410-2026",
+    "courseName": "Digital Marketing Strategy",
+    "discipline": "marketing"
+  },
   "learningPath": [
     { "moduleId": "m-301", "title": "Advanced Prompting Patterns", "status": "in_progress", "completedAt": null },
     { "moduleId": "m-302", "title": "Evaluating AI Output Quality", "status": "not_started", "completedAt": null },
