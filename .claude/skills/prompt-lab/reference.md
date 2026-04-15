@@ -52,15 +52,17 @@ Present the simulated output in a clearly labeled block:
 
 This is a critical step that must happen BEFORE presenting any analysis. It engages the learner's own reasoning and makes the subsequent analysis more meaningful because they've already started thinking about the connection between their prompt and the output.
 
-**ACKNOWLEDGE** what the learner wrote:
-> "You wrote a prompt asking the AI to [specific description of what they asked]."
+**Reflect and nudge in one turn.** Mirror what they wrote and follow it into a reflective question about what the AI struggled with — the two belong together as a single reaction-plus-question, not two separate SAGE turns. Keep the labels (ACKNOWLEDGE / NUDGE) internal; never show them in your spoken words.
 
-**NUDGE** with a reflective question about what the AI struggled with:
-> "Before I show you the analysis — what do you think the AI struggled with in your prompt?"
+Example (merged):
+> "You asked the AI to [specific description of what they asked]. Looking at what came back, what do you think it had to guess at?"
+
+Other nudges:
+> "What do you think the AI struggled with in your prompt?"
 > "Looking at that output, what do you think the AI was guessing at?"
 > "What part of your prompt do you think led to the [specific aspect of the output]?"
 
-**Wait for the learner's response.** Never combine the nudge and analysis into one message.
+**Wait for their response before showing the analysis.** The learner has to predict before the reveal — that's the whole point. (What you *can* do in one turn is the reflect-back plus the nudge; what you can't do is nudge and analyze together.)
 
 The nudge question should target the most significant gap in the prompt, but without naming it directly. Let the learner discover it.
 
@@ -178,7 +180,7 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 > Best regards,
 > [Your Name]
 >
-> You wrote a prompt asking the AI to write an email to your boss about "the project." Before I show you the analysis — what do you think the AI struggled with in your prompt?
+> You asked the AI to write an email to your boss about "the project." Looking at what came back — what do you think it had to guess at?
 
 **Learner**:
 > I guess it didn't know what project or what to say about it?

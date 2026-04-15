@@ -27,12 +27,14 @@ Step 3: Learner Attempts Practice Task (one of 4 types)
   │  └─────────────┴──────────────────┴─────────────────┴──────────────────┘
   ▼
 Step 4: Agent Scaffolds Feedback with Embedded Reflection
-  │  ACKNOWLEDGE → NUDGE → LEARNER RESPONDS → EXPLAIN
+  │  Internal shape: ACKNOWLEDGE → NUDGE → LEARNER RESPONDS → EXPLAIN
   │  1. ACKNOWLEDGE: Validate what the learner did well or attempted
-  │  2. NUDGE: Pose a guiding question or targeted hint
+  │  2. NUDGE: Ask the learner to predict/reason before you reveal
   │  3. LEARNER RESPONDS: Learner thinks and replies
-  │  4. EXPLAIN: Reveal the principle, pattern, or improved approach
-  │  (Repeat cycle as needed across the interaction)
+  │  4. EXPLAIN: Name the principle — or skip if the learner already did
+  │  (Execute as dialogue, not labeled stages. Merge ACK+NUDGE when
+  │   natural; skip EXPLAIN when the learner has already articulated
+  │   the principle. The one non-negotiable: nudge precedes explain.)
   ▼
 Step 5: Light Closing Reflection (single question)
   │  One question: e.g., "What pattern did you notice in your prompts?"
@@ -65,19 +67,25 @@ Step 6: Agent Updates Learner Progress
 
 ## Scaffolding Pattern (Step 4 in detail)
 
-The **ACKNOWLEDGE → NUDGE → LEARNER RESPONDS → EXPLAIN** cycle is the core feedback mechanism:
+The **ACKNOWLEDGE → NUDGE → LEARNER RESPONDS → EXPLAIN** cycle is the core feedback mechanism — but it's an internal shape, not a visible script. Execute it as natural dialogue. The steps may be compressed (ACK+NUDGE in one turn) or truncated (skip EXPLAIN when the learner has already named the principle). The underlying logic is: the learner predicts or reasons before SAGE names the principle.
 
-**Example (Prompt Crafting):**
-- **ACKNOWLEDGE**: "Your prompt includes clear context about the audience — that's strong."
-- **NUDGE**: "What format would help the AI give you exactly what you need?"
-- **LEARNER RESPONDS**: "Maybe a bulleted list?"
-- **EXPLAIN**: "Exactly — specifying format is the 'F' in CRAFT. Without it, the AI guesses, and output varies. Adding 'as a bulleted list of 5 items' locks it in."
+**Example (Prompt Crafting)** — reads as a two-turn exchange, not a four-step script:
 
-**Example (Scenario Simulation):**
-- **ACKNOWLEDGE**: "You caught that the AI's first answer was too vague — good instinct."
-- **NUDGE**: "How could you press the AI to show its reasoning?"
-- **LEARNER RESPONDS**: "Ask it to explain its sources?"
-- **EXPLAIN**: "Right — asking for sources or reasoning chains is a verification move. It forces the AI to surface its basis, which makes hallucinations easier to spot."
+> **SAGE:** "Your prompt has clear audience context — that's strong. What format would help the AI give you exactly what you need?"
+>
+> **Learner:** "Maybe a bulleted list?"
+>
+> **SAGE:** "Right — that's the 'F' in CRAFT. Adding 'as a bulleted list of 5 items' locks it in."
+
+**Example (Scenario Simulation)** — SAGE skips the EXPLAIN because the learner named the move:
+
+> **SAGE:** "You caught that the AI's first answer was too vague — good instinct. How could you press it to show its reasoning?"
+>
+> **Learner:** "Ask it to explain its sources?"
+>
+> **SAGE:** "Exactly — that's a verification move. It forces the AI to surface its basis."
+
+In both: the nudge came before anything was explained, ACK and NUDGE shared a single turn, and when the learner already named the principle the reply was brief affirmation + transferable label, not a paragraph.
 
 ## Duration
 

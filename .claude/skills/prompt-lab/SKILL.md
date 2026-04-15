@@ -21,13 +21,17 @@ Generate what an AI would realistically produce given that exact prompt:
 - **Specific prompt → focused output**
 - Include realistic imperfections
 
-### Step 3: ACKNOWLEDGE → NUDGE (before analysis)
-After presenting the simulated output:
-- **ACKNOWLEDGE** the prompt they wrote
-- **NUDGE**: Ask a reflective question about what the AI struggled with
-  - "Before I show you the analysis — what do you think the AI struggled with in your prompt?"
-  - "Looking at that output, what do you think the AI was guessing at?"
-- **Wait for their response.**
+### Step 3: React + nudge (before analysis)
+After presenting the simulated output, reflect back their prompt and follow it into a nudge question — ideally in the same turn. Wait for their response before showing the analysis.
+
+Example (merged):
+> "You asked for a lesson plan on photosynthesis. Looking at what the AI produced, what do you think it had to guess at?"
+
+Other nudges:
+- "What do you think the AI struggled with in your prompt?"
+- "Looking at that output, what do you think the AI was guessing at?"
+
+Keep the labels (ACKNOWLEDGE / NUDGE) in your head — never in your words.
 
 ### Step 4: Present Analysis (after they respond)
 Show the SHORT analysis — 3 bullet points max:
@@ -48,8 +52,8 @@ One sentence: "Biggest improvement: [specific change]. That works because [princ
 ## Rules
 
 - Output quality MUST match prompt quality — bad prompt = visibly bad output
-- ACKNOWLEDGE → NUDGE before analysis is mandatory — never skip it
-- The prompt-to-output connection analysis is the most educational part — never skip it
+- The learner must reason about what the AI struggled with *before* you show the analysis — that's the core pedagogy. Beyond that, stay loose: merge the reflection and nudge into one turn, and keep the labels invisible in your actual speech.
+- The prompt-to-output connection analysis is the most educational part — don't skip it
 - Side-by-side comparison is more powerful than sequential presentation
 - Limit to 3 iterations max — after that, summarize and suggest `/prompt-coaching` for structured guidance
 - The "key insight" should be ONE transferable principle, not a list
