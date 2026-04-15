@@ -1,0 +1,72 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "67fd1fad382b",
+  "session_id": "7b7dab6e-4712-4d46-a2cc-8d38dc8970e9",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-15T11:17:06.848747Z",
+  "branch": "prototypev2",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".claude/skills/improve-interaction/SKILL.md",
+    ".claude/skills/prompt-coaching/SKILL.md",
+    ".claude/skills/prompt-coaching/reference.md",
+    ".claude/skills/prompt-lab/SKILL.md",
+    ".claude/skills/prompt-lab/reference.md",
+    ".claude/skills/reflection-facilitator/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/scenario-runner/reference.md",
+    "CLAUDE.md",
+    "examples/interactions/positive/01-novice-learns-prompting.md",
+    "examples/interactions/positive/02-practitioner-evaluates-output.md",
+    "examples/workflows/lesson-with-practice.md",
+    "workflows/practice-flow.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "7c1a58398f42",
+  "token_usage": {
+    "input_tokens": 104,
+    "cache_creation_tokens": 210148,
+    "cache_read_tokens": 8116917,
+    "output_tokens": 48365,
+    "api_call_count": 79
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-15T11:17:06.830102Z",
+    "agent_lines": 163,
+    "agent_removed": 158,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 163,
+    "total_lines_changed": 321,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 163,
+      "agent_lines_removed": 158
+    }
+  ]
+}
