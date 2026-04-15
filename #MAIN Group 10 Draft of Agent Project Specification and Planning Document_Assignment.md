@@ -389,9 +389,25 @@ SAGE: That's a sharp observation. What you just identified is a pattern worth na
 
 Light closing reflection: You moved from fact-checking individual claims to evaluating the overall framing just now. When you've used AI for technical explanations in the past, which of those two levels did you tend to check — and what would it take to make the framing check a default habit?
 
-**Interaction 3 (optional)**
+**Interaction 3: Appropriateness Judgment**
 
-\[Write your third example interaction here\]
+Learner: @SAGE I want to practice deciding when AI is and isn't the right tool. I keep defaulting to using it for everything.
+
+SAGE: Good instinct to question that. Here's the situation:
+
+You're a marketing manager. Your company just had a round of layoffs. HR asks you to draft an internal FAQ for remaining employees — covering topics like workload redistribution, mental health resources, and timeline for re-hiring. They want it done by end of day.
+
+Would you use AI to help with this? If so, how? If not, why not?
+
+Learner: I'd use AI for it. It's basically a writing task and I need it fast. I'd paste the key points HR gave me and ask for a professional, empathetic FAQ format.
+
+SAGE: Okay — speed and structure are real advantages there. But before I react: who's going to read this FAQ, and what's at stake if the tone is slightly off?
+
+Learner: The remaining employees who just watched their colleagues lose their jobs. If the tone feels corporate or robotic they'd probably feel like the company doesn't actually care. That could make morale even worse.
+
+SAGE: That's the key — you just identified the gap between what AI optimizes for and what the audience needs. AI can produce "professional and empathetic" text on demand, but it's pattern-matching on what empathy looks like, not feeling it. In a post-layoff context, readers are hypersensitive to anything that sounds templated. The stronger move: use AI to generate a structural outline and bullet the key information, then write the actual language yourself — or better, have someone from the affected team review it before it goes out. AI handles the skeleton; humans handle the emotional weight.
+
+Light closing reflection: When you've used AI for communication that had emotional stakes before, how did you decide whether the output was "good enough" to send?
 
 ## **4f. Harm Considerations**
 
@@ -455,7 +471,7 @@ What would need to be true for your agent to have “worked”? Define 2–3 con
 
 | Criterion | Observation Method |
 | :---- | :---- |
-| Learners produce more specific and critical AI interactions after practice sessions. | Compare learner attempts across sessions using a rubric applied to interaction logs. The rubric scores: specificity of prompts, number and type of issues identified in output evaluation, number of ethical dimensions considered.Transfer: when learners use AI outside of “practice” sessions, \<what happens? Fill this in\> |
+| Learners produce more specific and critical AI interactions after practice sessions. | Compare learner attempts across sessions using a rubric applied to interaction logs. The rubric scores: specificity of prompts, number and type of issues identified in output evaluation, number of ethical dimensions considered. Transfer: when learners use AI outside of "practice" sessions, they apply verification habits (checking AI claims before using them), use more specific and constrained prompts, and demonstrate awareness of when AI is not the right tool — observable through the `/improve-interaction` pathway where learners bring their own real AI interactions for coaching, and through pre/post survey items on self-reported AI use behavior changes. |
 | Learners exhibitreport increased metacognitive awareness of their AI use habits. | Pre- and post-engagement survey with open-ended items (e.g., "Describe how you decide whether and how to use AI for an academic task" and "What do you check when evaluating AI output?"). |
 | The agent's feedback is perceived as specific, explanatory, and non-prescriptive. | Post-session Likert-scale items: "The feedback was specific to my attempt (not generic)," "The agent's questions helped me think through my own reasoning before it explained," "The feedback felt like it was teaching me to think, not telling me what to think," "The conversation felt like a natural dialogue, not a quiz." Qualitative follow-up: "Can you give an example of a moment in the conversation that was particularly helpful or unhelpful?" |
 

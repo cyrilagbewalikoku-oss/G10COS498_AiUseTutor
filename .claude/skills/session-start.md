@@ -55,13 +55,25 @@ If on CollaborAITE, also check for the user's profile document in the RAG knowle
    | questioning | Specific question about a concept | Answer with concept-explainer (targeted) |
    | assessing | "how am I doing?", "quiz me" | Transition to knowledge-check or assessment-flow |
    | improving | "what should I work on?" | Transition to improvement-advisor |
-   | exploring | No specific goal, browsing | Present a menu of available activities tailored to their level |
+   | exploring | No specific goal, browsing | Present the **three paths menu** (see below) |
    | ethics | "is it okay to...", ethical question | Transition to ethical-guidance |
    | progress | "show my progress" | Transition to progress-reporter |
    | continuing | "pick up where I left off" | Resume in-progress module |
    | unclear | Ambiguous intent | Ask a brief clarifying question |
 
 5. **Adapt difficulty** — Reference the difficulty-adapter guidelines based on their level and recent performance
+
+#### Three Paths Menu (v2 CLI)
+
+When a returning user is exploring, has unclear intent, or this is their first return visit, present the three session paths from the SAGE interaction cycle. Keep it brief — 2-3 sentences of greeting, then the menu:
+
+> Here's what we can do today — pick one, or tell me something else:
+>
+> 1. **Improve a recent AI interaction** — Paste a prompt or conversation you had with an AI tool and I'll help you sharpen it (`/improve-interaction`)
+> 2. **Practice with a scenario** — I'll set up a realistic exercise matched to your level: prompt crafting, output evaluation, appropriateness judgment, or workflow design (`/scenario-runner`)
+> 3. **Reflect on your recent AI use** — Walk through what's been working and what you'd do differently (`/weekly-review`)
+
+If the learner picks a number or names a path, route to the corresponding skill. If they say something else, classify their intent normally.
 
 ---
 
