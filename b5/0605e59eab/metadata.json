@@ -1,0 +1,41 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "b50605e59eab",
+  "strategy": "manual-commit",
+  "branch": "prototypev2",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "#MAIN Group 10 Draft of Agent Project Specification and Planning Document_Assignment.md",
+    ".claude/skills/improve-interaction/SKILL.md",
+    ".claude/skills/knowledge-check/SKILL.md",
+    ".claude/skills/onboarding/SKILL.md",
+    ".claude/skills/prompt-coaching/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/session-start.md",
+    ".claude/skills/weekly-review/SKILL.md",
+    "CLAUDE.md",
+    "README.md",
+    "data/research/README.md",
+    "data/research/ai-misconceptions.md",
+    "data/research/craft-origins.md",
+    "data/research/impact-audit.md",
+    "data/research/learner-predicts.md",
+    "data/research/merrill-bloom-summary.md",
+    "docs/roadmap.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b5/0605e59eab/0/metadata.json",
+      "transcript": "/b5/0605e59eab/0/full.jsonl",
+      "content_hash": "/b5/0605e59eab/0/content_hash.txt",
+      "prompt": "/b5/0605e59eab/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 126,
+    "cache_creation_tokens": 247928,
+    "cache_read_tokens": 10090385,
+    "output_tokens": 65378,
+    "api_call_count": 81
+  }
+}

@@ -1,0 +1,17 @@
+how different is the prototype from the specification in the doc
+
+---
+
+update the specification doc in this repo and also based on the spec doc what are the changes to be made to the prototype
+
+---
+
+can we circle back on the question yu asked early on
+
+---
+
+did you add that users have to use this prompt to simulate interacting with the agent to the readme file:
+
+Using only the skills available to you (YOU MUST USE THE SKILLS), use the session-start skill to respond to the following prompt from a user of the AI agent system this project prototypes. YOU MAY ONLY USE THE SKILLS AND MAY NOT READ ANY OTHER FILES TO PREPARE OR DECIDE ON A RESPONSE.
+
+"the query the user wants to add"
