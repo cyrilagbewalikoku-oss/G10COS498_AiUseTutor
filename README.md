@@ -26,6 +26,34 @@ SAGE activates automatically — just start talking to it.
 
 On CollaborAITE, mention `@SAGE` in any channel to start a session.
 
+## How to Simulate Interacting With SAGE (v2 CLI)
+
+To evaluate SAGE as a real user would experience it on CollaborAITE, you must **force Claude Code to respond only through SAGE's skills** — not by reading project files freely. Use the following wrapper for every message you want to send to SAGE:
+
+```
+Using only the skills available to you (YOU MUST USE THE SKILLS), use the session-start skill to respond to the following prompt from a user of the AI agent system this project prototypes. YOU MAY ONLY USE THE SKILLS AND MAY NOT READ ANY OTHER FILES TO PREPARE OR DECIDE ON A RESPONSE.
+
+"<the query the user wants to send>"
+```
+
+Replace `<the query the user wants to send>` with the actual message (e.g. `"I'm new to AI agents"` or `"Help me improve this prompt: write a summary of the French Revolution"`).
+
+This wrapper exists because in Claude Code, Claude has access to every file in the repo. Without the wrapper, responses would be contaminated by Claude reading CLAUDE.md, the scenarios, the research docs, and so on — which is not how a real CollaborAITE user would interact with SAGE. The wrapper simulates the production constraint where SAGE's only instructions come from its skill definitions.
+
+## v2 Deployment (Claude Code CLI)
+
+v2 of SAGE runs in the Claude Code CLI for the April 21 evaluation. The full CollaborAITE vision (sidebar nudges, scheduled weekly reflections, channel conversation RAG) is the target state and is tracked in [docs/roadmap.md](docs/roadmap.md). The pedagogy is identical across both deployments; only the delivery surface differs.
+
+| Feature | v2 CLI | CollaborAITE (target) |
+|---|---|---|
+| Onboarding + skill assessment | ✅ `/onboarding` | ✅ on first @mention |
+| Four practice types | ✅ `/scenario-runner` | ✅ |
+| Coaching on your own AI interactions | ✅ `/improve-interaction` (you paste a prompt) | ✅ sidebar nudge while you type |
+| Weekly reflection on AI use | ✅ `/weekly-review` (you invoke it) | ✅ fires on a schedule |
+| Local learner profile | ✅ `data/users/<you>.json` | ✅ CollaborAITE data layer |
+| Course-material retrieval | ✅ you attach/describe | ✅ automatic |
+| Peer-pattern retrieval | ❌ deferred | ✅ anonymized |
+
 ## Things to Try
 
 | What to test | Say something like |
@@ -35,6 +63,8 @@ On CollaborAITE, mention `@SAGE` in any channel to start a session.
 | Output evaluation | "Give me an AI output to evaluate" |
 | Appropriateness judgment | "Should I use AI for this task?" |
 | Workflow design | "Help me design an AI workflow" |
+| Coach a prompt I already used | "I used this prompt yesterday — help me improve it: [paste]" |
+| Reflect on my week | "Let's do a weekly review" |
 | Ethical guidance | "Is it okay to paste customer data into ChatGPT?" |
 | Detect a flawed AI | "Can I practice spotting bad AI?" |
 | Check your progress | "How am I doing?" |
@@ -50,8 +80,8 @@ Open a [GitHub Issue](https://github.com/Elorm-K/498_Agents/issues) and include:
 ## Current Limitations
 
 - This is a **prototype** — not all features are fully polished
-- User profiles do not persist between sessions
 - Requires Claude Code access or CollaborAITE deployment (not a standalone app)
+- CollaborAITE-only features (sidebar nudges, scheduled reflections, channel/peer retrieval) are deferred — see [docs/roadmap.md](docs/roadmap.md) for what's planned
 
 ---
 
@@ -71,11 +101,11 @@ This is a prototype design for an AI tutoring agent called SAGE that helps peopl
 SAGE uses a specific feedback pattern in all teaching interactions:
 
 1. **ACKNOWLEDGE** — Names what the learner did, specifically
-2. **NUDGE** — Asks a reflective question that pushes the learner to think before hearing the explanation
+2. **NUDGE (Learner Predicts)** — Asks a question that makes the learner *predict or reason about what will happen* BEFORE hearing the explanation. The prediction creates productive cognitive conflict — a small gap between expectation and reality that deepens understanding when resolved.
 3. **LEARNER RESPONDS** — The learner thinks through their own logic
 4. **EXPLAIN** — Builds on their reflection to explain the stronger approach and connect to a transferable principle
 
-This pattern means SAGE never explains a principle before the learner has reflected on it. Mid-task reflection is woven naturally into the conversation — it feels like dialogue, not evaluation.
+This pattern means SAGE never explains a principle before the learner has reflected on it. Mid-task reflection is woven naturally into the conversation — it feels like dialogue, not evaluation. See [data/research/learner-predicts.md](data/research/learner-predicts.md) for the theoretical grounding.
 
 ## Practice Types
 

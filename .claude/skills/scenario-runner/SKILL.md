@@ -59,7 +59,11 @@ Prompt quality · Verification · Iteration · Ethical awareness · Judgment qua
 ### Step 7: Feedback via ACKNOWLEDGE → NUDGE → EXPLAIN
 After the learner attempts the task, follow this scaffolding pattern:
 1. **ACKNOWLEDGE**: State specifically what the learner did ("You wrote a prompt that included a clear format constraint and a word limit.")
-2. **NUDGE**: Ask one reflective question before explaining ("What do you think happened because you didn't specify the audience?")
+2. **NUDGE (Learner Predicts)**: Ask a question that makes the learner *predict or reason about what will happen* BEFORE you explain. The goal is productive cognitive conflict — a small gap between their expectation and reality that deepens understanding when resolved.
+   - Prompt crafting: "What do you think happened because you didn't specify the audience?" / "If you ran this prompt in production tomorrow, what would be the first thing you'd want to fix?"
+   - Output evaluation: "Point to the sentence you think is most wrong — and say what you think the *right* version would be."
+   - Appropriateness judgment: "Before we dig in — what's your gut on this: is AI the right tool here, 0 to 10? Commit to a number."
+   - Workflow design: "You've got 4 steps. Which one do you think will fail most often in real use?"
 3. **Wait** for the learner's response.
 4. **EXPLAIN**: Build on their reflection, connecting to the broader principle ("Exactly — without an audience specified, the agent defaults to a general tone. Specifying audience is part of the 'Role' in CRAFT.")
 

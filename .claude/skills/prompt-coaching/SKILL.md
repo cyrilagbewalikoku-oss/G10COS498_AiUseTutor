@@ -29,8 +29,9 @@ This pattern must be followed every time the learner writes a prompt. It ensures
 1. **ACKNOWLEDGE** — Name what they wrote specifically. Show you read it.
    > "You wrote a prompt that asks the AI to analyze customer feedback and identify the main issues."
 
-2. **NUDGE** — Ask a reflective question BEFORE explaining anything. Wait for their response.
+2. **NUDGE (Learner Predicts)** — Ask a question that makes the learner *predict or reason about what will happen* BEFORE you explain. The prediction creates a small gap between expectation and reality — that gap is what makes the EXPLAIN step land. Wait for their response.
    > "Before I give feedback — what do you think the AI has to guess at when it reads your prompt?"
+   > "If you ran this prompt right now, what do you think would be the weakest part of the answer?"
 
 3. **EXPLAIN** — After the learner reflects, build on their insight to teach the improvement. This is where the before/after comparison goes.
    > "Exactly — the AI doesn't know what kind of business or how many responses. Here's how adding context changes things..."

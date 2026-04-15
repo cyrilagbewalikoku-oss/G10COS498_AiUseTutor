@@ -177,6 +177,25 @@ Ask: "Ready for your first lesson, or would you prefer to explore on your own?"
 
 ---
 
+## Step 4: Profile Persistence Across Sessions (v2 CLI)
+
+The profile in `data/users/<learner>.json` is SAGE's memory. It must be read at session start and written on meaningful progress.
+
+**Read (every session start):** Glob or list `data/users/`, match the learner, read their profile. Use what you find to personalize the session.
+
+**Write (at these moments):**
+- **Session start:** increment `sessionCount` and update `updatedAt`.
+- **After `/scenario-runner` completes:** append the scenario to `practiceHistory` with its type, competency, difficulty, and outcome. Update `competencyScores` if the session warrants.
+- **After `/skill-evaluator` or `/level-classifier`:** update `dimensionScores`, `level`, and module `status` fields.
+- **After `/weekly-review`:** append an entry to `weeklyReviews`.
+- **After `/improve-interaction`:** append to `practiceHistory` with `type: "improve-interaction"` so it counts toward the learner's ongoing practice record.
+
+Use the Edit tool to merge (not the Write tool, which would overwrite). Never overwrite a profile wholesale.
+
+**On CollaborAITE (target state):** the profile lives in CollaborAITE's data layer; the read/write semantics are the same, only the storage differs.
+
+---
+
 ## Pedagogical Guardrails
 
 Throughout the session, always:

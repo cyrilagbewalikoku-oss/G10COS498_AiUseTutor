@@ -64,7 +64,28 @@ Example:
 >
 > I'll tailor the practice scenarios to your actual course or work whenever I can. Want to start with #1, or jump to a different one?"
 
-## Step 5: Transition
+## Step 5: Write the Profile (REQUIRED — persistence)
+
+Before transitioning, write a new JSON profile for the learner to `data/users/<slug>.json` using the Write tool. This is what makes subsequent sessions feel continuous instead of starting from scratch.
+
+Slug = lowercase `{level}-{role}` (e.g. `novice-student`, `practitioner-marketer`). If that file already exists for another learner, disambiguate with a first name: `novice-student-jake`.
+
+Follow the schema at `data/schemas/user-profile.schema.json`. Required fields:
+- `id` (generated UUID)
+- `name`, `role`, `organization` (if provided)
+- `courseEnrollment` (if provided)
+- `level` (from Step 3 classification)
+- `goals` (from calibration)
+- `priorKnowledge` (from calibration)
+- `dimensionScores` (initial estimates from calibration — 0-5 per dimension)
+- `competencyScores` (initialize all 4 practice types at 0 unless calibration evidence justifies higher)
+- `learningPath` (the 3 recommended modules with `status: "not-started"`)
+- `sessionCount: 1`
+- `createdAt`, `updatedAt` timestamps
+
+Use the 5 example files in `data/users/` as a template.
+
+## Step 6: Transition
 
 > "Ready to dive into lesson 1? (yes / let me explore first)"
 

@@ -194,9 +194,13 @@ Sage will use Ai use its subject of tutoring. It will practise scenarios where t
 
 Write a summary paragraph describing the core functionality your agent provides. What does it do for learners/users? What’s the core loop of interaction? For each root cause or gap identified in your problem statement, include a paragraph on how the agent specifically addresses it. Be concrete about mechanisms/specific features and interactions that better address those root causes/gaps.
 
-Sage is a conversational AI agent on CollaborAITE that tutors learners in the critical, effective, and ethical use of AI tools. It works by engaging learners in interactive practice scenarios drawn directly from their course context and questions they are already posing to AI in their channels. Rather than presenting abstract exercises, the agent takes the kinds of AI interactions learners are genuinely attempting and turns them into structured learning moments. When a learner completes a practice attempt, the agent does not deliver a wall of feedback all at once. Instead, it scaffolds its response: it might first highlight what the learner did, then ask a brief nudging question — "What do you think the model is actually doing when you ask it for sources?" — that pushes the learner to reflect on their own reasoning before the agent explains the stronger approach. This mid-task reflection is woven naturally into the conversation, not flagged as a separate "reflection step," so the learner experiences it as a dialogue rather than an evaluation.
+Sage is a conversational AI agent on CollaborAITE that tutors learners in the critical, effective, and ethical use of AI tools. SAGE operates through a hybrid deployment model: learners are **required** to engage in brief weekly reflection sessions where SAGE reviews their recent AI use in a conversational, low-pressure dialogue; additionally, SAGE surfaces **subtle contextual nudges** while learners work with AI in CollaborAITE channels — gentle, non-invasive prompts (like a sidebar suggestion) that offer a teachable moment tied to what the learner is already doing, which the learner can engage with or dismiss. This means SAGE comes to the learner at the right moment rather than relying on learners to seek out extra practice on their own.
 
-This design addresses three gaps simultaneously. The scenario-based practice gives learners the deliberate, repeated attempts that standalone literacy workshops lack. The scaffolded feedback — delivered in precise, well-paced turns that interleave explanation with nudges toward self-examination — replaces the total absence of feedback in informal learning-by-doing. And the embedded reflection, where the agent guides learners to reconsider their own choices mid-conversation, builds the metacognitive habits that neither prior approach cultivates. At the close of each session, the agent offers a light, culminating reflection prompt — a single question that asks the learner to step back and notice a pattern in their thinking or connect what they practiced to their broader coursework. The result is a compact interaction that teaches, prods, and deepens understanding without exhausting the learner through excessive back-and-forth.
+> **v2 (CLI) adaptation:** In the current Claude Code CLI build, SAGE does not observe channels and does not fire scheduled prompts. The "contextual nudge" path is reframed as an explicit `/improve-interaction` command where the learner pastes an AI interaction they had elsewhere; the "weekly reflection" path is reframed as a `/weekly-review` command the learner invokes themselves. The pedagogy (ACKNOWLEDGE → NUDGE → EXPLAIN, single closing reflection) is identical; only the trigger mechanism differs. See §4g.
+
+Rather than presenting abstract exercises, the agent takes the kinds of AI interactions learners are genuinely attempting and turns them into structured learning moments. When a learner completes a practice attempt, the agent does not deliver a wall of feedback all at once. Instead, it scaffolds its response: it might first highlight what the learner did, then ask a brief nudging question — "What do you think the model is actually doing when you ask it for sources?" — that pushes the learner to reflect on their own reasoning before the agent explains the stronger approach. This mid-task reflection is woven naturally into the conversation, not flagged as a separate "reflection step," so the learner experiences it as a dialogue rather than an evaluation.
+
+This design addresses three gaps simultaneously. The scenario-based practice gives learners the deliberate, repeated attempts that standalone literacy workshops lack. The scaffolded feedback — delivered in precise, well-paced turns that interleave explanation with nudges toward self-examination — replaces the total absence of feedback in informal learning-by-doing. This scaffolding is grounded in the **"Learner Predicts"** pedagogical pattern and the related concept of **cognitive conflict**: the agent asks learners to predict or reason about what will happen before revealing the stronger approach, creating a productive gap between expectation and reality that deepens understanding. And the embedded reflection, where the agent guides learners to reconsider their own choices mid-conversation, builds the metacognitive habits that neither prior approach cultivates. At the close of each session, the agent offers a light, culminating reflection prompt — a single question that asks the learner to step back and notice a pattern in their thinking or connect what they practiced to their broader coursework. The result is a compact interaction that teaches, prods, and deepens understanding without exhausting the learner through excessive back-and-forth.
 
 ## **4b. Data Sources**
 
@@ -204,7 +208,7 @@ Your agent lives on CollaborAITE and has access to a RAG knowledge base (in addi
 
 | CollaborAITE Data Sources |
 | :---- |
-| Check and describe each data source your agent will use: **Class slides and activities:** The agent reads course slides and activity descriptions to contextualize practice scenarios. If a learner is in a research methods course, scenarios will reference research tasks rather than generic examples. This ensures practice is relevant to the learner's actual academic context. **Channel conversations (these may/do include AI queries):** The agent can reference anonymized patterns in channel AI use to inform scenario design and group-level reflection prompts. It does not surface or quote individual students' AI queries to other students. **User profile information:** \[if applicable, briefly summarize how/what the agent uses this for?\] **User-uploaded documents:** \[What additional context might learners/users have already provided or done before in the moment?\]  **May not be provided by the system / platform (CollaborAITE):**  **Prior assignments and reflections:** The agent accesses the requesting learner's own prior reflections and practice history with the agent to track progress, avoid repetition, and scaffold increasingly complex challenges. It does not access other students' assignments or reflections. **Anonymized session transcripts:** The agent uses anonymized transcripts of past agent interactions (stripped of identifying information) as example material: "Here is an anonymized interaction where a student asked an AI for help with X. What would you do differently?" This provides authentic practice material without privacy risk.  **Also describe what the agent deliberately does NOT access and why** (privacy-by-design), one sentence for each. |
+| Check and describe each data source your agent will use: **Class slides and activities:** The agent reads course slides and activity descriptions to contextualize practice scenarios. If a learner is in a research methods course, scenarios will reference research tasks rather than generic examples. This ensures practice is relevant to the learner's actual academic context. *v2 CLI: not available — learner can describe their course verbally or attach a document at interaction time.* **Channel conversations (these may/do include AI queries):** The agent can reference anonymized patterns in channel AI use to inform scenario design and group-level reflection prompts. It does not surface or quote individual students' AI queries to other students. *v2 CLI: not available — learner can paste an AI interaction transcript via `/improve-interaction`.* **User profile information:** Course enrollment, discipline, skill level, goals, and prior practice history. Used to tailor vocabulary and pick appropriately challenging scenarios. *v2 CLI: stored as local JSON in `data/users/` on first session and read back on subsequent sessions.* **User-uploaded documents:** Material the learner drops into the session (a paper they are writing, an assignment prompt, a transcript of an AI interaction). Used as the object of practice. *v2 CLI: fully supported — the learner pastes or references local files.*  **May not be provided by the system / platform (CollaborAITE):**  **Prior assignments and reflections:** The agent accesses the requesting learner's own prior reflections and practice history with the agent to track progress, avoid repetition, and scaffold increasingly complex challenges. It does not access other students' assignments or reflections. *v2 CLI: limited to what SAGE itself writes to the learner's local profile.* **Anonymized session transcripts:** The agent uses anonymized transcripts of past agent interactions (stripped of identifying information) as example material: "Here is an anonymized interaction where a student asked an AI for help with X. What would you do differently?" This provides authentic practice material without privacy risk. *v2 CLI: not available — fixed curated examples in `examples/interactions/` stand in.*  **Also describe what the agent deliberately does NOT access and why** (privacy-by-design): SAGE does not access other learners' profiles, reflections, or AI interactions (privacy by isolation); does not access content of private channels it has not been invited to; does not exfiltrate any learner data to external services. |
 |  |
 
 ## **4c. Other Data Sources**
@@ -241,115 +245,97 @@ Create a task flow diagram showing the full interaction cycle between the learne
 
 Provide a link to an editable version of this diagram.
 
-INTERACTION CYCLE: SAGE Practice Session
+INTERACTION CYCLE: SAGE Session
 
-1\. LEARNER INITIATES
+1. SAGE IS TRIGGERED (learner does not need to seek it out)
 
-   └─\> Learner messages @SAGE in a CollaborAITE channel
+   Two entry paths on CollaborAITE (target state):
 
-       Options: "I want to practice \[prompting / evaluating / ethical reasoning\]"
+   A) CONTEXTUAL NUDGE (while learner is working):
+      Learner is using AI in a CollaborAITE channel for coursework.
+      SAGE observes the interaction and surfaces a subtle, non-invasive
+      sidebar suggestion such as: "I noticed you asked the AI for sources —
+      I could help you get better results from that kind of request. Want
+      to try?" Learner can engage or dismiss.
 
-               "Give me a challenge related to \[my course / a specific topic\]"
+      *v2 CLI adaptation:* learner explicitly invokes `/improve-interaction`
+      and pastes a prompt (or prompt + AI response) they had elsewhere.
+      SAGE applies the same scaffolded coaching to the pasted content.
 
-               "Help me reflect on my recent AI use"
+   B) SCHEDULED REFLECTION (required, but conversational):
+      At set intervals (e.g., weekly), SAGE prompts the learner to reflect
+      on their recent AI use as a course requirement. Warm, short (5–10
+      min), 2–3 focused questions. Tone is peer, not professor.
 
-2\. AGENT ASSESSES CONTEXT
+      *v2 CLI adaptation:* learner invokes `/weekly-review` and pastes or
+      describes 2–3 recent AI interactions. SAGE walks them through the
+      same reflection flow. Scheduling is on the learner; everything else
+      is identical.
 
-   └─\> Agent checks:
+2. AGENT ASSESSES CONTEXT
+   Agent checks:
+     - Learner's course enrollment and discipline (user profile)
+     - Learner's prior practice history (past interactions with agent)
+     - Current course topics (class slides/activities — CollaborAITE only)
+     - Competencies not yet practiced (competency framework mapping)
 
-       ├─ Learner's course enrollment and discipline (user profile)
+   Based on the trigger type and learner context, the session branches
+   into one of three paths:
 
-       ├─ Learner's prior practice history (past interactions with agent)
+3. SESSION BRANCHES INTO ONE OF THREE PATHS
 
-       ├─ Current course topics (class slides/activities)
+   PATH A — IMPROVE THIS INTERACTION (from contextual nudge / `/improve-interaction`):
+     SAGE noticed something in the learner's AI use and helps them do it
+     better — rewriting a prompt, evaluating an output they received, or
+     recognizing when AI isn't the right tool for the task.
 
-       └─ Competencies not yet practiced (competency framework mapping)
+   PATH B — STRUCTURED PRACTICE SCENARIO (from either trigger / `/scenario-runner`):
+     SAGE presents a practice scenario drawn from course context.
+     Scenario types:
+       - PROMPT CRAFTING: Learner writes a prompt for a described task
+       - OUTPUT EVALUATION: Learner receives a real or simulated AI output
+         (which may include deliberately inserted errors) and must identify
+         strengths, weaknesses, errors, or biases
+       - APPROPRIATENESS JUDGMENT: Learner is given a task context and must
+         decide whether/how AI should be used, with justification
+       - WORKFLOW DESIGN: Learner describes a multi-step process for
+         completing a task that involves AI at some steps
+     CONTROL POINT: Agent presents scenario and asks learner to confirm
+     or request a different focus area.
 
-   └─\> Agent selects or generates a practice scenario drawn from the
+   PATH C — REFLECT ON RECENT AI USE (from scheduled reflection / `/weekly-review`):
+     SAGE walks the learner through reviewing their AI interactions from
+     the past week — what went well, what patterns they notice, what
+     they'd do differently.
 
-       learner's actual course tasks and AI queries
+4. AGENT SCAFFOLDS FEEDBACK WITH EMBEDDED REFLECTION (all paths converge)
+   Agent does NOT dump all feedback at once. Instead it sequences the
+   response across a few precise turns:
+     - ACKNOWLEDGE: name what the learner did, specifically
+     - NUDGE (Learner Predicts): pose a brief question that pushes the
+       learner to predict or reason about what will happen BEFORE hearing
+       the explanation (e.g., "What do you think happens when the model
+       gets this kind of request?")
+     - LEARNER RESPONDS to the nudge — thinking through their own logic
+     - EXPLAIN: build on the learner's reflection to explain the stronger
+       approach, connecting to a transferable principle
+   Mid-task reflection feels like natural dialogue, not a quiz step.
+   CONTROL POINT: learner can ask follow-up, challenge the feedback, or
+   redirect.
 
-   └─\> CONTROL POINT: Agent presents scenario and asks learner to confirm
+5. LIGHT CLOSING REFLECTION
+   One brief question that guides the learner to notice a pattern in
+   their thinking or connect the practice to their broader coursework.
+   Lightweight by design — learner responds or defers.
 
-       or request a different focus area
+6. AGENT UPDATES LEARNER PROGRESS
+   Logs competencies practiced, performance level, mid-task reflection
+   responses, scenario difficulty. Next session draws on this history.
+   *v2 CLI: written to the learner's local profile JSON in `data/users/`.*
 
-3\. LEARNER ATTEMPTS PRACTICE TASK
-
-   └─\> Depending on scenario type:
-
-       ├─ PROMPT CRAFTING: Learner writes a prompt for a described task
-
-       ├─ OUTPUT EVALUATION: ~~Learner receives a (real or simulated) AI output~~
-
-       ~~│   and must identify strengths, weaknesses, errors, or biases~~ Learner receives feedback with some form of error in there where they have to identify the error in the code/feedback.
-
-       ├─ APPROPRIATENESS JUDGMENT: Learner is given a task context and must
-
-       │   decide whether/how AI should be used, with justification
-
-       └─ WORKFLOW DESIGN: Learner describes a multi-step process for
-
-           completing a task that involves AI at some steps
-
-4\. AGENT SCAFFOLDS FEEDBACK WITH EMBEDDED REFLECTION (Threaded Plan Display)
-
-   └─\> Agent does NOT dump all feedback at once. Instead, it sequences
-
-       the response across a few precise turns:
-
-       ├─ ACKNOWLEDGE: Agent names what the learner did, specifically
-
-       ├─ NUDGE: Agent poses a brief question that pushes the learner
-
-       │   to reflect on their own reasoning before hearing the explanation
-
-       │   (e.g., "What do you think happens when the model gets this kind
-
-       │   of request?" or "Why might that approach be risky here?")
-
-       ├─ LEARNER RESPONDS to the nudge — thinking through their own logic
-
-       ├─ EXPLAIN: Agent builds on the learner's reflection to explain the
-
-       │   stronger approach, connecting it to a transferable principle
-
-       └─\> This mid-task reflection feels like natural dialogue, not a
-
-           separate evaluation or quiz step
-
-   └─\> CONTROL POINT: Learner can ask follow-up questions, challenge
-
-       the feedback, or redirect the conversation
-
-5\. LIGHT CLOSING REFLECTION
-
-   └─\> At the end of the session, agent offers a single, brief reflection
-
-       prompt — one question that ~~asks~~ Guides the learner to notice a pattern
-
-       in their thinking or connect the practice to their broader coursework
-
-   └─\> This is lightweight by design: not an essay, not a series of
-
-       questions — just one nudge to carry the learning forward
-
-   └─\> Learner responds (or defers — reflection is encouraged, not forced)
-
-6\. AGENT UPDATES LEARNER PROGRESS
-
-   └─\> Agent logs:
-
-       ├─ Competencies practiced and performance level
-
-       ├─ Mid-task reflection responses (for future scaffolding)
-
-       └─ Scenario difficulty level completed
-
-   └─\> Next session draws on this history to select appropriately
-
-       challenging scenarios and avoid repetition
-
-CYCLE REPEATS — learner initiates next session when ready
+CYCLE REPEATS — next session is triggered by SAGE on CollaborAITE
+(contextual nudge or scheduled reflection); in v2 CLI, the learner
+invokes the relevant command.
 
 ## **4e. Example Interactions**
 
@@ -420,16 +406,35 @@ For your agent, describe the 2–3 most serious potential harms and how your des
 | Potential Harm | Likelihood | Design Safeguard | What If It Fails? |
 | :---- | :---- | :---- | :---- |
 | Learners may treat SAGE's feedback as the authoritative last word on what constitutes "good" AI use | High | SAGE's scaffolded feedback style inherently mitigates this risk: by nudging learners to articulate their own reasoning before the agent explains | If we notice from the logs that students are mostly ignoring the reflection questions, we might add a "challenge the agent" exercise where learners must identify weaknesses in SAGE's own reasoning. |
-| Students with more prior AI experience may benefit more from the agent (they have more to build on), while students with less experience may find practice scenarios intimidating or alienating | Medium | We first included a low stakes orientation to the learner and also the scenario difficulty begins at a deliberately accessible level for all learners, and the agent adjusts upward based on demonstrated competence rather than assumed background | In cases where we see lower engagement from first time usres, the team will conduct targeted feedback sessions with low-engagement learners to understand barriers and will redesign onboarding scenarios accordingly. |
-| *\[Describe harm\]* | *\[Low/Med/High\]* | *\[How your design prevents this\]* | *\[What happens if the safeguard fails?\]* |
+| Students with more prior AI experience may benefit more from the agent (they have more to build on), while students with less experience may find practice scenarios intimidating or alienating | Medium | We first included a low stakes orientation to the learner and also the scenario difficulty begins at a deliberately accessible level for all learners, and the agent adjusts upward based on demonstrated competence rather than assumed background | In cases where we see lower engagement from first time users, the team will conduct targeted feedback sessions with low-engagement learners to understand barriers and will redesign onboarding scenarios accordingly. |
+| **v2 CLI evaluation under-represents the full system:** evaluators using the Claude Code CLI build will not see contextual sidebar nudges, scheduled weekly reflections, or channel-pattern retrieval — and may conclude SAGE is less engaging than it is designed to be on CollaborAITE. | Medium | Evaluators are briefed before the session on which paths are adapted for CLI (paste-based Path A, manually-invoked Path C) and which are deferred to CollaborAITE deployment. The underlying pedagogy (ACKNOWLEDGE → NUDGE → EXPLAIN, Learner Predicts, single closing reflection) is identical across both deployments and is what the evaluation targets. | If evaluators still report that the prototype feels passive or hard to discover, we will add CLI-friendly affordances — e.g., a session-start menu that surfaces the three paths — before v3. |
+
+## **4g. Deployment Model (v2 CLI vs. Target State)**
+
+SAGE is designed for CollaborAITE but is evaluated in v2 on the Claude Code CLI. This section names what is present in each deployment so that readers (and evaluators) can tell the two apart.
+
+| Capability | v2 (Claude Code CLI) | Target (CollaborAITE) |
+| :---- | :---- | :---- |
+| **Invocation** | Learner runs the CLI and invokes skills (`/onboarding`, `/scenario-runner`, `/improve-interaction`, `/weekly-review`) | Learner @mentions SAGE in a channel; SAGE also proactively nudges |
+| **Contextual nudges (Path A)** | Learner pastes an AI interaction via `/improve-interaction` | SAGE surfaces a sidebar suggestion when it sees a teachable moment in the learner's channel AI use |
+| **Weekly reflection (Path C)** | Learner runs `/weekly-review` when they choose to | SAGE sends a scheduled prompt on a weekly cadence |
+| **Practice scenarios (Path B)** | Fully supported | Fully supported |
+| **Course slides / materials RAG** | Learner describes course or attaches a document | Retrieved automatically from CollaborAITE |
+| **Channel conversation retrieval** | Not available; learner pastes transcripts | Retrieved (anonymized peer patterns + learner's own history) |
+| **Learner profile persistence** | Local JSON in `data/users/` | CollaborAITE data layer |
+| **Anonymized cohort examples** | Fixed curated examples in `examples/interactions/` | Pulled from anonymized channel corpora |
+
+The pedagogy — ACKNOWLEDGE → NUDGE → EXPLAIN, Learner Predicts, CRAFT, four practice types, single closing reflection, Merrill + Bloom alignment — is **identical in both deployments**. Only the delivery surface changes. v2 evaluation therefore targets the pedagogy; evaluators should be briefed that the always-on, proactive behaviors of CollaborAITE are deferred.
 
 ## **5\. Technical Architecture and Design for the Agent**
 
-* **Scenario Engine** — Selects and parameterizes practice scenarios based on learner context (course, discipline, prior history) and competency coverage. Draws from a scenario template library stored in the RAG database. Uses course slides and activity data to contextualize scenarios.  
-* **Feedback Generator** — Takes the learner's practice attempt as input and produces scaffolded, multi-turn feedback rather than a single block of assessment. Sequences acknowledgment of what the learner did, a nudging question that pushes the learner to reflect before receiving the explanation, and then a precise explanation connecting to transferable principles. Uses the LLM with structured prompting to ensure each feedback turn is concise and avoids information-dumping.  
-* **Reflection Prompter** — Generates two types of reflection: mid-task nudging questions (woven into the feedback dialogue to prompt the learner to think before the agent explains) and light closing reflections (a single question at session end). Draws on the practice type, learner history, and competency focus. Tracks reflection responses for use in future scaffolding.  
-* **Progress Tracker** — Maintains a per-learner record of competencies practiced, difficulty levels completed, and reflection engagement. Informs the Scenario Engine's selection logic. Stored using CollaborAITE's data persistence layer.  
-* **Data Access Layer** — Manages retrieval from CollaborAITE data sources (course slides, anonymized channel patterns, user profile, learner's own history) and the RAG database (competency frameworks, misconception catalogs, discipline norms). Enforces privacy constraints: no access to other learners' data, no access to uploaded documents.  
+* **Scenario Engine** — Selects and parameterizes practice scenarios based on learner context (course, discipline, prior history) and competency coverage. Draws from a scenario template library stored in the RAG database. Uses course slides and activity data to contextualize scenarios. *v2 CLI: scenarios in `data/scenarios/`; course context provided by learner.*
+* **Nudge Detector** *(CollaborAITE target; not implemented in v2)* — Monitors the learner's AI interactions in CollaborAITE channels and identifies moments where a subtle contextual nudge would be valuable (e.g., a prompt that could be improved, an output that should be evaluated critically, or a use case where AI may not be appropriate). Surfaces non-invasive sidebar suggestions that the learner can engage with or dismiss. *v2 CLI analog: the `improve-interaction` skill, triggered manually by the learner pasting an interaction.*
+* **Scheduled Reflection Trigger** *(CollaborAITE target; not implemented in v2)* — Fires on a weekly cadence to initiate Path C. *v2 CLI analog: the `weekly-review` skill, invoked on-demand by the learner.*
+* **Feedback Generator** — Takes the learner's practice attempt as input and produces scaffolded, multi-turn feedback rather than a single block of assessment. Grounded in the **"Learner Predicts"** pedagogical pattern and the concept of **cognitive conflict**: the agent first asks learners to predict or reason about what will happen before revealing the stronger approach, creating a productive gap between expectation and reality. Sequences acknowledgment of what the learner did, a predict-before-reveal nudge, and then a precise explanation connecting to transferable principles. Uses the LLM with structured prompting to ensure each feedback turn is concise and avoids information-dumping.
+* **Reflection Prompter** — Generates two types of reflection: mid-task nudging questions (woven into the feedback dialogue, using the Learner Predicts pattern to prompt the learner to think before the agent explains) and light closing reflections (a single question at session end). Draws on the practice type, learner history, and competency focus. Tracks reflection responses for use in future scaffolding.
+* **Progress Tracker** — Maintains a per-learner record of competencies practiced, difficulty levels completed, and reflection engagement. Informs the Scenario Engine's selection logic. *v2 CLI: persisted as JSON in `data/users/<learner>.json` on the local filesystem. CollaborAITE target: CollaborAITE's data persistence layer.*
+* **Data Access Layer** — Manages retrieval from CollaborAITE data sources (course slides, anonymized channel patterns, user profile, learner's own history) and the RAG database (competency frameworks, misconception catalogs, discipline norms). Enforces privacy constraints: no access to other learners' data, no access to uploaded documents the learner didn't surface. *v2 CLI: reads local `data/` directory only.*
 * **Conversation Manager** — Handles multi-turn interaction flow, threading, and control-point logic (scenario confirmation, reflection skip/defer). Built on the Claude Agents SDK's conversation state management.
 
 # **6\. Evaluation / Metrics of Success**
