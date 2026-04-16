@@ -3,8 +3,9 @@
   "checkpoint_id": "362cfd851eb6",
   "strategy": "manual-commit",
   "branch": "build/agent-2",
-  "checkpoints_count": 2,
+  "checkpoints_count": 3,
   "files_touched": [
+    "Dockerfile",
     "pyproject.toml",
     "sage/__init__.py",
     "sage/__main__.py",
@@ -32,13 +33,20 @@
       "context": "/36/2cfd851eb6/0/context.md",
       "content_hash": "/36/2cfd851eb6/0/content_hash.txt",
       "prompt": "/36/2cfd851eb6/0/prompt.txt"
+    },
+    {
+      "metadata": "/36/2cfd851eb6/1/metadata.json",
+      "transcript": "/36/2cfd851eb6/1/full.jsonl",
+      "context": "/36/2cfd851eb6/1/context.md",
+      "content_hash": "/36/2cfd851eb6/1/content_hash.txt",
+      "prompt": "/36/2cfd851eb6/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 280,
+    "input_tokens": 230669,
     "cache_creation_tokens": 939169,
     "cache_read_tokens": 21102510,
-    "output_tokens": 50947,
-    "api_call_count": 124
+    "output_tokens": 51774,
+    "api_call_count": 129
   }
 }
