@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: sage-tutor
+Version: 0.2.0
+Summary: SAGE — Scaffolded AI Guidance for Engagement. An AI literacy tutor built on the Claude API.
+Requires-Python: >=3.10
+Requires-Dist: anthropic>=0.90.0
+Requires-Dist: streamlit>=1.35.0

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sage-tutor"
+version = "0.2.0"
+description = "SAGE — Scaffolded AI Guidance for Engagement. An AI literacy tutor built on the Claude API."
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.90.0",
+    "streamlit>=1.35.0",
+]
+
+[project.scripts]
+sage = "sage.agent:run"
+sage-ui = "sage.ui:main"
+
+[tool.setuptools.packages.find]
+include = ["sage"]
