@@ -2,19 +2,40 @@
 
 An AI agent that tutors learners in the critical, effective, and ethical use of AI tools — through interactive practice, scaffolded feedback, and guided reflection.
 
-## Prerequisites
+## Two Ways to Run SAGE
 
-- [Git](https://git-scm.com/downloads)
-- [Claude Code](https://claude.ai/code) — CLI, VS Code extension, or Desktop app with an active account
+### Option A: Standalone Python Agent (Claude Agent SDK)
 
-## Quick Start
+Runs as a standalone Python CLI application — no Claude Code required.
+
+**Prerequisites:** Python 3.10+, an [Anthropic API key](https://console.anthropic.com/)
+
+```bash
+git clone https://github.com/Elorm-K/498_Agents.git
+cd 498_Agents
+
+# Install dependencies
+pip install -r sage/requirements.txt
+
+# Set your API key
+export ANTHROPIC_API_KEY="your-key-here"
+
+# Run SAGE
+python -m sage
+```
+
+### Option B: Claude Code Skills (original prototype)
+
+Runs inside Claude Code with skill-based routing.
+
+**Prerequisites:** [Git](https://git-scm.com/downloads), [Claude Code](https://claude.ai/code) — CLI, VS Code extension, or Desktop app
 
 ```bash
 git clone https://github.com/Elorm-K/498_Agents.git
 cd 498_Agents
 ```
 
-Then launch Claude Code in one of these ways:
+Then launch Claude Code:
 
 | Method | Command |
 |--------|---------|
@@ -80,7 +101,8 @@ Open a [GitHub Issue](https://github.com/Elorm-K/498_Agents/issues) and include:
 ## Current Limitations
 
 - This is a **prototype** — not all features are fully polished
-- Requires Claude Code access or CollaborAITE deployment (not a standalone app)
+- The standalone Python agent (Option A) requires an Anthropic API key
+- The Claude Code skills version (Option B) requires a Claude Code subscription
 - CollaborAITE-only features (sidebar nudges, scheduled reflections, channel/peer retrieval) are deferred — see [docs/roadmap.md](docs/roadmap.md) for what's planned
 
 ---
@@ -121,7 +143,12 @@ SAGE offers four types of practice:
 ## Project Structure
 
 ```
-├── CLAUDE.md                  # System prompt for SAGE
+├── sage/                      # Standalone Python agent (Claude Agent SDK)
+│   ├── agent.py               # Conversation loop + entry point
+│   ├── tools.py               # Tool definitions (profile, scenario, rubric I/O)
+│   ├── prompts.py             # System prompt
+│   └── requirements.txt       # Python dependencies
+├── CLAUDE.md                  # System prompt for SAGE (Claude Code skills mode)
 ├── .claude/skills/            # 14 modular skill definitions
 │   ├── teaching/              # Onboarding, concepts, prompting, ethics
 │   ├── assessment/            # Knowledge checks, evaluation, level classification
