@@ -1,0 +1,44 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "362cfd851eb6",
+  "strategy": "manual-commit",
+  "branch": "build/agent-2",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "pyproject.toml",
+    "sage/__init__.py",
+    "sage/__main__.py",
+    "sage/__pycache__/__init__.cpython-313.pyc",
+    "sage/__pycache__/agent.cpython-313.pyc",
+    "sage/__pycache__/app.cpython-313.pyc",
+    "sage/__pycache__/prompts.cpython-313.pyc",
+    "sage/__pycache__/tools.cpython-313.pyc",
+    "sage/agent.py",
+    "sage/app.py",
+    "sage/prompts.py",
+    "sage/tools.py",
+    "sage/ui.py",
+    "sage_tutor.egg-info/PKG-INFO",
+    "sage_tutor.egg-info/SOURCES.txt",
+    "sage_tutor.egg-info/dependency_links.txt",
+    "sage_tutor.egg-info/entry_points.txt",
+    "sage_tutor.egg-info/requires.txt",
+    "sage_tutor.egg-info/top_level.txt"
+  ],
+  "sessions": [
+    {
+      "metadata": "/36/2cfd851eb6/0/metadata.json",
+      "transcript": "/36/2cfd851eb6/0/full.jsonl",
+      "context": "/36/2cfd851eb6/0/context.md",
+      "content_hash": "/36/2cfd851eb6/0/content_hash.txt",
+      "prompt": "/36/2cfd851eb6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 280,
+    "cache_creation_tokens": 939169,
+    "cache_read_tokens": 21102510,
+    "output_tokens": 50947,
+    "api_call_count": 124
+  }
+}

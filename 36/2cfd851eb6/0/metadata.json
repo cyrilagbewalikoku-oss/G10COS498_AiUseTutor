@@ -1,0 +1,48 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "362cfd851eb6",
+  "session_id": "077ff7ad-f720-48ce-bbe3-9e9084f67674",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-16T20:30:48.366929Z",
+  "branch": "build/agent-2",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "pyproject.toml",
+    "sage/__init__.py",
+    "sage/__main__.py",
+    "sage/__pycache__/__init__.cpython-313.pyc",
+    "sage/__pycache__/agent.cpython-313.pyc",
+    "sage/__pycache__/app.cpython-313.pyc",
+    "sage/__pycache__/prompts.cpython-313.pyc",
+    "sage/__pycache__/tools.cpython-313.pyc",
+    "sage/agent.py",
+    "sage/app.py",
+    "sage/prompts.py",
+    "sage/tools.py",
+    "sage/ui.py",
+    "sage_tutor.egg-info/PKG-INFO",
+    "sage_tutor.egg-info/SOURCES.txt",
+    "sage_tutor.egg-info/dependency_links.txt",
+    "sage_tutor.egg-info/entry_points.txt",
+    "sage_tutor.egg-info/requires.txt",
+    "sage_tutor.egg-info/top_level.txt"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "cc80c85509c8",
+  "token_usage": {
+    "input_tokens": 280,
+    "cache_creation_tokens": 939169,
+    "cache_read_tokens": 21102510,
+    "output_tokens": 50947,
+    "api_call_count": 124
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-16T20:30:46.44674Z",
+    "agent_lines": 720,
+    "human_added": 54,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 774,
+    "agent_percentage": 93.02325581395348
+  }
+}
