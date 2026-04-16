@@ -1,0 +1,3 @@
+[console_scripts]
+sage = sage.agent:run
+sage-ui = sage.ui:main
