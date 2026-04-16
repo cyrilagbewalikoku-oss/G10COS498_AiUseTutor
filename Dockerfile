@@ -6,10 +6,13 @@ WORKDIR /app
 COPY pyproject.toml ./
 RUN pip install --no-cache-dir .
 
-# Copy source and data
+# Copy source, data, and Streamlit config
 COPY sage/ sage/
 COPY data/ data/
+COPY .streamlit/ .streamlit/
 COPY CLAUDE.md ./
 
-# Default to CLI agent (matches Procfile)
-CMD ["python", "-m", "sage.agent"]
+EXPOSE 8501
+
+# Railway sets PORT; pass it to Streamlit at runtime
+CMD streamlit run sage/app.py --server.port ${PORT:-8501}
