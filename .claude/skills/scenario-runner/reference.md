@@ -297,19 +297,15 @@ The question should be:
 **SAGE (debrief)**:
 > "--- Simulation Complete --- Nice work. Want a quick debrief?"
 
-**SAGE (ACKNOWLEDGE)**:
-> "You wrote an open-ended first prompt that got a generic response, then followed up with specific constraints — numbers, churn flags, word limit. You also caught the causal language issue in Turn 3."
-
-**SAGE (NUDGE)**:
-> "What do you think would have happened if you'd included those constraints in your very first prompt?"
+**SAGE**:
+> "Open-ended Turn 1, then constraints in Turn 2 — numbers, churn flags, word limit. You also caught the causal language issue in Turn 3. What do you think would have happened if those constraints had been in Turn 1?"
 
 **Learner**: "I probably would have gotten the better response right away and saved a turn."
 
-**SAGE (EXPLAIN)**:
-> "Exactly. Front-loading your constraints is one of the highest-leverage moves in prompting. It doesn't just save time — it reduces the chance the agent goes down a path you didn't want. Your constraint-setting improved dramatically from Turn 1 to Turn 2. The next step is making Turn 1 look like Turn 2."
-
-**SAGE (closing reflection)**:
-> "One quick question: What's one constraint you'd add to your very first prompt now?"
+**SAGE**:
+> "Exactly — front-loading constraints is one of the highest-leverage moves in prompting. It also reduces the chance the agent goes down a path you didn't want. The next step is making Turn 1 look like Turn 2.
+>
+> What's one constraint you'd add to your very first prompt now?"
 
 ---
 
@@ -350,16 +346,13 @@ The question should be:
 
 **Learner**: "The claim that no country has repealed a carbon tax seems suspicious — didn't Australia repeal theirs?"
 
-**SAGE (ACKNOWLEDGE)**: "You spotted the claim about no repeals and questioned it with a specific counterexample."
-
-**SAGE (NUDGE)**: "What about the paragraph on low-income households — does the word 'completely' stand out to you?"
+**SAGE**: "Good catch on the repeals claim — Australia repealed theirs in 2014. Look at the paragraph on low-income households too: does the word 'completely' stand out?"
 
 **Learner**: "Yeah, 'completely eliminating' is a really strong claim. There's probably still some impact even if revenue is returned."
 
-**SAGE (EXPLAIN)**: "That's exactly right. Absolute language like 'completely' is a common flag in AI output — real-world policy effects are almost never absolute. Revenue-neutral designs reduce regressivity, but the distribution of rebates may not perfectly match the distribution of costs. And you were right about Australia — they repealed their carbon pricing mechanism in 2014. Both errors share a pattern: the AI overstates the certainty of a claim."
-
-**SAGE (closing reflection)**:
-> "One quick question: What single word in AI output should always make you look twice?"
+**SAGE**: "Right — both errors share a pattern: **the AI overstates certainty**. Absolute words like 'completely,' 'always,' 'never' are tells — real-world effects almost never land that cleanly.
+>
+> What single word in AI output should always make you look twice?"
 
 ---
 
@@ -387,16 +380,13 @@ The question should be:
 
 **Learner**: "I think AI could help with the structure and language, but I wouldn't want it making the actual judgments about performance. The PIP needs to reference specific incidents and behaviors that the AI wouldn't know about."
 
-**SAGE (ACKNOWLEDGE)**: "You drew a line between AI helping with structure versus AI making judgments, and you identified that AI lacks context about specific incidents."
-
-**SAGE (NUDGE)**: "What risks would you see even if AI is only helping with structure and language?"
+**SAGE**: "You drew a clean line between AI-for-structure and AI-for-judgment, and flagged that the AI lacks context on specific incidents. What risks do you see even if AI is *only* helping with structure and language?"
 
 **Learner**: "Hmm, the tone could be off — too cold or too lenient. And if the AI uses boilerplate language, the employee might feel like they're being treated generically, which could make things worse."
 
-**SAGE (EXPLAIN)**: "That's the key insight: even 'just helping with language' isn't neutral in high-stakes contexts. The tone and specificity of a PIP directly affects whether the employee feels respected, which affects whether the PIP succeeds. AI can draft, but the human must review for tone, specificity, and fairness before anything goes out. Your instinct to separate structure from judgment was right — and your follow-up shows why the human review has to be substantive, not just a rubber stamp."
-
-**SAGE (closing reflection)**:
-> "One quick question: When you hear someone say 'AI can handle the writing,' what question do you want to ask them now?"
+**SAGE**: "Right — that's the insight. Even 'just language' isn't neutral in high-stakes contexts: tone and specificity in a PIP shape whether the employee feels respected, which shapes whether the PIP works. AI can draft, but the human review has to be substantive, not a rubber stamp.
+>
+> When you hear someone say 'AI can handle the writing,' what question do you want to ask them now?"
 
 ---
 
@@ -424,16 +414,13 @@ The question should be:
 
 **Learner**: "Step 1: AI aggregates stories from feeds and ranks by relevance. Step 2: Human editor reviews the ranking and selects which stories to include. Step 3: AI drafts summaries for each selected story. Step 4: Human editor reviews summaries for accuracy and tone. Step 5: AI formats the briefing and distributes it."
 
-**SAGE (ACKNOWLEDGE)**: "You created a 5-step workflow with human checkpoints at story selection and summary review — that's two clear review points."
-
-**SAGE (NUDGE)**: "What would happen if the AI in Step 1 surfaces a story that's actually misinformation? Would either of your checkpoints catch that?"
+**SAGE**: "5 steps, 2 human checkpoints — selection and summary review. What if the AI in Step 1 surfaces a story that's actually misinformation? Would either checkpoint catch that?"
 
 **Learner**: "The editor reviewing the ranking might not catch it if the story looks plausible. I think I need a step where someone specifically checks the source credibility of the selected stories before the AI summarizes them."
 
-**SAGE (EXPLAIN)**: "That's the insight: your checkpoints were about selection and quality, but not about truth. In a news context, a misinformation story that gets through aggregation and past a busy editor's ranking review will get a polished, credible-sounding summary in Step 3 — making it even harder to catch in Step 4. Adding a source verification step between selection and drafting catches the problem when it's still cheap to fix. The pattern here is: design checkpoints to catch the most costly failure mode, not just the most obvious one."
-
-**SAGE (closing reflection)**:
-> "One quick question: What's the most costly failure in your workflow, and does your current checkpoint placement catch it early enough?"
+**SAGE**: "Exactly — your checkpoints covered selection and quality, not truth. A misinformation story that slips past a busy editor's ranking review gets a polished, credible-sounding Step 3 summary, making Step 4 harder, not easier. Adding source verification between selection and drafting catches it when it's still cheap. The pattern: **design checkpoints for the most costly failure mode, not the most obvious one.**
+>
+> What's the most costly failure in your workflow, and does your current checkpoint placement catch it early enough?"
 
 ## Design Notes
 

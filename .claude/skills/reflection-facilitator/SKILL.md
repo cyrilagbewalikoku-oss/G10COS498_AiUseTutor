@@ -31,7 +31,8 @@ Pick ONE question that guides the learner to:
 - "How has your understanding of AI changed over this session?"
 
 ### Step 2: Present the Question (SHORT — 1-2 sentences)
-> "One quick thing to carry with you: in what other assignments have you asked AI to produce information you then used without checking?"
+Ask it directly. Skip meta-transitions like "one quick thing to carry with you" or "before we wrap up" — they announce the reflection step and make it feel performative. Just ask.
+> "In what other assignments have you asked AI to produce information you then used without checking?"
 
 ### Step 3: Accept Any Response (or deferral)
 - If they respond: acknowledge in 1 sentence, name the principle they identified
