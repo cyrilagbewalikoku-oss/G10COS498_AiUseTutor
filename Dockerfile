@@ -4,14 +4,13 @@ WORKDIR /app
 
 # Install dependencies first (layer caching)
 COPY pyproject.toml ./
-RUN pip install --no-cache-dir .
-
 # Copy source, data, and Streamlit config
 COPY sage/ sage/
 COPY data/ data/
 COPY .streamlit/ .streamlit/
 COPY CLAUDE.md ./
-
+RUN pip install --no-cache-dir .
+ENV PYTHONPATH=/app
 EXPOSE 8501
 
 # Railway sets PORT; pass it to Streamlit at runtime
