@@ -2,78 +2,83 @@
 
 An AI agent that tutors learners in the critical, effective, and ethical use of AI tools — through interactive practice, scaffolded feedback, and guided reflection.
 
-## Two Ways to Run SAGE
+## Quick Start (Web UI)
 
-### Option A: Standalone Python Agent (Claude Agent SDK)
+The fastest way to use SAGE. Opens a chat interface in your browser.
 
-Runs as a standalone Python CLI application — no Claude Code required.
+**Prerequisites:** Python 3.10+, [Anthropic API key](https://console.anthropic.com/)
 
-**Prerequisites:** Python 3.10+, an [Anthropic API key](https://console.anthropic.com/)
-
-```bash
-git clone https://github.com/Elorm-K/498_Agents.git
-cd 498_Agents
-
-# Install dependencies
-pip install -r sage/requirements.txt
-
-# Set your API key
-export ANTHROPIC_API_KEY="your-key-here"
-
-# Run SAGE
-python -m sage
-```
-
-### Option B: Claude Code Skills (original prototype)
-
-Runs inside Claude Code with skill-based routing.
-
-**Prerequisites:** [Git](https://git-scm.com/downloads), [Claude Code](https://claude.ai/code) — CLI, VS Code extension, or Desktop app
+### 1. Clone and set up the virtual environment
 
 ```bash
 git clone https://github.com/Elorm-K/498_Agents.git
 cd 498_Agents
+
+# Create a virtual environment (keeps SAGE's dependencies isolated)
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate        # macOS / Linux
+# venv\Scripts\activate         # Windows
+
+# Install SAGE and all dependencies into the venv
+pip install .
 ```
 
-Then launch Claude Code:
+### 2. Launch the Web UI
 
-| Method | Command |
-|--------|---------|
-| **CLI** | Run `claude` in the project directory |
-| **VS Code** | Open the folder in VS Code with the Claude Code extension installed |
-| **Desktop App** | Open the project folder in the Claude Code desktop app |
-
-SAGE activates automatically — just start talking to it.
-
-On CollaborAITE, mention `@SAGE` in any channel to start a session.
-
-## How to Simulate Interacting With SAGE (v2 CLI)
-
-To evaluate SAGE as a real user would experience it on CollaborAITE, you must **force Claude Code to respond only through SAGE's skills** — not by reading project files freely. Use the following wrapper for every message you want to send to SAGE:
-
-```
-Using only the skills available to you (YOU MUST USE THE SKILLS), use the session-start skill to respond to the following prompt from a user of the AI agent system this project prototypes. YOU MAY ONLY USE THE SKILLS AND MAY NOT READ ANY OTHER FILES TO PREPARE OR DECIDE ON A RESPONSE.
-
-"<the query the user wants to send>"
+```bash
+sage-ui
 ```
 
-Replace `<the query the user wants to send>` with the actual message (e.g. `"I'm new to AI agents"` or `"Help me improve this prompt: write a summary of the French Revolution"`).
+Opens `http://localhost:8501` in your browser. Enter your Anthropic API key in the sidebar and start chatting. Quick-start buttons let you jump into any practice type with one click.
 
-This wrapper exists because in Claude Code, Claude has access to every file in the repo. Without the wrapper, responses would be contaminated by Claude reading CLAUDE.md, the scenarios, the research docs, and so on — which is not how a real CollaborAITE user would interact with SAGE. The wrapper simulates the production constraint where SAGE's only instructions come from its skill definitions.
+To stop the server, press `Ctrl+C` in the terminal.
 
-## v2 Deployment (Claude Code CLI)
+### 3. Next time you return
 
-v2 of SAGE runs in the Claude Code CLI for the April 21 evaluation. The full CollaborAITE vision (sidebar nudges, scheduled weekly reflections, channel conversation RAG) is the target state and is tracked in [docs/roadmap.md](docs/roadmap.md). The pedagogy is identical across both deployments; only the delivery surface differs.
+```bash
+cd 498_Agents
+source venv/bin/activate        # re-activate the venv
+sage-ui                         # launch
+```
 
-| Feature | v2 CLI | CollaborAITE (target) |
-|---|---|---|
-| Onboarding + skill assessment | ✅ `/onboarding` | ✅ on first @mention |
-| Four practice types | ✅ `/scenario-runner` | ✅ |
-| Coaching on your own AI interactions | ✅ `/improve-interaction` (you paste a prompt) | ✅ sidebar nudge while you type |
-| Weekly reflection on AI use | ✅ `/weekly-review` (you invoke it) | ✅ fires on a schedule |
-| Local learner profile | ✅ `data/users/<you>.json` | ✅ CollaborAITE data layer |
-| Course-material retrieval | ✅ you attach/describe | ✅ automatic |
-| Peer-pattern retrieval | ❌ deferred | ✅ anonymized |
+You only need to run `pip install .` once (or again after pulling new changes).
+
+## All Ways to Run SAGE
+
+| Method | Command | Best for |
+|--------|---------|----------|
+| **Web UI** | `sage-ui` | Evaluators, demos, anyone who prefers a browser |
+| **Terminal CLI** | `sage` | Terminal users, scripting |
+| **Claude Code Skills** | `claude` in project dir | Development, skill editing |
+
+### Terminal CLI
+
+```bash
+source venv/bin/activate               # activate the venv (if not already active)
+export ANTHROPIC_API_KEY="your-key"    # required for terminal mode
+sage
+```
+
+### Claude Code Skills (original prototype)
+
+Runs inside Claude Code with skill-based routing. Requires [Claude Code](https://claude.ai/code).
+
+```bash
+claude    # from the project directory
+```
+
+SAGE activates automatically. On CollaborAITE, mention `@SAGE` in any channel.
+
+To force Claude Code to respond only through skills (simulates production):
+
+```
+Using only the skills available to you (YOU MUST USE THE SKILLS), use the
+session-start skill to respond to the following prompt:
+
+"<your message here>"
+```
 
 ## Things to Try
 
@@ -84,134 +89,100 @@ v2 of SAGE runs in the Claude Code CLI for the April 21 evaluation. The full Col
 | Output evaluation | "Give me an AI output to evaluate" |
 | Appropriateness judgment | "Should I use AI for this task?" |
 | Workflow design | "Help me design an AI workflow" |
-| Coach a prompt I already used | "I used this prompt yesterday — help me improve it: [paste]" |
-| Reflect on my week | "Let's do a weekly review" |
+| Coach a real prompt | "Help me improve this prompt: [paste yours]" |
+| Weekly reflection | "Let's do a weekly review" |
 | Ethical guidance | "Is it okay to paste customer data into ChatGPT?" |
 | Detect a flawed AI | "Can I practice spotting bad AI?" |
-| Check your progress | "How am I doing?" |
+| Check progress | "How am I doing?" |
 
-## How to Give Feedback
+## Deployment Modes
 
-Open a [GitHub Issue](https://github.com/Elorm-K/498_Agents/issues) and include:
+| Feature | Web UI / CLI | Claude Code Skills | CollaborAITE (target) |
+|---|---|---|---|
+| Onboarding + assessment | Automatic | `/onboarding` | On first @mention |
+| Four practice types | Automatic | `/scenario-runner` | Automatic |
+| Coach your AI interactions | Paste in chat | `/improve-interaction` | Sidebar nudge |
+| Weekly reflection | Ask in chat | `/weekly-review` | Scheduled |
+| Learner profile | `data/users/*.json` | `data/users/*.json` | Platform data layer |
+| Course-material context | Describe or attach | Describe or attach | Automatic retrieval |
+| Peer-pattern retrieval | Deferred | Deferred | Anonymized |
 
-- **What you tried** — the message or scenario you tested
-- **What happened** — SAGE's response or behavior
-- **What you expected** — how you think it should have responded
+The pedagogy is identical across all modes. See [docs/roadmap.md](docs/roadmap.md) for the full CollaborAITE vision.
 
-## Current Limitations
+## Project Structure
 
-- This is a **prototype** — not all features are fully polished
-- The standalone Python agent (Option A) requires an Anthropic API key
-- The Claude Code skills version (Option B) requires a Claude Code subscription
-- CollaborAITE-only features (sidebar nudges, scheduled reflections, channel/peer retrieval) are deferred — see [docs/roadmap.md](docs/roadmap.md) for what's planned
+```
+sage/                          # Python agent (Claude Agent SDK)
+  agent.py                     # Terminal conversation loop
+  app.py                       # Streamlit web UI
+  ui.py                        # Web UI launcher
+  tools.py                     # Tool definitions (profile, scenario, rubric I/O)
+  prompts.py                   # System prompt
+pyproject.toml                 # Package config, dependencies, entry points
+CLAUDE.md                      # System instructions (Claude Code skills mode)
+.claude/skills/                # 20 modular skill definitions
+workflows/                     # 5 orchestrated multi-skill sequences
+data/
+  schemas/                     # JSON schemas for all data types
+  users/                       # Learner profiles (5 examples included)
+  scenarios/                   # 8 practice scenarios
+  rubrics/                     # 3 evaluation rubrics
+examples/
+  interactions/                # 6 example transcripts (3 positive, 3 negative)
+  workflows/                   # 3 end-to-end workflow demos
+docs/                          # Architecture, pedagogical model, content map
+```
 
----
+## How It Works
 
-## What This Is
+### Scaffolding Pattern
 
-This is a prototype design for an AI tutoring agent called SAGE that helps people at all skill levels develop **AI agent literacy**. It teaches:
+Every teaching interaction follows this internal shape:
 
-- **What AI agents are** — capabilities, limitations, how they work
-- **How to use them well** — prompting with the CRAFT framework, iterative improvement
-- **How to evaluate output** — hallucination detection, fact verification, bias recognition, framing analysis
-- **What to avoid** — blind trust, data leakage, over-reliance, unethical use
-- **When and how to use AI** — appropriateness judgment, workflow design, human-in-the-loop patterns
-- **Critical and ethical thinking** — transparency, privacy, fairness, accountability
+1. **ACKNOWLEDGE** — Name what the learner did, specifically
+2. **NUDGE** — Ask a question that makes them predict or reason *before* hearing the explanation
+3. **LEARNER RESPONDS** — They think through their own logic
+4. **EXPLAIN** — Build on their reflection to name the transferable principle
 
-## Core Design: Scaffolding Pattern
+The learner experiences a conversation, not a template. See [data/research/learner-predicts.md](data/research/learner-predicts.md) for the research grounding.
 
-SAGE uses a specific feedback pattern in all teaching interactions:
-
-1. **ACKNOWLEDGE** — Names what the learner did, specifically
-2. **NUDGE (Learner Predicts)** — Asks a question that makes the learner *predict or reason about what will happen* BEFORE hearing the explanation. The prediction creates productive cognitive conflict — a small gap between expectation and reality that deepens understanding when resolved.
-3. **LEARNER RESPONDS** — The learner thinks through their own logic
-4. **EXPLAIN** — Builds on their reflection to explain the stronger approach and connect to a transferable principle
-
-This pattern means SAGE never explains a principle before the learner has reflected on it. Mid-task reflection is woven naturally into the conversation — it feels like dialogue, not evaluation. See [data/research/learner-predicts.md](data/research/learner-predicts.md) for the theoretical grounding.
-
-## Practice Types
-
-SAGE offers four types of practice:
+### Four Practice Types
 
 | Type | What the learner does |
 |------|----------------------|
 | **Prompt Crafting** | Writes a prompt for a described task |
 | **Output Evaluation** | Identifies errors in AI-generated output |
-| **Appropriateness Judgment** | Decides whether/how AI should be used for a given task |
-| **Workflow Design** | Designs a multi-step process that involves AI |
+| **Appropriateness Judgment** | Decides whether/how AI should be used |
+| **Workflow Design** | Designs a multi-step process involving AI |
 
-## Project Structure
-
-```
-├── sage/                      # Standalone Python agent (Claude Agent SDK)
-│   ├── agent.py               # Conversation loop + entry point
-│   ├── tools.py               # Tool definitions (profile, scenario, rubric I/O)
-│   ├── prompts.py             # System prompt
-│   └── requirements.txt       # Python dependencies
-├── CLAUDE.md                  # System prompt for SAGE (Claude Code skills mode)
-├── .claude/skills/            # 14 modular skill definitions
-│   ├── teaching/              # Onboarding, concepts, prompting, ethics
-│   ├── assessment/            # Knowledge checks, evaluation, level classification
-│   ├── simulation/            # Practice scenarios, flawed AI detection, prompt lab
-│   ├── feedback/              # Reflection, progress reporting, improvement advice
-│   └── meta/                  # Session routing, difficulty adaptation
-├── workflows/                 # 5 orchestrated multi-skill sequences
-├── data/
-│   ├── schemas/               # JSON schemas for all data types
-│   ├── users/                 # 5 example user profiles (novice → expert)
-│   ├── scenarios/             # Practice simulation scenarios
-│   └── rubrics/               # 3 evaluation rubrics
-├── examples/
-│   ├── interactions/          # 6 example interaction sequences (3 positive, 3 negative)
-│   └── workflows/             # 3 end-to-end workflow demonstrations
-└── docs/                      # Architecture, pedagogical model, content map
-```
-
-## Pedagogical Approach
-
-Built on **Merrill's First Principles of Instruction** and **Bloom's Revised Taxonomy**:
-
-1. Lessons anchor on real tasks the learner cares about
-2. The tutor surfaces existing knowledge before teaching
-3. Worked examples (good and bad) precede practice
-4. Simulated scenarios provide hands-on application with scaffolded feedback
-5. A single closing reflection question connects practice to the learner's broader context
-
-## Skill Levels
+### Skill Levels
 
 | Level | Who | Focus |
 |-------|-----|-------|
 | **Novice** | First-time AI users | Build a mental model, learn basics |
 | **Practitioner** | Regular users | Systematic prompting and evaluation |
 | **Advanced** | Power users / builders | Failure modes, system design, auditing |
-| **Critical Thinker** | Experts / policy makers | Frameworks, teaching others, institutional policy |
+| **Critical Thinker** | Experts / policy makers | Frameworks, teaching others, policy |
 
-Advancement requires demonstrated competence across **all 5 dimensions**: conceptual understanding, prompting skill, output evaluation, ethical reasoning, and critical thinking. No blind spots allowed.
+Advancement requires demonstrated competence across **all 5 dimensions**: conceptual understanding, prompting skill, output evaluation, ethical reasoning, and critical thinking.
 
-## Success Criteria
+### Pedagogical Approach
 
-1. **Learners produce more specific and critical AI interactions** after practice sessions (measured by rubric-scored interaction logs across sessions)
-2. **Learners exhibit increased metacognitive awareness** of their AI use habits (measured by pre/post survey)
-3. **SAGE's feedback is perceived as specific, explanatory, and non-prescriptive** (measured by post-session Likert scales and qualitative follow-up)
+Built on **Merrill's First Principles** and **Bloom's Revised Taxonomy**:
 
-## Example Users
+1. Lessons anchor on real tasks the learner cares about
+2. The tutor surfaces existing knowledge before teaching
+3. Worked examples (good and bad) precede practice
+4. Simulated scenarios provide hands-on application with scaffolded feedback
+5. A single closing reflection question connects practice to broader context
 
-| Name | Role | Level | Goal |
-|------|------|-------|------|
-| Maria Santos | HS English Teacher | Novice | Guide students, set AI policies |
-| Jake Nguyen | Biology Undergrad | Novice | Use AI for research without plagiarizing |
-| Priya Kapoor | Marketing Manager | Practitioner | Evaluate AI content, know when NOT to use AI |
-| Chen Wei | Senior SWE | Advanced | Master agentic workflows, audit agent behavior |
-| Dr. Amara Okafor | Postdoc Researcher | Critical Thinker | Develop responsible AI frameworks, mentor others |
+## Current Limitations
 
-## Key Interaction Patterns
+- This is a **prototype** for April 2026 evaluation
+- The Web UI and Terminal CLI require an Anthropic API key
+- The Claude Code skills version requires a Claude Code subscription
+- CollaborAITE features (sidebar nudges, scheduled reflections, peer patterns) are deferred
 
-### Positive (what good AI use looks like)
-- Novice learns prompting through scaffolded feedback with reflective nudges
-- Practitioner detects "authoritative fabrication" in marketing copy
-- Advanced user navigates AI ethics under realistic organizational pressure
+## Feedback
 
-### Negative (what SAGE catches and corrects)
-- Blind trust: accepting AI statistics as fact without verification
-- Over-reliance: attempting to fully delegate creative work to AI
-- Data leakage: about to paste production customer data into an AI tool
+Open a [GitHub Issue](https://github.com/Elorm-K/498_Agents/issues) with what you tried, what happened, and what you expected.
