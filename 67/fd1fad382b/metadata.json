@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "67fd1fad382b",
+  "strategy": "manual-commit",
+  "branch": "prototypev2",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".claude/skills/improve-interaction/SKILL.md",
+    ".claude/skills/prompt-coaching/SKILL.md",
+    ".claude/skills/prompt-coaching/reference.md",
+    ".claude/skills/prompt-lab/SKILL.md",
+    ".claude/skills/prompt-lab/reference.md",
+    ".claude/skills/reflection-facilitator/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/scenario-runner/reference.md",
+    "CLAUDE.md",
+    "examples/interactions/positive/01-novice-learns-prompting.md",
+    "examples/interactions/positive/02-practitioner-evaluates-output.md",
+    "examples/workflows/lesson-with-practice.md",
+    "workflows/practice-flow.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/67/fd1fad382b/0/metadata.json",
+      "transcript": "/67/fd1fad382b/0/full.jsonl",
+      "content_hash": "/67/fd1fad382b/0/content_hash.txt",
+      "prompt": "/67/fd1fad382b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 104,
+    "cache_creation_tokens": 210148,
+    "cache_read_tokens": 8116917,
+    "output_tokens": 48365,
+    "api_call_count": 79
+  }
+}
