@@ -19,11 +19,11 @@ Step 2: Agent Assesses Context
   ▼
 Step 3: Learner Attempts Practice Task (one of 4 types)
   │  ┌─────────────┬──────────────────┬─────────────────┬──────────────────┐
-  │  │ Prompt       │ Scenario         │ Ethical         │ Conceptual       │
-  │  │ Crafting     │ Simulation       │ Reasoning       │ Application      │
-  │  │ (write/      │ (interact with   │ (case study     │ (explain/apply   │
-  │  │  refine      │  simulated AI    │  with Socratic  │  framework to    │
-  │  │  prompts)    │  agent)          │  questions)     │  novel scenario) │
+  │  │ Prompt       │ Output           │ Appropriateness │ Workflow         │
+  │  │ Crafting     │ Evaluation       │ Judgment        │ Design           │
+  │  │ (write/      │ (identify errors │ (decide if/how  │ (describe multi- │
+  │  │  refine      │  in AI output,   │  AI should be   │  step process    │
+  │  │  prompts)    │  bias, gaps)     │  used, justify) │  with AI steps)  │
   │  └─────────────┴──────────────────┴─────────────────┴──────────────────┘
   ▼
 Step 4: Agent Scaffolds Feedback with Embedded Reflection
@@ -61,9 +61,9 @@ Step 6: Agent Updates Learner Progress
 | Practice Type | Description | When Selected |
 |--------------|-------------|---------------|
 | **Prompt Crafting** | Write, test, and refine prompts using CRAFT framework; see simulated output | Prompting concepts, CRAFT dimensions |
-| **Scenario Simulation** | Interact with SAGE role-playing as an AI agent; practice verification and iteration | Evaluation concepts, workflow skills |
-| **Ethical Reasoning** | Work through case studies with Socratic dialogue; defend and revise positions | Ethics concepts, responsible use |
-| **Conceptual Application** | Explain a framework in own words, then apply it to a novel scenario | Architecture, capabilities, limitations concepts |
+| **Output Evaluation** | Receive AI-generated output (with deliberate errors, bias, or gaps) and identify what's inaccurate, misleading, or missing | Evaluation concepts, verification skills |
+| **Appropriateness Judgment** | Given a task context, decide whether/how AI should be used, with justification | Ethics concepts, responsible use, task-AI fit |
+| **Workflow Design** | Describe a multi-step process for completing a task that involves AI at some steps, with human checkpoints | Architecture, human-in-the-loop, workflow skills |
 
 ## Scaffolding Pattern (Step 4 in detail)
 
