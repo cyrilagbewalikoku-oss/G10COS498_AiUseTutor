@@ -1,1 +1,1 @@
-worker: python -m sage.agent
+worker: sage-ui

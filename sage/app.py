@@ -20,12 +20,16 @@ with st.sidebar:
     st.caption("Scaffolded AI Guidance for Engagement")
     st.divider()
 
-    api_key = st.text_input(
-        "Anthropic API Key",
-        type="password",
-        value=os.environ.get("ANTHROPIC_API_KEY", ""),
-        help="Get a key at console.anthropic.com",
-    )
+    _env_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if _env_key:
+        api_key = _env_key
+        st.success("API key loaded from environment")
+    else:
+        api_key = st.text_input(
+            "Anthropic API Key",
+            type="password",
+            help="Get a key at console.anthropic.com",
+        )
 
     st.divider()
     st.markdown("**Try one of these:**")
