@@ -1,0 +1,47 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "078f367169cf",
+  "session_id": "9e4d50a8-f3b8-45d2-89b1-f6ceaed6d307",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-20T19:44:31.674826Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "d062681b5613",
+  "token_usage": {
+    "input_tokens": 105,
+    "cache_creation_tokens": 113880,
+    "cache_read_tokens": 2592049,
+    "output_tokens": 25562,
+    "api_call_count": 36
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 675,
+      "user_lines_removed": 0,
+      "agent_lines_added": 66,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "build/lib/sage/__main__.py": 5,
+        "build/lib/sage/agent.py": 93,
+        "build/lib/sage/app.py": 141,
+        "build/lib/sage/prompts.py": 211,
+        "build/lib/sage/tools.py": 213,
+        "build/lib/sage/ui.py": 12
+      }
+    }
+  ]
+}

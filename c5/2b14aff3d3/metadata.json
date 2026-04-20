@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "c52b14aff3d3",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 9,
+  "files_touched": [
+    ".claude/skills/onboarding/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/skill-evaluator/SKILL.md",
+    "CLAUDE.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c5/2b14aff3d3/0/metadata.json",
+      "transcript": "/c5/2b14aff3d3/0/full.jsonl",
+      "content_hash": "/c5/2b14aff3d3/0/content_hash.txt",
+      "prompt": "/c5/2b14aff3d3/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 97,
+    "cache_creation_tokens": 110938,
+    "cache_read_tokens": 2289234,
+    "output_tokens": 22005,
+    "api_call_count": 33
+  }
+}

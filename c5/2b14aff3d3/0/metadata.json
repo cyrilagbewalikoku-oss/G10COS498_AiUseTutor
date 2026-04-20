@@ -1,0 +1,120 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "c52b14aff3d3",
+  "session_id": "9e4d50a8-f3b8-45d2-89b1-f6ceaed6d307",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-20T19:00:26.689258Z",
+  "branch": "main",
+  "checkpoints_count": 9,
+  "files_touched": [
+    ".claude/skills/onboarding/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/skill-evaluator/SKILL.md",
+    "CLAUDE.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "60410c8be6cb",
+  "token_usage": {
+    "input_tokens": 97,
+    "cache_creation_tokens": 110938,
+    "cache_read_tokens": 2289234,
+    "output_tokens": 22005,
+    "api_call_count": 33
+  },
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-20T19:00:26.682098Z",
+    "agent_lines": 36,
+    "agent_removed": 8,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 36,
+    "total_lines_changed": 44,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 675,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "build/lib/sage/__main__.py": 5,
+        "build/lib/sage/agent.py": 93,
+        "build/lib/sage/app.py": 141,
+        "build/lib/sage/prompts.py": 211,
+        "build/lib/sage/tools.py": 213,
+        "build/lib/sage/ui.py": 12
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 675,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 739,
+      "agent_lines_removed": 8
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 777,
+      "agent_lines_removed": 8
+    }
+  ]
+}

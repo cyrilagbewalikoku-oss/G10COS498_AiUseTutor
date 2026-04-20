@@ -1,0 +1,67 @@
+I am thinking of how to understand how the one agent makes their conversaion have an end continue to another?
+I feel ous just goes deep into the conversation and keep sprobing.
+
+So I want to compare with a repo I clone to understand their conversation sturcture
+
+---
+
+/Users/cyril/Downloads/group3-ethical-career-agent
+
+---
+
+okay
+
+---
+
+I want to test the onboarding
+
+---
+
+yes I have used and I htink they are different
+
+---
+
+c
+
+---
+
+To enhance research
+
+---
+
+3
+
+---
+
+Cy
+
+---
+
+cool nice way for onboarding
+
+---
+
+create new branch, "AgentV2.1" and push this to it.
+THe message shoule be "Improved the conversation and also we can run th agent in terminal"
+
+---
+
+side convo, how do we update the agent running on railyway?
+Do I jsut merge with main so that it updates?
+
+---
+
+which would you suggest is the safest considering that we want to scale?
+
+---
+
+go ahead with the commits
+
+---
+
+push to the branch and add a little note on what this update was about.
+plus did you include in the readme file how htey can run the agent in terminal?
+
+---
+
+why did you have something like githooks as a folder in there?
