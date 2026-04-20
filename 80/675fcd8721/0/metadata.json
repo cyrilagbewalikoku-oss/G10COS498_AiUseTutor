@@ -1,0 +1,77 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "80675fcd8721",
+  "session_id": "7ca23967-f9c1-42d9-8b59-eb0749c9118a",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-20T20:47:23.179681Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "README.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "44f53acf8236",
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 92437,
+    "cache_read_tokens": 378207,
+    "output_tokens": 17200,
+    "api_call_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-20T20:47:23.17545Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 6,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 6,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1286,
+      "user_lines_removed": 128,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/skills/improve-interaction/SKILL.md": 14,
+        ".claude/skills/level-classifier/SKILL.md": 10,
+        ".claude/skills/onboarding/SKILL.md": 27,
+        ".claude/skills/prompt-coaching/SKILL.md": 12,
+        ".claude/skills/reflection-facilitator/SKILL.md": 15,
+        ".claude/skills/scenario-runner/SKILL.md": 39,
+        ".claude/skills/session-router/SKILL.md": 15,
+        ".claude/skills/weekly-review/SKILL.md": 14,
+        ".githooks/pre-commit": 14,
+        ".github/workflows/prompts-drift.yml": 17,
+        "CLAUDE.md": 108,
+        "build/lib/sage/__main__.py": 5,
+        "build/lib/sage/agent.py": 93,
+        "build/lib/sage/app.py": 141,
+        "build/lib/sage/prompts.py": 211,
+        "build/lib/sage/tools.py": 213,
+        "build/lib/sage/ui.py": 12,
+        "data/users/cyril.json": 28,
+        "data/users/practitioner-researcher.json": 38,
+        "sage/prompts.py": 134,
+        "sage/tools.py": 21,
+        "scripts/build_prompts.py": 105
+      },
+      "user_removed_per_file": {
+        ".claude/skills/level-classifier/SKILL.md": 1,
+        ".claude/skills/prompt-coaching/SKILL.md": 1,
+        ".claude/skills/reflection-facilitator/SKILL.md": 1,
+        ".claude/skills/scenario-runner/SKILL.md": 1,
+        ".claude/skills/session-router/SKILL.md": 1,
+        "CLAUDE.md": 1,
+        "sage/prompts.py": 121,
+        "sage/tools.py": 1
+      }
+    }
+  ]
+}

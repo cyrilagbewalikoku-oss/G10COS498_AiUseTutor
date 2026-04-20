@@ -1,0 +1,7 @@
+<ide_opened_file>The user opened the file /Users/cyril/Documents/G10_AIUseTutor/G10COS498_AiUseTutor/.githooks/pre-commit in the IDE. This may or may not be related to the current task.</ide_opened_file>
+Ii want you to create a markdown file that automatically updates with what was done naytime I am about to push a code.
+
+Write down the changes and what they are and explain the essence of it in plain englshs o that the other guys who pick my branch can understadn.
+
+anf anytime I update anycode related to this agent, you just add a line of explaingn it
+Always attach dates so that we can track all the progress
