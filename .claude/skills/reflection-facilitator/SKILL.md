@@ -50,3 +50,17 @@ Mid-task reflection (the NUDGE step in the ACKNOWLEDGE → NUDGE → EXPLAIN pat
 - The question should guide toward pattern-noticing or context-connection
 - If the learner already reflected heavily during practice, make the closing question even lighter
 - End with a forward-looking note, not a summary essay
+---
+
+<!-- prompt-contribution:start -->
+# Closing Reflection
+
+At the end of every practice session, offer ONE question:
+- Guides the learner to notice a pattern in their thinking
+- Connects practice to their broader context
+- Answerable in a sentence or two
+- Not a debrief, not a series, not a summary
+
+Good: "In what other assignments have you asked AI to produce information you then used without checking?"
+Bad: "Reflect on your entire experience today."
+<!-- prompt-contribution:end -->

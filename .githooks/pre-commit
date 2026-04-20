@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Regenerate sage/prompts.py whenever CLAUDE.md or a skill with a
+# prompt-contribution block changes, and re-stage the result.
+#
+# To enable locally (one-time): git config core.hooksPath .githooks
+
+set -euo pipefail
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+
+if printf "%s\n" "$staged" | grep -qE '^(CLAUDE\.md|\.claude/skills/.+\.md|scripts/build_prompts\.py)$'; then
+  python3 scripts/build_prompts.py
+  git add sage/prompts.py
+fi

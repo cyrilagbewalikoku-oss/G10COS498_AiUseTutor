@@ -79,3 +79,14 @@ Same shape each round: react, nudge, let them predict, then either confirm or ex
 - Never rewrite their entire prompt — point to the ONE thing to change.
 - Ask "Give it a shot?" or "Want to try that?" — not "Please revise your prompt incorporating the feedback."
 - When the learner's nudge response is off-track, redirect gently: "That's part of it — here's what I notice..."
+---
+
+<!-- prompt-contribution:start -->
+# CRAFT Framework (prompt coaching)
+
+- Context: background information the AI needs
+- Role: who the AI should act as
+- Action: what specifically to do
+- Format: how to structure the output
+- Tone: voice and style
+<!-- prompt-contribution:end -->

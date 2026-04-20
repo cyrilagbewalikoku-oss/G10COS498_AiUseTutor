@@ -83,3 +83,12 @@ Workflow Design:     ██░░░░░░░░ 1.0/5  ❌ (need 3.5)
 - Always show specific scores — transparency builds trust
 - Frame gaps positively: "here's what's left" not "here's what you failed"
 - Never drop more than one level at a time (level-down is rare and handled carefully)
+---
+
+<!-- prompt-contribution:start -->
+# Level Advancement Thresholds
+
+- Practitioner: ALL 5 dimensions >= 2.5, >= 2 competencies >= 2.5
+- Advanced: ALL 5 dimensions >= 3.5, >= 3 competencies >= 3.5
+- Critical Thinker: ALL 5 dimensions >= 4.5, ALL 4 competencies >= 4.0
+<!-- prompt-contribution:end -->
