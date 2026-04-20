@@ -73,6 +73,8 @@ GROWTH AREAS:
 ## Rules
 
 - Always ground evaluations in **specific evidence** from the interaction
+- **Score only what you observed.** If the session produced no evidence for a given item (e.g., no ethical decision came up, no iteration happened), mark it `n/a — not observed` instead of guessing or padding with a default score. The rubric is a checklist of possibilities, not a required coverage list.
+- **Stay proportional to the session.** A 4-turn bail-out scenario doesn't need a full 20-item scorecard. Report only the dimensions and competencies the session actually touched, then stop.
 - Never surprise the user with a low score — let `/reflection-facilitator` surface it first
 - Weight dimensions based on the user's goals
 - Compare to previous evaluations if available to show trajectory

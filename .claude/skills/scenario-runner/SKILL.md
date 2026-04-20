@@ -47,11 +47,24 @@ Mode varies by type:
 - **APPROPRIATENESS JUDGMENT**: "Consider whether AI is the right tool for this task."
 - **WORKFLOW DESIGN**: "Describe the steps you'd take, including where a human should check in."
 
-### Step 5: Run Scenario (3-10 turns)
+### Step 5: Run Scenario (3-10 turns, exit as soon as the target is demonstrated)
 - **PROMPT CRAFTING**: Role-play as AI agent. Vague prompt → vague output. Leave room for iteration.
 - **OUTPUT EVALUATION**: Present output with embedded errors. Let the learner identify them.
 - **APPROPRIATENESS JUDGMENT**: Present the task context. Let the learner decide and justify.
 - **WORKFLOW DESIGN**: Let the learner describe steps. Ask clarifying questions about human checkpoints.
+
+**Early-exit rule:** The turn range is a ceiling, not a target. As soon as the learner has demonstrated the competency the scenario is scoped to — catching the error, making a defensible judgment call, naming the human checkpoint — move to Step 7 feedback. Don't keep adding turns just because you're under 10.
+
+### Step 5b: Bail conditions
+
+Short-circuit to Step 8 (End Scenario) if ANY of these trigger mid-scenario:
+
+- Learner gives a terse answer 2 turns in a row ("ok", "sure", "yeah", "idk")
+- Learner asks an unrelated question — break character, answer it, offer to resume or stop
+- Learner explicitly says "skip", "done", "enough", "stop", "move on"
+- Learner asks to switch scenario type — go back to Step 3 instead of forcing completion
+
+When bailing, acknowledge briefly ("Sounds good — let's wrap this one"), skip to a short debrief, and still offer the Step 9 reflection.
 
 ### Step 6: Track Behavior (internally, don't narrate)
 Prompt quality · Verification · Iteration · Ethical awareness · Judgment quality · Workflow completeness

@@ -32,15 +32,27 @@ After the welcome, reassure the learner before calibration begins:
 
 Then proceed to calibration.
 
-## Step 2: Calibration (one question at a time, easy answers)
+## Step 2: Calibration (adaptive — ask until you can assign a level, MAX 3 questions)
 
-Ask 3-5 of these. Respond to each answer in 1-2 sentences, then ask the next.
+Ask the minimum number of questions needed to defensibly assign a level. Stop as soon as you have enough evidence — don't grind through a full list. **Hard cap: 3 questions.** Respond to each answer in 1-2 sentences, then ask the next only if the signal is still ambiguous.
 
-1. **Experience**: "Have you used AI tools like ChatGPT, Claude, or Copilot? (yes / no / a little)"
-2. **Concept check**: "Would you say a chatbot and an AI agent are: (a) the same thing, (b) kind of different, or (c) totally different?"
-3. **Risk awareness**: "What's the #1 risk of using AI for important tasks? Pick one: (a) it makes stuff up, (b) it's biased, (c) privacy issues, (d) people stop thinking, (e) something else?"
-4. **Goals**: "What's the ONE thing you'd most want to use AI for in your work?"
-5. **Comfort level**: "On a scale of 1-10, how comfortable are you with AI tools right now?"
+Pick from these, ordered by information density:
+
+1. **Experience + concept (combined)**: "Have you used tools like ChatGPT or Claude, and would you say a chatbot and an AI agent are the same thing? (yes-used / no / a little) + (same / different / not sure)"
+2. **Risk awareness**: "What's the #1 risk of using AI for important tasks? Pick one: (a) it makes stuff up, (b) it's biased, (c) privacy issues, (d) people stop thinking, (e) something else?"
+3. **Goals**: "What's the ONE thing you'd most want to use AI for in your work?"
+
+**Stop early when the level is obvious.** If Q1 already pegs them as clearly Novice or clearly Advanced, skip ahead to Step 3. Goals (Q3) is for path-building, not level-classification — ask it whenever you reach Step 3 regardless.
+
+## Step 2b: Bail conditions
+
+Short-circuit calibration and move directly to Step 3 + Step 4 if ANY of these trigger:
+
+- Learner gives a terse answer 2 turns in a row ("ok", "sure", "yeah", "idk")
+- Learner asks an unrelated question — answer it, then offer to continue onboarding or skip
+- Learner explicitly says "skip", "done", "enough", "later", "just show me"
+
+When bailing, pick a defensible default level from whatever signal you have (default to Novice if nothing) and tell the learner you can recalibrate anytime.
 
 ## Step 3: Level Classification (internal — don't show the rubric)
 
