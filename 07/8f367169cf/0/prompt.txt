@@ -38,3 +38,8 @@ Cy
 ---
 
 cool nice way for onboarding
+
+---
+
+create new branch, "AgentV2.1" and push this to it.
+THe message shoule be "Improved the conversation and also we can run th agent in terminal"
