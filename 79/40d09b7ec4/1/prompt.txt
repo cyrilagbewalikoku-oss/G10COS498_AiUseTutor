@@ -1,0 +1,72 @@
+pull the updated version of this doc fro the main branch for me
+
+---
+
+<ide_opened_file>The user opened the file vscode.git.Git.log in the IDE. This may or may not be related to the current task.</ide_opened_file>
+yes, overwrite what I have in my doc with the current version in main
+
+---
+
+yes, pull main's changes into my branch while keeping my addition
+
+---
+
+for all files not just the claude.md
+
+---
+
+okay, let branch to main now
+
+---
+
+yes
+
+---
+
+okay, lets get into it.
+Explain what is currently happeining in this now.
+
+I want to understand
+
+---
+
+Okay, now we are in branch, explina what is happeining here to me based on the docs in here (my understanding is limited to prototype v2) so update my understadning with these new stuff in here
+
+---
+
+can I run this in terminal?
+
+---
+
+I m ajust thinking.
+
+Can we have it in borth forms?
+Wehre we can run it in railyway and when the person downloads it eh file off github, they can run it in terminal
+
+---
+
+I want us to discuss this for my agent 
+We will also cover security no no’s and the danger trifecta:
+Access to the internet (uncontrolled sources)
+Running prompts or code
+Access to secured/reviewed and validated data that needs to remain private
+
+---
+
+let's start with the indepth analysis, then we go to fixing the bug issue and then we can sort out the others
+
+---
+
+let's fix the root bug and come back
+
+---
+
+path traversal and then we move to promtp injection
+
+---
+
+yes
+
+---
+
+let's go into that
