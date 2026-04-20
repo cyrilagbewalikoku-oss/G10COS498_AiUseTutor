@@ -52,3 +52,7 @@ Do I jsut merge with main so that it updates?
 ---
 
 which would you suggest is the safest considering that we want to scale?
+
+---
+
+go ahead with the commits
