@@ -2,6 +2,12 @@
 
 An AI agent that tutors learners in the critical, effective, and ethical use of AI tools — through interactive practice, scaffolded feedback, and guided reflection.
 
+## Recent updates (AgentV2.1)
+
+- **Tighter conversation flow.** Onboarding now adapts — it caps calibration at 3 questions and bails out if the learner goes terse or asks to skip. Scenarios exit as soon as the learner demonstrates the target competency instead of padding turns.
+- **Skills no longer bulldoze scripts.** Every skill re-checks the learner's intent each turn; if the learner moves on, the skill does too.
+- **Terminal mode is in sync with Claude Code.** The deployed Streamlit and CLI app previously ran an out-of-date prompt. A new build-time generator (`scripts/build_prompts.py`) now rebuilds `sage/prompts.py` from `CLAUDE.md` + `.claude/skills/`, so every deploy ships the latest behavior. A CI check (`.github/workflows/prompts-drift.yml`) fails PRs that go out of sync.
+
 ## Quick Start (Web UI)
 
 The fastest way to use SAGE. Opens a chat interface in your browser.
