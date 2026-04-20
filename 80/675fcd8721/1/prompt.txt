@@ -56,3 +56,8 @@ which would you suggest is the safest considering that we want to scale?
 ---
 
 go ahead with the commits
+
+---
+
+push to the branch and add a little note on what this update was about.
+plus did you include in the readme file how htey can run the agent in terminal?
