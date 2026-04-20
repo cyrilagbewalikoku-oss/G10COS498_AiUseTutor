@@ -5,9 +5,14 @@ Tools handle data I/O only. All pedagogical logic lives in the system prompt.
 
 import json
 import os
+import re
 from pathlib import Path
 
 from anthropic import beta_tool
+
+# Restrict profile filenames to letters/digits/hyphen/underscore + .json
+# Prevents path traversal (../) and absolute-path escapes (/etc/passwd).
+_SAFE_FILENAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_\-]*\.json$")
 
 # Data directory resolution:
 # 1. SAGE_DATA_DIR env var (explicit override)
@@ -67,6 +72,14 @@ def save_user_profile(filename: str, profile_json: str) -> str:
     users_dir = DATA_DIR / "users"
     users_dir.mkdir(parents=True, exist_ok=True)
 
+    # Reject unsafe filenames (path traversal, absolute paths, weird chars)
+    if not _SAFE_FILENAME_RE.match(filename):
+        return (
+            "ERROR: Invalid filename. Use letters, digits, hyphens, or "
+            "underscores, ending in '.json' (e.g. 'alex-novice.json'). "
+            "Path separators and traversal are not allowed."
+        )
+
     # Validate JSON before writing
     try:
         profile = json.loads(profile_json)
@@ -74,8 +87,15 @@ def save_user_profile(filename: str, profile_json: str) -> str:
         return f"ERROR: Invalid JSON — {e}"
 
     filepath = users_dir / filename
+
+    # Defense-in-depth: confirm resolved path is still inside users_dir
+    try:
+        filepath.resolve().relative_to(users_dir.resolve())
+    except ValueError:
+        return "ERROR: Filename resolves outside the users directory."
+
     filepath.write_text(json.dumps(profile, indent=2) + "\n")
-    return f"Profile saved to {filepath.relative_to(_ROOT)}"
+    return f"Profile saved to {filepath.relative_to(DATA_DIR)}"
 
 
 @beta_tool
