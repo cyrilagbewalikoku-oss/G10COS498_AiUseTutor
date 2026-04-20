@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "7940d09b7ec4",
+  "strategy": "manual-commit",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".claude/skills/improve-interaction/SKILL.md",
+    ".claude/skills/level-classifier/SKILL.md",
+    ".claude/skills/onboarding/SKILL.md",
+    ".claude/skills/prompt-coaching/SKILL.md",
+    ".claude/skills/reflection-facilitator/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/session-router/SKILL.md",
+    ".claude/skills/weekly-review/SKILL.md",
+    ".githooks/pre-commit",
+    ".github/workflows/prompts-drift.yml",
+    "CLAUDE.md",
+    "sage/prompts.py",
+    "scripts/build_prompts.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/79/40d09b7ec4/0/metadata.json",
+      "transcript": "/79/40d09b7ec4/0/full.jsonl",
+      "content_hash": "/79/40d09b7ec4/0/content_hash.txt",
+      "prompt": "/79/40d09b7ec4/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 162,
+    "cache_creation_tokens": 201481,
+    "cache_read_tokens": 7955238,
+    "output_tokens": 62512,
+    "api_call_count": 73
+  }
+}
