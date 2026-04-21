@@ -1,11 +1,8 @@
-"""Generate sage/prompts.py from CLAUDE.md + selected .claude/skills/*/SKILL.md.
+"""Write sage/prompts.py from the live skill files via sage.skill_loader.
 
-Reads <!-- prompt-contribution:start --> ... <!-- prompt-contribution:end -->
-blocks from each source file (in the order defined below) and concatenates
-them into a single SYSTEM_PROMPT string literal.
-
-Safe by design: stdlib only, no network, no env vars, no shelling out. Run it
-before committing changes to CLAUDE.md or any skill with a contribution block.
+The loader is the single source of truth; this script writes a committed
+snapshot so production (where `.claude/` isn't shipped) has a working
+`SYSTEM_PROMPT` to import.
 
 Usage:
     python scripts/build_prompts.py
@@ -16,54 +13,14 @@ CI mode (exit 1 if sage/prompts.py would change):
 
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILLS = ROOT / ".claude" / "skills"
-CLAUDE_MD = ROOT / "CLAUDE.md"
 OUTPUT = ROOT / "sage" / "prompts.py"
 
-SOURCES: list[Path] = [
-    CLAUDE_MD,
-    SKILLS / "session-router" / "SKILL.md",
-    SKILLS / "onboarding" / "SKILL.md",
-    SKILLS / "scenario-runner" / "SKILL.md",
-    SKILLS / "improve-interaction" / "SKILL.md",
-    SKILLS / "weekly-review" / "SKILL.md",
-    SKILLS / "prompt-coaching" / "SKILL.md",
-    SKILLS / "reflection-facilitator" / "SKILL.md",
-    SKILLS / "level-classifier" / "SKILL.md",
-    SKILLS / "skill-evaluator" / "SKILL.md",
-]
-
-BLOCK_RE = re.compile(
-    r"<!--\s*prompt-contribution:start\s*-->\s*\n(.*?)\n\s*<!--\s*prompt-contribution:end\s*-->",
-    re.DOTALL,
-)
-
-
-def extract_blocks(path: Path) -> list[str]:
-    if not path.exists():
-        print(f"warn: {path.relative_to(ROOT)} not found, skipping", file=sys.stderr)
-        return []
-    text = path.read_text(encoding="utf-8")
-    return [m.group(1).strip() for m in BLOCK_RE.finditer(text)]
-
-
-def build_prompt() -> str:
-    sections: list[str] = []
-    for src in SOURCES:
-        sections.extend(extract_blocks(src))
-    body = "\n\n".join(sections)
-    if '"""' in body:
-        raise SystemExit(
-            "ERROR: extracted content contains triple quotes — refusing to "
-            "write a malformed Python literal. Remove or escape them in the "
-            "source skill/CLAUDE.md."
-        )
-    return body
+sys.path.insert(0, str(ROOT))
+from sage.skill_loader import build_system_prompt  # noqa: E402
 
 
 def render_file(body: str) -> str:
@@ -82,7 +39,14 @@ def render_file(body: str) -> str:
 
 def main(argv: list[str]) -> int:
     check = "--check" in argv
-    new = render_file(build_prompt())
+    body = build_system_prompt(ROOT)
+    if body is None:
+        print(
+            f"ERROR: {ROOT / '.claude' / 'skills'} not found — cannot build prompt.",
+            file=sys.stderr,
+        )
+        return 1
+    new = render_file(body)
 
     if check:
         current = OUTPUT.read_text(encoding="utf-8") if OUTPUT.exists() else ""

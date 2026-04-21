@@ -9,11 +9,16 @@ import sys
 
 import anthropic
 
-from sage.prompts import SYSTEM_PROMPT
+from sage.prompts import SYSTEM_PROMPT as FROZEN_PROMPT
+from sage.skill_loader import build_system_prompt
 from sage.tools import ALL_TOOLS
 
 MODEL = "claude-opus-4-6"
 MAX_TOKENS = 16000
+
+_runtime_prompt = build_system_prompt()
+SYSTEM_PROMPT = _runtime_prompt if _runtime_prompt is not None else FROZEN_PROMPT
+PROMPT_SOURCE = "live .claude/skills/" if _runtime_prompt is not None else "frozen sage/prompts.py"
 
 
 def extract_text(message) -> str:
@@ -34,6 +39,7 @@ def run():
     print("  SAGE — Scaffolded AI Guidance for Engagement")
     print("  AI Literacy Tutor")
     print("=" * 60)
+    print(f"  prompt source: {PROMPT_SOURCE}")
     print("Type your message to begin. Type 'quit' to exit.\n")
 
     while True:
