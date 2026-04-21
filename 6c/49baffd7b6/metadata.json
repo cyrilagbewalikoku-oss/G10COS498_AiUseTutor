@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "6c49baffd7b6",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "sage/__pycache__/agent.cpython-313.pyc",
+    "sage/__pycache__/app.cpython-313.pyc",
+    "sage/__pycache__/prompts.cpython-313.pyc",
+    "sage/__pycache__/tools.cpython-313.pyc",
+    "sage/agent.py",
+    "sage/app.py",
+    "sage/prompts.py",
+    "scripts/build_prompts.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/6c/49baffd7b6/0/metadata.json",
+      "transcript": "/6c/49baffd7b6/0/full.jsonl",
+      "context": "/6c/49baffd7b6/0/context.md",
+      "content_hash": "/6c/49baffd7b6/0/content_hash.txt",
+      "prompt": "/6c/49baffd7b6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 76,
+    "cache_creation_tokens": 168734,
+    "cache_read_tokens": 3920530,
+    "output_tokens": 25960,
+    "api_call_count": 52
+  }
+}
