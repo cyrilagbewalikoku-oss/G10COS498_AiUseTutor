@@ -8,6 +8,7 @@ COPY pyproject.toml ./
 COPY sage/ sage/
 COPY data/ data/
 COPY .streamlit/ .streamlit/
+COPY .claude/skills/ .claude/skills/
 COPY CLAUDE.md ./
 RUN pip install --no-cache-dir .
 ENV PYTHONPATH=/app

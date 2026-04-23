@@ -8,11 +8,31 @@ import os
 
 import streamlit as st
 
+from sage.prompts import SYSTEM_PROMPT as FROZEN_PROMPT
+from sage.skill_loader import build_system_prompt
+
 st.set_page_config(
     page_title="SAGE — AI Literacy Tutor",
     page_icon="\U0001f393",
     layout="centered",
 )
+
+
+@st.cache_resource
+def _resolve_system_prompt() -> tuple[str, str]:
+    """Build the system prompt once per server process.
+
+    Rebuilds from `.claude/skills/` when that tree is present (local dev);
+    in production the image ships only the frozen snapshot.
+    """
+    runtime = build_system_prompt()
+    if runtime is not None:
+        return runtime, "live .claude/skills/"
+    return FROZEN_PROMPT, "frozen sage/prompts.py"
+
+
+SYSTEM_PROMPT, PROMPT_SOURCE = _resolve_system_prompt()
+print(f"[sage] prompt source: {PROMPT_SOURCE}")
 
 # ── Sidebar ──────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -90,18 +110,9 @@ if needs_response:
             )
         st.stop()
 
-    # Lazy imports so the page loads fast even without anthropic installed
+    # Lazy import of anthropic SDK keeps empty-state page load fast
     import anthropic
-    from sage.prompts import SYSTEM_PROMPT as FROZEN_PROMPT
-    from sage.skill_loader import build_system_prompt
     from sage.tools import ALL_TOOLS
-
-    _runtime_prompt = build_system_prompt()
-    SYSTEM_PROMPT = _runtime_prompt if _runtime_prompt is not None else FROZEN_PROMPT
-    if "_prompt_source_logged" not in st.session_state:
-        source = "live .claude/skills/" if _runtime_prompt is not None else "frozen sage/prompts.py"
-        print(f"[sage] prompt source: {source}")
-        st.session_state._prompt_source_logged = True
 
     with st.chat_message("assistant", avatar="\U0001f393"):
         with st.spinner("SAGE is thinking..."):
