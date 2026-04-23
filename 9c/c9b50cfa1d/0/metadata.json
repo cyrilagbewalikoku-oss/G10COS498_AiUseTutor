@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "9cc9b50cfa1d",
+  "session_id": "8bf93428-b3f1-48c5-a347-24fd1165516f",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-23T14:46:28.517666Z",
+  "branch": "build/ts-agent",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "sage/__pycache__/skill_loader.cpython-313.pyc",
+    "sage/skill_loader.py",
+    "scripts/__pycache__/build_prompts.cpython-313.pyc"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "5893bbc92ef5",
+  "token_usage": {
+    "input_tokens": 76,
+    "cache_creation_tokens": 168734,
+    "cache_read_tokens": 3920530,
+    "output_tokens": 25960,
+    "api_call_count": 52
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-23T14:46:28.435122Z",
+    "agent_lines": 79,
+    "human_added": 4,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 83,
+    "agent_percentage": 95.18072289156626
+  }
+}
