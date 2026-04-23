@@ -114,6 +114,13 @@ if needs_response:
     import anthropic
     from sage.tools import ALL_TOOLS
 
+    _runtime_prompt = build_system_prompt()
+    SYSTEM_PROMPT = _runtime_prompt if _runtime_prompt is not None else FROZEN_PROMPT
+    if "_prompt_source_logged" not in st.session_state:
+        source = "live .claude/skills/" if _runtime_prompt is not None else "frozen sage/prompts.py"
+        print(f"[sage] prompt source: {source}")
+        st.session_state._prompt_source_logged = True
+
     with st.chat_message("assistant", avatar="\U0001f393"):
         with st.spinner("SAGE is thinking..."):
             try:
