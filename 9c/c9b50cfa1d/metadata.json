@@ -3,8 +3,9 @@
   "checkpoint_id": "9cc9b50cfa1d",
   "strategy": "manual-commit",
   "branch": "build/ts-agent",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
+    ".streamlit/config.toml",
     "sage/__pycache__/skill_loader.cpython-313.pyc",
     "sage/skill_loader.py",
     "scripts/__pycache__/build_prompts.cpython-313.pyc"
@@ -16,13 +17,20 @@
       "context": "/9c/c9b50cfa1d/0/context.md",
       "content_hash": "/9c/c9b50cfa1d/0/content_hash.txt",
       "prompt": "/9c/c9b50cfa1d/0/prompt.txt"
+    },
+    {
+      "metadata": "/9c/c9b50cfa1d/1/metadata.json",
+      "transcript": "/9c/c9b50cfa1d/1/full.jsonl",
+      "context": "/9c/c9b50cfa1d/1/context.md",
+      "content_hash": "/9c/c9b50cfa1d/1/content_hash.txt",
+      "prompt": "/9c/c9b50cfa1d/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 76,
+    "input_tokens": 2049355,
     "cache_creation_tokens": 168734,
     "cache_read_tokens": 3920530,
-    "output_tokens": 25960,
-    "api_call_count": 52
+    "output_tokens": 31023,
+    "api_call_count": 87
   }
 }
