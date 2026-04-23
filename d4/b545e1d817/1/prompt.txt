@@ -1,0 +1,17 @@
+what are some features we can add to this agent as we're now running in railway to improve the interaction and ui/ux
+
+---
+
+showing progress and feeling personal
+
+---
+
+a small cohort which will be demo'ing
+
+---
+
+doing a deep research of existing models, what would be the best?
+
+---
+
+we can go ahead and write up the plan for this

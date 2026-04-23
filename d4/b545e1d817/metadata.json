@@ -3,19 +3,22 @@
   "checkpoint_id": "d4b545e1d817",
   "strategy": "manual-commit",
   "branch": "AgentV2.1",
-  "checkpoints_count": 3,
+  "checkpoints_count": 8,
   "files_touched": [
     ".claude/skills/onboarding/SKILL.md",
     ".claude/skills/reflection-facilitator/SKILL.md",
     ".claude/skills/scenario-runner/SKILL.md",
     ".claude/skills/session-start.md",
+    ".gitignore",
     "Dockerfile",
     "README.md",
     "data/interactions/.gitkeep",
     "data/scenarios/output-evaluation-errors.json",
     "data/schemas/scenario.schema.json",
     "sage/app.py",
-    "sage/prompts.py"
+    "sage/components.py",
+    "sage/prompts.py",
+    "sage/session_store.py"
   ],
   "sessions": [
     {
@@ -23,13 +26,19 @@
       "transcript": "/d4/b545e1d817/0/full.jsonl",
       "content_hash": "/d4/b545e1d817/0/content_hash.txt",
       "prompt": "/d4/b545e1d817/0/prompt.txt"
+    },
+    {
+      "metadata": "/d4/b545e1d817/1/metadata.json",
+      "transcript": "/d4/b545e1d817/1/full.jsonl",
+      "content_hash": "/d4/b545e1d817/1/content_hash.txt",
+      "prompt": "/d4/b545e1d817/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 95,
-    "cache_creation_tokens": 210788,
-    "cache_read_tokens": 7500354,
-    "output_tokens": 60416,
-    "api_call_count": 65
+    "input_tokens": 220,
+    "cache_creation_tokens": 542134,
+    "cache_read_tokens": 18299311,
+    "output_tokens": 144240,
+    "api_call_count": 151
   }
 }
