@@ -1,0 +1,94 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "d4b545e1d817",
+  "session_id": "be8df7df-efc5-469b-995b-43250c90b3c6",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-23T20:20:47.326631Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".claude/skills/onboarding/SKILL.md",
+    ".claude/skills/reflection-facilitator/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/session-start.md",
+    "Dockerfile",
+    "README.md",
+    "data/interactions/.gitkeep",
+    "data/scenarios/output-evaluation-errors.json",
+    "data/schemas/scenario.schema.json",
+    "sage/app.py",
+    "sage/prompts.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "0d7c7dd2435e",
+  "token_usage": {
+    "input_tokens": 95,
+    "cache_creation_tokens": 210788,
+    "cache_read_tokens": 7500354,
+    "output_tokens": 60416,
+    "api_call_count": 65
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-23T20:20:47.312308Z",
+    "agent_lines": 326,
+    "agent_removed": 178,
+    "human_added": 708,
+    "human_modified": 17,
+    "human_removed": 0,
+    "total_committed": 1051,
+    "total_lines_changed": 1229,
+    "agent_percentage": 41.00895036615134,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 170,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".githooks/post-merge": 83,
+        ".gitignore": 21,
+        "data/users/cyril.json": 28,
+        "data/users/practitioner-researcher.json": 38
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 417,
+      "user_lines_removed": 17,
+      "agent_lines_added": 761,
+      "agent_lines_removed": 20,
+      "user_added_per_file": {
+        ".claude/skills/reflection-facilitator/SKILL.md": 15,
+        ".claude/skills/scenario-runner/SKILL.md": 28,
+        ".gitignore": 4,
+        "data/scenarios/output-evaluation-errors.json": 48,
+        "data/schemas/scenario.schema.json": 33,
+        "sage/app.py": 89,
+        "sage/components.py": 160,
+        "sage/prompts.py": 15,
+        "sage/session_store.py": 25
+      },
+      "user_removed_per_file": {
+        ".claude/skills/scenario-runner/SKILL.md": 1,
+        "data/scenarios/output-evaluation-errors.json": 1,
+        "data/schemas/scenario.schema.json": 1,
+        "sage/app.py": 3,
+        "sage/session_store.py": 11
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1166,
+      "agent_lines_removed": 25
+    }
+  ]
+}

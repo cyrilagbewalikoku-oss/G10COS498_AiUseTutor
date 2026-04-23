@@ -1,0 +1,14 @@
+how can Improve the insert errors with a bit of UI for the user
+
+---
+
+1
+
+---
+
+<ide_opened_file>The user opened the file /Users/cyril/Documents/G10_AIUseTutor/G10COS498_AiUseTutor/.claude/skills/scenario-runner/SKILL.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+continue working or done working?
+
+---
+
+continue
