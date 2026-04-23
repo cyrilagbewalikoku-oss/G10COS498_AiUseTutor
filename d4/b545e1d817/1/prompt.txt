@@ -1,0 +1,22 @@
+what are some features we can add to this agent as we're now running in railway to improve the interaction and ui/ux
+
+---
+
+showing progress and feeling personal
+
+---
+
+a small cohort which will be demo'ing
+
+---
+
+doing a deep research of existing models, what would be the best?
+
+---
+
+we can go ahead and write up the plan for this
+
+---
+
+<ide_opened_file>The user opened the file /Users/cyril/Documents/G10_AIUseTutor/G10COS498_AiUseTutor/CHANGELOG.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+commit all changes and push to the branch
