@@ -19,6 +19,16 @@ _RECAP_RE = re.compile(
     re.DOTALL,
 )
 
+# Inferred-level block emitted by SAGE in anonymous mode once it's calibrated
+# the learner from conversation. Lets the UI update the sidebar level
+# selector without the learner having to click it themselves.
+_INFERRED_LEVEL_RE = re.compile(
+    r"<INFERRED_LEVEL>\s*(\{.*?\})\s*</INFERRED_LEVEL>",
+    re.DOTALL,
+)
+
+_VALID_LEVELS = {"novice", "practitioner", "advanced", "critical_thinker"}
+
 _DIMENSION_HUMAN = {
     "conceptualUnderstanding": "Conceptual Understanding",
     "promptingSkill": "Prompting Skill",
@@ -51,6 +61,22 @@ def _extract_recap(text: str) -> tuple[str, dict | None]:
         return _RECAP_RE.sub("", text).strip(), None
     cleaned = _RECAP_RE.sub("", text).strip()
     return cleaned, recap
+
+
+def _extract_inferred_level(text: str) -> tuple[str, str | None]:
+    """Return (cleaned_text, level_or_none). Same pattern as _extract_recap."""
+    match = _INFERRED_LEVEL_RE.search(text)
+    if not match:
+        return text, None
+    cleaned = _INFERRED_LEVEL_RE.sub("", text).strip()
+    try:
+        payload = json.loads(match.group(1))
+    except json.JSONDecodeError:
+        return cleaned, None
+    level = payload.get("level") if isinstance(payload, dict) else None
+    if level not in _VALID_LEVELS:
+        return cleaned, None
+    return cleaned, level
 
 
 def _render_recap_card(recap: dict, profile: dict, session_id: str) -> None:
@@ -144,6 +170,32 @@ def _learner_context_block(profile: dict) -> str:
     a tool round-trip. Static SYSTEM_PROMPT is auto-generated from CLAUDE.md
     and skills — this dynamic tail lives here.
     """
+    if _is_anonymous(profile):
+        current_level = profile.get("level", "novice")
+        return (
+            "\n\n# LEARNER_CONTEXT (runtime-injected — the current learner)\n"
+            "- This learner chose 'Just chat' — fully anonymous.\n"
+            "- Do NOT call load_user_profile or save_user_profile at any point.\n"
+            "- Treat downstream skill instructions that say 'update the profile' as no-ops.\n"
+            f"- Current level (from sidebar or prior inference): {current_level}. "
+            "The learner can override this via the sidebar selector.\n"
+            "- If the learner volunteers identity mid-session, you MAY offer once to save a profile; otherwise stay anonymous.\n"
+            "\n## Level inference (anonymous only)\n"
+            "When you have enough signal from the conversation to infer the learner's level "
+            "(typically after 2-3 substantive exchanges or a brief calibration), append this block "
+            "to the END of your message — silently, no commentary:\n"
+            "\n"
+            "<INFERRED_LEVEL>\n"
+            '{"level": "<novice|practitioner|advanced|critical_thinker>"}\n'
+            "</INFERRED_LEVEL>\n"
+            "\n"
+            "Rules:\n"
+            "- Emit this block ONLY when you have genuinely inferred a level — not speculatively.\n"
+            "- Emit it at most ONCE per anonymous session unless the learner's signals clearly contradict the earlier inference.\n"
+            "- The UI strips the block and updates the sidebar level indicator. Do not mention the block to the learner.\n"
+            f"- Do NOT emit the block if your inference matches the current level ({current_level}) — it would be a no-op."
+        )
+
     scores = profile.get("dimensionScores") or {}
     competencies = profile.get("competencyScores") or {}
     return (
@@ -161,6 +213,69 @@ def _learner_context_block(profile: dict) -> str:
 def _reset_for_new_learner() -> None:
     for k in ("learner", "session_id", "messages", "resume_decided"):
         st.session_state.pop(k, None)
+
+
+def _is_anonymous(profile: dict) -> bool:
+    return bool(profile.get("anonymous"))
+
+
+def _make_anonymous_profile() -> dict:
+    """Sentinel in-memory profile for the 'Just chat' path.
+
+    Not persisted. Zero scores so components that inspect the dict don't
+    crash, and a level of 'novice' so LEARNER_CONTEXT can default vocabulary
+    until the conversation reveals otherwise.
+    """
+    return {
+        "anonymous": True,
+        "name": "Learner",
+        "level": "novice",
+        "dimensionScores": {
+            "conceptualUnderstanding": 0.0,
+            "promptingSkill": 0.0,
+            "outputEvaluation": 0.0,
+            "ethicalReasoning": 0.0,
+            "criticalThinking": 0.0,
+        },
+        "competencyScores": {
+            "promptCrafting": 0.0,
+            "outputEvaluation": 0.0,
+            "appropriatenessJudgment": 0.0,
+            "workflowDesign": 0.0,
+        },
+    }
+
+
+def _seed_welcome_if_empty(profile: dict) -> None:
+    """Drop a greeting into the chat when the message list is empty.
+
+    Runs after the resume-or-fresh decision. If the learner resumed a
+    session, messages are already populated and we no-op.
+    """
+    if st.session_state.messages:
+        return
+
+    if _is_anonymous(profile):
+        text = (
+            "Hey — I'm SAGE, a tutor for using AI agents well. "
+            "I'll adapt as we go. What would you like to work on?"
+        )
+    elif profile.get("_just_created"):
+        text = (
+            f"Hi {profile.get('name', 'there')} — I'm SAGE, your AI literacy tutor. "
+            "Ready to start?"
+        )
+    else:
+        text = (
+            f"Welcome back, {profile.get('name', 'learner')}. I'm SAGE. "
+            "Pick up where we left off, or try something new?"
+        )
+
+    st.session_state.messages.append({"role": "assistant", "content": text})
+    if not _is_anonymous(profile) and st.session_state.get("session_id"):
+        session_store.append_turn(
+            profile, st.session_state.session_id, "assistant", text
+        )
 
 
 # ── Sidebar ──────────────────────────────────────────────────────────────
@@ -220,6 +335,7 @@ if "learner" not in st.session_state:
         )
         if st.button("Create profile", type="primary", disabled=not new_name.strip()):
             profile = session_store.create_new_learner(new_name.strip())
+            profile["_just_created"] = True
             st.session_state.learner = profile
             st.session_state.messages = []
             st.session_state.resume_decided = True
@@ -236,6 +352,19 @@ if "learner" not in st.session_state:
             st.session_state.resume_decided = False
             st.rerun()
 
+    st.markdown("---")
+    st.caption("Or skip signing in:")
+    if st.button(
+        "\U0001f464  Just chat (anonymous)",
+        use_container_width=True,
+        help="Dive straight in. Nothing saved to disk — refresh wipes the conversation.",
+    ):
+        st.session_state.learner = _make_anonymous_profile()
+        st.session_state.messages = []
+        st.session_state.resume_decided = True
+        st.session_state.session_id = None
+        st.rerun()
+
     st.stop()
 
 
@@ -243,7 +372,7 @@ if "learner" not in st.session_state:
 
 profile = st.session_state.learner
 
-if not st.session_state.get("resume_decided", False):
+if not _is_anonymous(profile) and not st.session_state.get("resume_decided", False):
     latest = session_store.latest_session_id(profile)
     has_resumable = (
         latest is not None
@@ -288,15 +417,50 @@ if not st.session_state.get("resume_decided", False):
         session_store.touch_last_active(profile)
 
 
+# For anonymous, session_id stays None and there's no prior session to resume —
+# everything below must handle that.
+if _is_anonymous(profile):
+    st.session_state.resume_decided = True
+    st.session_state.setdefault("session_id", None)
+
+
+_seed_welcome_if_empty(profile)
+
+
 # ── Sidebar (post-picker: suggestions + session controls) ───────────────
+
+_LEVEL_KEYS = ["novice", "practitioner", "advanced", "critical_thinker"]
 
 with st.sidebar:
     st.divider()
-    st.markdown(f"**Signed in as**  \n{profile.get('name', 'Learner')}")
-    st.caption(f"Level: {_level_label(profile)}")
 
-    with st.expander("\U0001f4ca My Progress", expanded=False):
-        components.render_progress_drawer(profile)
+    if _is_anonymous(profile):
+        st.markdown("**\U0001f464 Just chatting**  \n*(no profile saved)*")
+        st.caption(
+            "Pick a level to tune the conversation. SAGE will also update "
+            "this based on onboarding signals."
+        )
+        current_level = profile.get("level", "novice")
+        try:
+            level_idx = _LEVEL_KEYS.index(current_level)
+        except ValueError:
+            level_idx = 0
+        picked_level = st.selectbox(
+            "Level",
+            options=_LEVEL_KEYS,
+            index=level_idx,
+            format_func=lambda k: _LEVEL_LABELS.get(k, k),
+            key="anon_level_selector",
+        )
+        if picked_level != current_level:
+            profile["level"] = picked_level
+            st.session_state.learner = profile
+            st.rerun()
+    else:
+        st.markdown(f"**Signed in as**  \n{profile.get('name', 'Learner')}")
+        st.caption(f"Level: {_level_label(profile)}")
+        with st.expander("\U0001f4ca My Progress", expanded=False):
+            components.render_progress_drawer(profile)
 
     st.divider()
     st.markdown("**Try one of these:**")
@@ -312,14 +476,18 @@ with st.sidebar:
     for text in suggestions:
         if st.button(text, key=f"btn_{text}", use_container_width=True):
             st.session_state.messages.append({"role": "user", "content": text})
-            session_store.append_turn(
-                profile, st.session_state.session_id, "user", text
-            )
+            if not _is_anonymous(profile):
+                session_store.append_turn(
+                    profile, st.session_state.session_id, "user", text
+                )
             st.rerun()
 
     st.divider()
     if st.button("Start new session", use_container_width=True):
-        st.session_state.session_id = session_store.new_session(profile)
+        if _is_anonymous(profile):
+            st.session_state.session_id = None
+        else:
+            st.session_state.session_id = session_store.new_session(profile)
         st.session_state.messages = []
         st.rerun()
 
@@ -330,26 +498,19 @@ with st.sidebar:
 
 # ── Header strip ────────────────────────────────────────────────────────
 
-st.caption(
-    f"\U0001f44b {profile.get('name', 'Learner')} · "
-    f"{_level_label(profile)} · "
-    f"Today's focus: {_focus_dimension(profile)}"
-)
+if _is_anonymous(profile):
+    st.caption(
+        f"\U0001f464 Just chatting · {_level_label(profile)} · no profile saved"
+    )
+else:
+    st.caption(
+        f"\U0001f44b {profile.get('name', 'Learner')} · "
+        f"{_level_label(profile)} · "
+        f"Today's focus: {_focus_dimension(profile)}"
+    )
 
 
 # ── Display chat history ─────────────────────────────────────────────────
-
-if not st.session_state.messages:
-    st.markdown(
-        f"""
-        <div style="text-align:center; padding: 1.5rem 1rem;">
-            <p style="color:#888;">
-                Type a message below or pick a suggestion from the sidebar.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
 for msg in st.session_state.messages:
     avatar = "\U0001f393" if msg["role"] == "assistant" else None
@@ -421,23 +582,31 @@ if needs_response:
         # Strip the SESSION_RECAP block from what we show + store, render it
         # separately as a card. Only happens on fresh completions — historical
         # messages are already clean because we store the cleaned version.
+        # Also strip INFERRED_LEVEL blocks (anonymous-only); apply them to the
+        # in-memory profile so the sidebar reflects SAGE's inference.
+        response, inferred_level = _extract_inferred_level(response)
         cleaned_response, recap = _extract_recap(response)
         st.markdown(cleaned_response)
         if recap is not None:
             _render_recap_card(recap, profile, st.session_state.session_id)
+        if inferred_level and _is_anonymous(profile) and inferred_level != profile.get("level"):
+            profile["level"] = inferred_level
+            st.session_state.learner = profile
 
     st.session_state.messages.append({"role": "assistant", "content": cleaned_response})
-    session_store.append_turn(
-        profile, st.session_state.session_id, "assistant", cleaned_response
-    )
-    session_store.touch_last_active(profile)
+    if not _is_anonymous(profile):
+        session_store.append_turn(
+            profile, st.session_state.session_id, "assistant", cleaned_response
+        )
+        session_store.touch_last_active(profile)
 
 
 # ── Chat input ───────────────────────────────────────────────────────────
 
 if prompt := st.chat_input("Message SAGE..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    session_store.append_turn(
-        profile, st.session_state.session_id, "user", prompt
-    )
+    if not _is_anonymous(profile):
+        session_store.append_turn(
+            profile, st.session_state.session_id, "user", prompt
+        )
     st.rerun()
