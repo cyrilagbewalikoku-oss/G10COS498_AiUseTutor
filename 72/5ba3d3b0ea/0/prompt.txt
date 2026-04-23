@@ -1,0 +1,13 @@
+enable sage to load skills from .claude automatically at run time -
+
+---
+
+Go ahead
+
+---
+
+use frozen snapshot - generate at startup of the app
+
+---
+
+rebuild prompt only at startup of server  in prod
