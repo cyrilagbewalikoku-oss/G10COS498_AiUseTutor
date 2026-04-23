@@ -3,3 +3,7 @@ How do I deploy this to railway so others can test
 ---
 
 fix teh blockers
+
+---
+
+commit and push
