@@ -4,9 +4,91 @@ Run: streamlit run sage/app.py
 Or:  sage-ui  (after pip install)
 """
 
+import json
 import os
+import re
 
 import streamlit as st
+
+from sage import components, session_store
+
+# Session-recap block emitted by the reflection-facilitator skill at session
+# close. Extracted here so the UI can render a card and hide the raw JSON.
+_RECAP_RE = re.compile(
+    r"<SESSION_RECAP>\s*(\{.*?\})\s*</SESSION_RECAP>",
+    re.DOTALL,
+)
+
+_DIMENSION_HUMAN = {
+    "conceptualUnderstanding": "Conceptual Understanding",
+    "promptingSkill": "Prompting Skill",
+    "outputEvaluation": "Output Evaluation",
+    "ethicalReasoning": "Ethical Reasoning",
+    "criticalThinking": "Critical Thinking",
+}
+
+_PRACTICE_HUMAN = {
+    "prompt_crafting": "Prompt Crafting",
+    "output_evaluation": "Output Evaluation",
+    "appropriateness_judgment": "Appropriateness Judgment",
+    "workflow_design": "Workflow Design",
+}
+
+
+def _extract_recap(text: str) -> tuple[str, dict | None]:
+    """Return (cleaned_text, recap_dict_or_none).
+
+    The recap block, if present, is stripped from `cleaned_text` so the
+    learner never sees the raw JSON. Malformed blocks are silently ignored
+    (treated as if absent) to keep the UI robust.
+    """
+    match = _RECAP_RE.search(text)
+    if not match:
+        return text, None
+    try:
+        recap = json.loads(match.group(1))
+    except json.JSONDecodeError:
+        return _RECAP_RE.sub("", text).strip(), None
+    cleaned = _RECAP_RE.sub("", text).strip()
+    return cleaned, recap
+
+
+def _render_recap_card(recap: dict, profile: dict, session_id: str) -> None:
+    """Render the session-recap card in the chat stream.
+
+    Called only on fresh completions — historical assistant turns have the
+    recap block stripped before being stored, so they don't re-render.
+    """
+    practice = _PRACTICE_HUMAN.get(recap.get("practice_type", ""), "Practice")
+    dim_key = recap.get("dimension_changed", "")
+    dim = _DIMENSION_HUMAN.get(dim_key, dim_key or "—")
+    delta = recap.get("delta", 0)
+    try:
+        delta_f = float(delta)
+    except (TypeError, ValueError):
+        delta_f = 0.0
+    suggested = (recap.get("suggested_next") or "").strip()
+    arrow = "↑" if delta_f > 0 else ("↓" if delta_f < 0 else "·")
+    sign = "+" if delta_f > 0 else ""
+
+    with st.container(border=True):
+        st.markdown(
+            f"**\U0001f4c8 You practiced _{practice}_**  \n"
+            f"{dim}  {arrow}  `{sign}{delta_f:.1f}`"
+        )
+        if suggested:
+            if st.button(
+                f"Next: {suggested}",
+                key=f"recap_next_{session_id}_{hash(suggested)}",
+                use_container_width=True,
+            ):
+                st.session_state.messages.append(
+                    {"role": "user", "content": suggested}
+                )
+                session_store.append_turn(
+                    profile, session_id, "user", suggested
+                )
+                st.rerun()
 
 st.set_page_config(
     page_title="SAGE — AI Literacy Tutor",
@@ -14,7 +96,75 @@ st.set_page_config(
     layout="centered",
 )
 
+# Seed the data volume on first boot (no-op if users already exist).
+session_store.seed_if_empty()
+
+
+# ── Helpers ──────────────────────────────────────────────────────────────
+
+_DIMENSION_LABELS = {
+    "conceptualUnderstanding": "Conceptual Understanding",
+    "promptingSkill": "Prompting Skill",
+    "outputEvaluation": "Output Evaluation",
+    "ethicalReasoning": "Ethical Reasoning",
+    "criticalThinking": "Critical Thinking",
+}
+
+_LEVEL_LABELS = {
+    "novice": "Novice",
+    "practitioner": "Practitioner",
+    "advanced": "Advanced",
+    "critical_thinker": "Critical Thinker",
+}
+
+
+def _focus_dimension(profile: dict) -> str:
+    """Pick the dimension to surface in the header strip.
+
+    Lowest-scoring dimension wins. Ties broken by the canonical order above,
+    which is the order learners tend to encounter them. Default to
+    'Prompting Skill' when scores are all zero / missing — it's the most
+    actionable starting point for a brand-new learner.
+    """
+    scores = profile.get("dimensionScores") or {}
+    if not any(scores.values()):
+        return _DIMENSION_LABELS["promptingSkill"]
+    key = min(_DIMENSION_LABELS, key=lambda k: scores.get(k, 0.0))
+    return _DIMENSION_LABELS[key]
+
+
+def _level_label(profile: dict) -> str:
+    return _LEVEL_LABELS.get(profile.get("level", "novice"), "Novice")
+
+
+def _learner_context_block(profile: dict) -> str:
+    """Runtime block appended to the static SYSTEM_PROMPT.
+
+    Gives SAGE the identity + scores for the current learner without needing
+    a tool round-trip. Static SYSTEM_PROMPT is auto-generated from CLAUDE.md
+    and skills — this dynamic tail lives here.
+    """
+    scores = profile.get("dimensionScores") or {}
+    competencies = profile.get("competencyScores") or {}
+    return (
+        "\n\n# LEARNER_CONTEXT (runtime-injected — the current learner)\n"
+        f"- Name: {profile.get('name', 'Learner')}\n"
+        f"- Level: {profile.get('level', 'novice')}\n"
+        f"- Dimension scores (0-5): {scores}\n"
+        f"- Competency scores (0-5): {competencies}\n"
+        f"- Today's focus dimension: {_focus_dimension(profile)}\n"
+        "Address the learner by name when natural. Adapt vocabulary to their level. "
+        "You do NOT need to call load_user_profile at session start — the profile is already loaded."
+    )
+
+
+def _reset_for_new_learner() -> None:
+    for k in ("learner", "session_id", "messages", "resume_decided"):
+        st.session_state.pop(k, None)
+
+
 # ── Sidebar ──────────────────────────────────────────────────────────────
+
 with st.sidebar:
     st.markdown("## \U0001f393 SAGE")
     st.caption("Scaffolded AI Guidance for Engagement")
@@ -31,6 +181,123 @@ with st.sidebar:
             help="Get a key at console.anthropic.com",
         )
 
+    # The rest of the sidebar (suggestions, session controls) is rendered
+    # AFTER the main column so it can reflect the learner + session state.
+
+
+# ── Learner picker ───────────────────────────────────────────────────────
+
+if "learner" not in st.session_state:
+    st.markdown(
+        """
+        <div style="text-align:center; padding: 2rem 1rem 1rem 1rem;">
+            <h1>\U0001f393 SAGE</h1>
+            <p style="font-size:1.1rem; color:#666;">
+                AI Literacy Tutor — learn to use AI effectively, critically, and ethically.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    profiles = session_store.list_profiles_for_ui()
+    options = ["— pick a learner —"] + [
+        f"{p['name']} · {_LEVEL_LABELS.get(p['level'], p['level'])}" for p in profiles
+    ] + ["➕  New learner"]
+
+    choice = st.selectbox(
+        "Who are you?",
+        options,
+        index=0,
+        help="Cohort demo — no passwords. Pick your profile or create a new one.",
+    )
+
+    if choice.startswith("➕"):
+        new_name = st.text_input(
+            "Your name (first name is fine)",
+            key="new_learner_name_input",
+            placeholder="e.g., Alice",
+        )
+        if st.button("Create profile", type="primary", disabled=not new_name.strip()):
+            profile = session_store.create_new_learner(new_name.strip())
+            st.session_state.learner = profile
+            st.session_state.messages = []
+            st.session_state.resume_decided = True
+            st.session_state.session_id = session_store.new_session(profile)
+            st.rerun()
+    elif choice != options[0]:
+        # Existing profile — load by matching index in the profiles list
+        idx = options.index(choice) - 1
+        picked = profiles[idx]
+        profile = session_store.load_profile_by_filename(picked["filename"])
+        if profile:
+            st.session_state.learner = profile
+            st.session_state.messages = []
+            st.session_state.resume_decided = False
+            st.rerun()
+
+    st.stop()
+
+
+# ── Resume-or-fresh prompt ───────────────────────────────────────────────
+
+profile = st.session_state.learner
+
+if not st.session_state.get("resume_decided", False):
+    latest = session_store.latest_session_id(profile)
+    has_resumable = (
+        latest is not None
+        and session_store.session_turn_count(profile, latest) >= 2
+    )
+
+    if has_resumable:
+        st.markdown(
+            f"<div style='text-align:center; padding: 1.5rem 1rem;'>"
+            f"<h3>\U0001f44b Welcome back, {profile.get('name', 'learner')}.</h3>"
+            "<p style='color:#666;'>You have a conversation in progress. "
+            "Pick up where you left off, or start fresh?</p>"
+            "</div>",
+            unsafe_allow_html=True,
+        )
+        col_a, col_b, col_c = st.columns([1, 1, 1])
+        with col_a:
+            if st.button("Resume last session", use_container_width=True, type="primary"):
+                st.session_state.session_id = latest
+                st.session_state.messages = session_store.load_session_messages(
+                    profile, latest
+                )
+                st.session_state.resume_decided = True
+                session_store.touch_last_active(profile)
+                st.rerun()
+        with col_b:
+            if st.button("Start fresh", use_container_width=True):
+                st.session_state.session_id = session_store.new_session(profile)
+                st.session_state.messages = []
+                st.session_state.resume_decided = True
+                session_store.touch_last_active(profile)
+                st.rerun()
+        with col_c:
+            if st.button("Switch learner", use_container_width=True):
+                _reset_for_new_learner()
+                st.rerun()
+        st.stop()
+    else:
+        # No prior session to resume — mint a new one silently.
+        st.session_state.session_id = session_store.new_session(profile)
+        st.session_state.resume_decided = True
+        session_store.touch_last_active(profile)
+
+
+# ── Sidebar (post-picker: suggestions + session controls) ───────────────
+
+with st.sidebar:
+    st.divider()
+    st.markdown(f"**Signed in as**  \n{profile.get('name', 'Learner')}")
+    st.caption(f"Level: {_level_label(profile)}")
+
+    with st.expander("\U0001f4ca My Progress", expanded=False):
+        components.render_progress_drawer(profile)
+
     st.divider()
     st.markdown("**Try one of these:**")
 
@@ -45,27 +312,40 @@ with st.sidebar:
     for text in suggestions:
         if st.button(text, key=f"btn_{text}", use_container_width=True):
             st.session_state.messages.append({"role": "user", "content": text})
+            session_store.append_turn(
+                profile, st.session_state.session_id, "user", text
+            )
             st.rerun()
 
     st.divider()
-    if st.button("Clear conversation", use_container_width=True):
+    if st.button("Start new session", use_container_width=True):
+        st.session_state.session_id = session_store.new_session(profile)
         st.session_state.messages = []
         st.rerun()
 
-# ── Session state ────────────────────────────────────────────────────────
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+    if st.button("Switch learner", use_container_width=True):
+        _reset_for_new_learner()
+        st.rerun()
+
+
+# ── Header strip ────────────────────────────────────────────────────────
+
+st.caption(
+    f"\U0001f44b {profile.get('name', 'Learner')} · "
+    f"{_level_label(profile)} · "
+    f"Today's focus: {_focus_dimension(profile)}"
+)
+
 
 # ── Display chat history ─────────────────────────────────────────────────
+
 if not st.session_state.messages:
     st.markdown(
-        """
-        <div style="text-align:center; padding: 2rem 1rem;">
-            <h1>\U0001f393 SAGE</h1>
-            <p style="font-size:1.1rem; color:#666;">
-                AI Literacy Tutor — learn to use AI effectively, critically, and ethically.
+        f"""
+        <div style="text-align:center; padding: 1.5rem 1rem;">
+            <p style="color:#888;">
+                Type a message below or pick a suggestion from the sidebar.
             </p>
-            <p style="color:#888;">Type a message below or pick a suggestion from the sidebar.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -76,11 +356,16 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
 
+
 # ── Generate response if last message is from user ───────────────────────
+
 needs_response = (
     st.session_state.messages
     and st.session_state.messages[-1]["role"] == "user"
 )
+
+# Cap thread length before sending to the API (see plan §Technical Notes).
+_MAX_API_TURNS = 40
 
 if needs_response:
     if not api_key:
@@ -90,24 +375,26 @@ if needs_response:
             )
         st.stop()
 
-    # Lazy imports so the page loads fast even without anthropic installed
     import anthropic
     from sage.prompts import SYSTEM_PROMPT
     from sage.tools import ALL_TOOLS
+
+    system_with_learner = SYSTEM_PROMPT + _learner_context_block(profile)
 
     with st.chat_message("assistant", avatar="\U0001f393"):
         with st.spinner("SAGE is thinking..."):
             try:
                 client = anthropic.Anthropic(api_key=api_key)
+                api_messages = [
+                    {"role": m["role"], "content": m["content"]}
+                    for m in st.session_state.messages[-_MAX_API_TURNS:]
+                ]
                 runner = client.beta.messages.tool_runner(
                     model="claude-opus-4-6",
                     max_tokens=16000,
-                    system=SYSTEM_PROMPT,
+                    system=system_with_learner,
                     tools=ALL_TOOLS,
-                    messages=[
-                        {"role": m["role"], "content": m["content"]}
-                        for m in st.session_state.messages
-                    ],
+                    messages=api_messages,
                     thinking={"type": "adaptive"},
                 )
 
@@ -131,11 +418,26 @@ if needs_response:
             except anthropic.APIError as e:
                 response = f"API error: {e.message}"
 
-        st.markdown(response)
+        # Strip the SESSION_RECAP block from what we show + store, render it
+        # separately as a card. Only happens on fresh completions — historical
+        # messages are already clean because we store the cleaned version.
+        cleaned_response, recap = _extract_recap(response)
+        st.markdown(cleaned_response)
+        if recap is not None:
+            _render_recap_card(recap, profile, st.session_state.session_id)
 
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": cleaned_response})
+    session_store.append_turn(
+        profile, st.session_state.session_id, "assistant", cleaned_response
+    )
+    session_store.touch_last_active(profile)
+
 
 # ── Chat input ───────────────────────────────────────────────────────────
+
 if prompt := st.chat_input("Message SAGE..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
+    session_store.append_turn(
+        profile, st.session_state.session_id, "user", prompt
+    )
     st.rerun()

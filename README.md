@@ -2,6 +2,12 @@
 
 An AI agent that tutors learners in the critical, effective, and ethical use of AI tools — through interactive practice, scaffolded feedback, and guided reflection.
 
+## Recent updates (AgentV2.2)
+
+- **Learner identity + resume.** The Web UI now opens with a learner picker. Pick an existing profile or create a new one — SAGE greets you by name, knows your level, and surfaces today's focus dimension in the header. If you have a conversation in progress, SAGE offers to pick up where you left off.
+- **Per-session transcripts on disk.** Every conversation is persisted to `data/interactions/<userId>/<sessionId>.json` using the interaction-log schema. Refreshes no longer wipe your chat; on Railway with a persistent volume, conversations survive redeploys.
+- **Small-cohort friendly.** No auth, no passwords — cohort demos just pick from the dropdown. "Start new session" and "Switch learner" buttons keep the flow flexible.
+
 ## Recent updates (AgentV2.1)
 
 - **Tighter conversation flow.** Onboarding now adapts — it caps calibration at 3 questions and bails out if the learner goes terse or asks to skip. Scenarios exit as soon as the learner demonstrates the target competency instead of padding turns.
@@ -115,15 +121,37 @@ session-start skill to respond to the following prompt:
 
 The pedagogy is identical across all modes. See [docs/roadmap.md](docs/roadmap.md) for the full CollaborAITE vision.
 
+## Railway deployment
+
+SAGE runs as a Streamlit app in a Docker container. The `Dockerfile` at the repo root is the sole deploy config — no `railway.json` or `nixpacks.toml` needed.
+
+**Environment variables (Railway dashboard):**
+
+| Var | Value | Purpose |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | your key | Required — avoids the in-app sidebar prompt |
+| `SAGE_DATA_DIR` | `/mnt/sage-data` | Points the app at the mounted volume (see below) |
+
+**Persistent volume — required for session persistence:**
+
+Without a volume, Railway's filesystem is ephemeral and every redeploy wipes learner profiles and conversation transcripts. To make the cohort demo work:
+
+1. In the Railway dashboard, attach a volume and mount it at `/mnt/sage-data` (or any path you like — just set `SAGE_DATA_DIR` to match).
+2. On first boot, the app copies the image's bundled `data/` tree (scenarios, rubrics, seed profiles, schemas, research) into the empty volume. Subsequent boots are no-ops.
+3. Learner profiles and conversation transcripts now live on the volume and survive redeploys.
+
+**Note on seed content updates:** Because the seed copy only runs when the volume is empty, scenario/rubric changes made after the first deploy will NOT propagate to the volume automatically. If you update content and need it live, either (a) delete the volume's `data/scenarios` dir from a Railway shell so the next boot re-seeds, or (b) exec into the container and manually sync.
+
 ## Project Structure
 
 ```
 sage/                          # Python agent (Claude Agent SDK)
   agent.py                     # Terminal conversation loop
-  app.py                       # Streamlit web UI
+  app.py                       # Streamlit web UI (picker + chat + header strip)
   ui.py                        # Web UI launcher
   tools.py                     # Tool definitions (profile, scenario, rubric I/O)
-  prompts.py                   # System prompt
+  session_store.py             # Profile + per-session transcript persistence
+  prompts.py                   # System prompt (auto-generated)
 pyproject.toml                 # Package config, dependencies, entry points
 CLAUDE.md                      # System instructions (Claude Code skills mode)
 .claude/skills/                # 20 modular skill definitions
@@ -131,6 +159,7 @@ workflows/                     # 5 orchestrated multi-skill sequences
 data/
   schemas/                     # JSON schemas for all data types
   users/                       # Learner profiles (5 examples included)
+  interactions/                # Per-learner session transcripts (runtime, gitignored)
   scenarios/                   # 8 practice scenarios
   rubrics/                     # 3 evaluation rubrics
 examples/

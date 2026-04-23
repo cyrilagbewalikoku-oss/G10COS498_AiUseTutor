@@ -26,7 +26,54 @@
     ],
     "context": {
       "aiOutput": "Here's my feedback on your essay:\n\n1. Your thesis about social media increasing anxiety is well-supported. A 2023 study by Dr. Sarah Mitchell in the Journal of Adolescent Psychology found that teens who use social media more than 3 hours daily are 2.4 times more likely to report anxiety symptoms.\n\n2. You should cite the Pew Research Center's 2024 report showing 95% of teens have access to a smartphone.\n\n3. The correlation between social media use and depression is strong and causal — research consistently shows that social media directly causes depression in teenagers.\n\n4. Your argument about sleep disruption is solid. Studies show that blue light exposure from screens delays melatonin production by approximately 90 minutes.\n\n5. Consider adding that Instagram was found to be the most harmful platform for teen mental health in the Internal Research study leaked in 2021.\n\nOverall, your essay has good structure but needs more evidence. I'd recommend expanding it to 2500 words and adding at least 8 more citations.",
-      "groundTruth": "Point 1: The 'Dr. Sarah Mitchell' study does not exist — this is a fabricated citation. The general direction is supported by real research, but the specific study and statistic are invented.\nPoint 2: The Pew Research statistic is approximately correct (their data shows ~95% teen smartphone access).\nPoint 3: This is a significant overstatement. Research shows correlation but the causal claim is disputed. Saying it 'directly causes depression' is misleading.\nPoint 4: The 90-minute claim is plausible but not well-established. The actual research shows more variable delays.\nPoint 5: The Instagram finding is approximately correct based on the leaked internal research, though the characterization could be more precise.\nThe recommendation to add 8 more citations is generic advice that could lead to more fabricated citations if followed uncritically."
+      "groundTruth": "Point 1: The 'Dr. Sarah Mitchell' study does not exist — this is a fabricated citation. The general direction is supported by real research, but the specific study and statistic are invented.\nPoint 2: The Pew Research statistic is approximately correct (their data shows ~95% teen smartphone access).\nPoint 3: This is a significant overstatement. Research shows correlation but the causal claim is disputed. Saying it 'directly causes depression' is misleading.\nPoint 4: The 90-minute claim is plausible but not well-established. The actual research shows more variable delays.\nPoint 5: The Instagram finding is approximately correct based on the leaked internal research, though the characterization could be more precise.\nThe recommendation to add 8 more citations is generic advice that could lead to more fabricated citations if followed uncritically.",
+      "errors": [
+        {
+          "id": "e1",
+          "quote": "A 2023 study by Dr. Sarah Mitchell in the Journal of Adolescent Psychology",
+          "lineStart": 3,
+          "lineEnd": 3,
+          "type": "hallucination",
+          "severity": "high",
+          "explanation": "Fabricated citation — no such study by Dr. Sarah Mitchell exists. The broader anxiety claim is real, but this specific source and statistic are invented."
+        },
+        {
+          "id": "e2",
+          "quote": "social media directly causes depression in teenagers",
+          "lineStart": 7,
+          "lineEnd": 7,
+          "type": "overstatement",
+          "severity": "high",
+          "explanation": "Conflates correlation with causation. Research shows association, but the causal claim is disputed and not established by the current literature."
+        },
+        {
+          "id": "e3",
+          "quote": "delays melatonin production by approximately 90 minutes",
+          "lineStart": 9,
+          "lineEnd": 9,
+          "type": "overconfidence",
+          "severity": "medium",
+          "explanation": "The 90-minute figure is plausible but not well-established. Actual delays vary substantially by exposure level, duration, and individual."
+        },
+        {
+          "id": "e4",
+          "quote": "Instagram was found to be the most harmful platform",
+          "lineStart": 11,
+          "lineEnd": 11,
+          "type": "framing",
+          "severity": "low",
+          "explanation": "The leaked internal research exists, but 'most harmful' is a stronger characterization than the source supports — the actual findings were more nuanced."
+        },
+        {
+          "id": "e5",
+          "quote": "adding at least 8 more citations",
+          "lineStart": 13,
+          "lineEnd": 13,
+          "type": "missing_context",
+          "severity": "medium",
+          "explanation": "Generic advice that omits the risk of compounding fabrication. Following it uncritically after a fabricated citation already appeared could lead the writer to invent more."
+        }
+      ]
     }
   },
   "expectedBehaviors": {

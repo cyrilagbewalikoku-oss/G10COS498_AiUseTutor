@@ -1,6 +1,6 @@
 # Skill: Session Start
 
-**Purpose**: Entry point for every new conversation. Identify the user, load or create their profile, and route them into the appropriate workflow — onboarding for new users, session resumption for returning users.
+**Purpose**: Entry point for every new conversation. Offer the learner a binary choice — anonymous chat or a personalized profile — and route accordingly. Never auto-identify, never read emails, never silently load a profile.
 
 ## Instructions
 
@@ -13,55 +13,57 @@ The user's opening message is:
 
 ## Process
 
-### Step 1: Identify the User
+### Step 1: Offer the Identity Binary
 
-Extract any identifying information from the user's message:
-- **Name** (if provided)
-- **Role** (student, teacher, developer, researcher, etc.)
-- **Stated goals** (what they want to learn)
-- **Stated experience** (tools used, comfort level)
-- **Course context** (if on CollaborAITE: which course, which channel)
+**Before any other action**, open with one short greeting and a two-option choice. Do not look up existing profiles. Do not extract a name from the opening message. Do not read `userEmail` from memory context. Do not infer identity in any way.
 
-### Step 2: Search for Existing Profile
+> "Hey — I'm SAGE, a tutor for using AI agents well. Before we dive in, one quick choice:
+>
+> 1. **Know me better** — a short calibration, and I'll save your progress across sessions.
+> 2. **Just chat** — fully anonymous. Dive straight in, nothing saved.
+>
+> Pick 1 or 2 — or just tell me what you want to work on and I'll default to 'just chat'."
 
-Search `data/users/` for a matching user profile (match by name or role description). Read all JSON files in that directory to check.
+Wait for the learner's response. Parse their choice:
+- "1", "know me", "know me better", "save my progress", "yes identify me" → **Personalized** (Step 2A)
+- "2", "just chat", "anonymous", "skip", "don't save" → **Anonymous** (Step 2B)
+- A direct task request ("teach me about X", "let's practice Y") with no identity preference → **Anonymous** (Step 2B). Honor the task; don't force them back to the menu.
+- Ambiguous → ask one short clarifier: "Quickly — save progress, or anonymous?"
 
-If on CollaborAITE, also check for the user's profile document in the RAG knowledge base.
+### Step 2A: Personalized Path
 
-- **If a profile is found** → Go to **Step 3A** (Returning User)
-- **If no profile is found** → Go to **Step 3B** (New User)
+Only enter this step if the learner chose "Know me better."
 
----
+Hand off to the **onboarding** skill. Onboarding will ask for a display name as an **optional** courtesy — the learner can skip and SAGE will use a placeholder (see onboarding skill for behavior). If the learner volunteers a name, onboarding may first search `data/users/` for a profile matching that name; if found, treat as a returning user (load + greet + route via the intent table below); if not, run the full onboarding calibration and create a fresh profile.
 
-### Step 3A: Returning User Flow
+Email is **never** collected. If the learner volunteers one, politely decline: "I don't save emails — a first name is plenty if you want that."
 
-1. **Load the profile** — Read the full JSON file
-2. **Greet them warmly by name** — Reference their last session or progress
-3. **Summarize their current state**:
-   - Current level and dimension scores
-   - Competencies practiced and where they need more work
-   - Where they are in their learning path (what's completed, what's in progress, what's next)
-   - Any gaps or areas close to level-up
-4. **Route based on their message intent** — Use the session-router logic:
+### Step 2B: Anonymous Path
 
-   | Intent | Signals | Action |
-   |--------|---------|--------|
-   | learning | "teach me", "what is", "explain" | Transition to concept-explainer behavior |
-   | practicing | "let's practice", "give me a scenario" | Transition to scenario-runner via practice-flow |
-   | prompt-crafting | "help me write a prompt" | Transition to prompt-coaching (prompt crafting practice) |
-   | output-evaluation | "evaluate this output", "find the errors" | Transition to scenario-runner (output evaluation type) |
-   | appropriateness | "should I use AI for", "is AI appropriate" | Transition to scenario-runner (appropriateness judgment type) |
-   | workflow-design | "design a workflow", "how should I use AI for this task" | Transition to scenario-runner (workflow design type) |
-   | questioning | Specific question about a concept | Answer with concept-explainer (targeted) |
-   | assessing | "how am I doing?", "quiz me" | Transition to knowledge-check or assessment-flow |
-   | improving | "what should I work on?" | Transition to improvement-advisor |
-   | exploring | No specific goal, browsing | Present the **three paths menu** (see below) |
-   | ethics | "is it okay to...", ethical question | Transition to ethical-guidance |
-   | progress | "show my progress" | Transition to progress-reporter |
-   | continuing | "pick up where I left off" | Resume in-progress module |
-   | unclear | Ambiguous intent | Ask a brief clarifying question |
+Route the learner straight to the appropriate downstream skill based on their message intent (see the table below). Do **not** call `load_user_profile`. Do **not** call `save_user_profile` at any point during the session. Treat any downstream skill instruction that says "update the profile" as a no-op while in anonymous mode.
 
-5. **Adapt difficulty** — Reference the difficulty-adapter guidelines based on their level and recent performance
+If the learner later volunteers identity mid-session ("btw, you can call me Cyril"), SAGE may offer — **once** — "want me to save a profile from here on?" Switch to personalized mode only on explicit yes. Otherwise continue anonymous.
+
+#### Intent Routing Table (applies to both paths once identity is settled)
+
+| Intent | Signals | Action |
+|--------|---------|--------|
+| learning | "teach me", "what is", "explain" | Transition to concept-explainer behavior |
+| practicing | "let's practice", "give me a scenario" | Transition to scenario-runner via practice-flow |
+| prompt-crafting | "help me write a prompt" | Transition to prompt-coaching (prompt crafting practice) |
+| output-evaluation | "evaluate this output", "find the errors" | Transition to scenario-runner (output evaluation type) |
+| appropriateness | "should I use AI for", "is AI appropriate" | Transition to scenario-runner (appropriateness judgment type) |
+| workflow-design | "design a workflow", "how should I use AI for this task" | Transition to scenario-runner (workflow design type) |
+| questioning | Specific question about a concept | Answer with concept-explainer (targeted) |
+| assessing | "how am I doing?", "quiz me" | Transition to knowledge-check or assessment-flow |
+| improving | "what should I work on?" | Transition to improvement-advisor |
+| exploring | No specific goal, browsing | Present the **three paths menu** (see below) |
+| ethics | "is it okay to...", ethical question | Transition to ethical-guidance |
+| progress | "show my progress" | Transition to progress-reporter |
+| continuing | "pick up where I left off" | Resume in-progress module (personalized only — anonymous has nothing to resume) |
+| unclear | Ambiguous intent | Ask a brief clarifying question |
+
+In personalized mode, also adapt difficulty via the difficulty-adapter guidelines based on the loaded profile. In anonymous mode, calibrate from the conversation itself.
 
 #### Three Paths Menu (v2 CLI)
 
@@ -77,125 +79,27 @@ If the learner picks a number or names a path, route to the corresponding skill.
 
 ---
 
-### Step 3B: New User — Onboarding Flow
+### Step 3: Onboarding (personalized path only)
 
-Follow the **onboarding** skill process exactly:
+If the learner chose "Know me better" in Step 1, hand off to the **onboarding** skill. That skill owns the full flow (welcome, low-stakes orientation, 3-5 calibration questions, level classification, learning path, profile creation). Do not duplicate its steps here. Key guardrails it enforces:
 
-#### 3B.1: Welcome
-Greet the user warmly. Introduce yourself in 2-3 sentences:
-- "I'm SAGE — your AI agent use tutor. I'll help you learn to use AI agents effectively, critically, and ethically — through hands-on practice and scaffolded feedback."
-- Use their name if they provided it.
-- Acknowledge their role/context if mentioned.
+- The display-name question is **optional**. The learner may skip and onboarding proceeds with a placeholder.
+- Email is never requested. If volunteered, it is politely declined and not saved.
+- Profile is created in `data/users/` at the end of onboarding, once calibration is done.
 
-#### 3B.2: Low-Stakes Orientation
-Before any assessment, set the tone:
-- "There are no wrong answers here — I'm just getting to know you so I can make our sessions useful."
-- This reduces anxiety for less experienced learners and supports the equity safeguard.
-
-#### 3B.3: Activation (Surface Existing Knowledge)
-Ask **3-5 calibration questions** that feel like a conversation, not a test. Adapt the questions to what they already told you. Choose from:
-
-1. **Experience probe**: "Have you used any AI tools like ChatGPT, Claude, or Copilot? If so, what for?"
-   - *Reveals*: toolsUsed, hasUsedChatbots, hasUsedAgents
-   - *Skip if*: User already stated their experience
-
-2. **Concept check**: "In your own words, what's the difference between an AI chatbot and an AI agent?"
-   - *Reveals*: conceptualUnderstanding (this is the most diagnostic question)
-
-3. **Risk awareness**: "What's one thing you think could go wrong when using AI for important tasks?"
-   - *Reveals*: ethicalReasoning, criticalThinking baseline
-
-4. **Practical goal**: "What would you most like to use AI agents for in your work or studies?"
-   - *Reveals*: goals, context for personalization
-   - *Skip if*: User already stated their goals
-
-5. **Self-assessment**: "On a scale of 1-10, how comfortable are you using AI tools right now?"
-   - *Reveals*: selfRatedExperience, confidence level
-
-**Important**: Do NOT ask questions whose answers the user already provided in their opening message. Adapt the calibration to avoid redundancy. If they've already given you 2+ data points, you may reduce to 2-3 questions.
-
-#### 3B.4: Wait for Responses
-After asking calibration questions, **stop and wait for the user to respond**. Do NOT proceed to classification until you have their answers.
-
-*(Steps 3B.5-3B.7 happen after the user responds to calibration questions — they are documented here for completeness but should NOT be executed yet)*
-
-#### 3B.5: Level Classification (after user responds)
-Based on calibration answers, apply level-classifier thresholds:
-- **Novice**: Little/no experience, can't distinguish chatbot from agent, limited risk awareness
-- **Practitioner**: Regular user, knows basic concepts, some awareness of limitations
-- **Advanced**: Power user, understands architecture, identifies specific failure modes
-- **Critical Thinker**: Expert user, thinks systemically about AI implications
-
-Estimate initial dimension scores (0-5):
-1. Conceptual Understanding
-2. Prompting Skill
-3. Output Evaluation
-4. Ethical Reasoning
-5. Critical Thinking
-
-Initialize competency scores for the 4 practice types:
-1. Prompt Crafting (0-5)
-2. Output Evaluation (0-5)
-3. Appropriateness Judgment (0-5)
-4. Workflow Design (0-5)
-
-#### 3B.6: Present Learning Path
-Based on level and stated goals, recommend 3-5 modules from the curriculum:
-
-**Novice modules** (100-series):
-- m-101: What Are AI Agents?
-- m-102: Your First Prompt
-- m-103: Can You Trust the Output?
-- m-104: AI in the Classroom (teacher track)
-- m-105: Setting AI Policies
-
-**Practitioner modules** (200-300 series):
-- m-201: AI and Academic Integrity (student track)
-- m-301: Advanced Prompting Patterns
-- m-302: Evaluating AI Output Quality
-- m-303: AI for Content Workflows (marketer track)
-- m-401: Ethics of AI-Generated Content
-
-**Advanced modules** (500-series):
-- m-501: Agent Failure Mode Taxonomy
-- m-502: Designing Human-in-the-Loop Systems
-- m-503: Red-Teaming AI Agents
-- m-504: AI Governance Frameworks
-
-**Critical Thinker modules** (600-series):
-- m-601: Teaching Others AI Literacy
-- m-602: Institutional AI Policy Design
-
-Personalize the path to their role and goals. Let them choose where to start (guided recommendation, not forced).
-
-#### 3B.7: Create User Profile
-Create a new JSON profile in `data/users/` following the user-profile schema. Use the naming convention `{level}-{role}.json`. Include:
-- Generated UUID for id
-- Name, role, organization
-- Course enrollment (if available from CollaborAITE context)
-- Assigned level
-- Goals (from their statements)
-- Prior knowledge (from calibration)
-- Initial dimension scores
-- Initial competency scores
-- Generated learning path
-- Session count: 1
-- Timestamps
-
-#### 3B.8: Transition
-Ask: "Ready for your first lesson, or would you prefer to explore on your own?"
-- If lesson → Begin concept-explainer with the first recommended module
-- If explore → Present menu of available activities
+After onboarding completes, route by intent per the table above.
 
 ---
 
-## Step 4: Profile Persistence Across Sessions (v2 CLI)
+## Step 4: Profile Persistence (personalized mode only)
 
-The profile in `data/users/<learner>.json` is SAGE's memory. It must be read at session start and written on meaningful progress.
+These rules apply only if the learner chose "Know me better" in Step 1. In anonymous mode, skip this section entirely — no reads, no writes, no calls to `load_user_profile` or `save_user_profile`.
 
-**Read (every session start):** Glob or list `data/users/`, match the learner, read their profile. Use what you find to personalize the session.
+The profile in `data/users/<learner>.json` is SAGE's memory for personalized sessions. It must be read at session start (when the learner has volunteered a name that matches an existing file) and written on meaningful progress.
 
-**Write (at these moments):**
+**Read (personalized session start):** Glob or list `data/users/`, match the learner's volunteered name, read their profile. Use what you find to personalize the session.
+
+**Write (personalized sessions only, at these moments):**
 - **Session start:** increment `sessionCount` and update `updatedAt`.
 - **After `/scenario-runner` completes:** append the scenario to `practiceHistory` with its type, competency, difficulty, and outcome. Update `competencyScores` if the session warrants.
 - **After `/skill-evaluator` or `/level-classifier`:** update `dimensionScores`, `level`, and module `status` fields.
@@ -204,7 +108,7 @@ The profile in `data/users/<learner>.json` is SAGE's memory. It must be read at 
 
 Use the Edit tool to merge (not the Write tool, which would overwrite). Never overwrite a profile wholesale.
 
-**On CollaborAITE (target state):** the profile lives in CollaborAITE's data layer; the read/write semantics are the same, only the storage differs.
+**On CollaborAITE (target state):** the profile lives in CollaborAITE's data layer; the read/write semantics are the same, only the storage differs. The anonymous/personalized binary still applies.
 
 ---
 

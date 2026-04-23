@@ -38,7 +38,39 @@
         "task": { "type": "string", "description": "What they need to accomplish" },
         "constraints": { "type": "array", "items": { "type": "string" } },
         "availableTools": { "type": "array", "items": { "type": "string" } },
-        "context": { "type": "string", "description": "Background information" }
+        "context": {
+          "description": "Background information. Either a plain string, or an object with aiOutput/groundTruth/errors for output_evaluation scenarios.",
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "properties": {
+                "aiOutput": { "type": "string", "description": "The AI-generated output the learner will evaluate (output_evaluation)" },
+                "groundTruth": { "type": "string", "description": "Narrative explanation of what is accurate/misleading in aiOutput" },
+                "errors": {
+                  "type": "array",
+                  "description": "Structured metadata for each embedded error in aiOutput. Optional — enables the Annotated Reveal step in scenario-runner.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string", "description": "Short identifier like e1, e2 used in reveal legend" },
+                      "quote": { "type": "string", "description": "Exact substring from aiOutput anchoring this error" },
+                      "lineStart": { "type": "integer", "minimum": 1, "description": "1-indexed line in aiOutput where the error begins" },
+                      "lineEnd": { "type": "integer", "minimum": 1, "description": "1-indexed line in aiOutput where the error ends" },
+                      "type": {
+                        "type": "string",
+                        "enum": ["hallucination", "overstatement", "logical_contradiction", "missing_context", "bias", "framing", "overconfidence"]
+                      },
+                      "severity": { "type": "string", "enum": ["low", "medium", "high"] },
+                      "explanation": { "type": "string", "description": "Brief explanation shown to the learner in the reveal legend" }
+                    },
+                    "required": ["id", "type", "severity", "explanation"]
+                  }
+                }
+              }
+            }
+          ]
+        }
       },
       "required": ["role", "task", "context"]
     },

@@ -1,0 +1,25 @@
+# Local-only personal log (not pushed)
+CHANGELOG.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# Per-learner session transcripts (runtime data, written by sage/session_store.py).
+# The directory itself is kept via .gitkeep so the layout is visible.
+data/interactions/*/

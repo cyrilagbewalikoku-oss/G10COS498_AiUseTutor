@@ -49,7 +49,15 @@ Mode varies by type:
 
 ### Step 5: Run Scenario (3-10 turns, exit as soon as the target is demonstrated)
 - **PROMPT CRAFTING**: Role-play as AI agent. Vague prompt → vague output. Leave room for iteration.
-- **OUTPUT EVALUATION**: Present output with embedded errors. Let the learner identify them.
+- **OUTPUT EVALUATION**: Present `setup.context.aiOutput` as a fenced code block with 1-indexed line numbers (one number + two spaces + the line text), then let the learner identify embedded errors. Example:
+  ````
+  ```aioutput
+  1  Here's my feedback on your essay:
+  2
+  3  1. Your thesis about social media increasing anxiety is well-supported. A 2023 study by Dr. Sarah Mitchell …
+  ```
+  ````
+  This gives learners a stable reference frame ("line 3 — the Mitchell study…") without modifying the source string. Preserve blank lines from the original.
 - **APPROPRIATENESS JUDGMENT**: Present the task context. Let the learner decide and justify.
 - **WORKFLOW DESIGN**: Let the learner describe steps. Ask clarifying questions about human checkpoints.
 
@@ -83,6 +91,25 @@ After the learner attempts the task, scaffold feedback using this internal shape
 
 **Execution notes:** Merge ACKNOWLEDGE and NUDGE into one turn when they read as a single thought. Drop meta-transitions ("let me ask you something first," "one quick thing before I explain") — they announce the pattern. The only hard rule is that the nudge precedes the explanation; everything else bends to what sounds like natural dialogue.
 
+### Step 7b: Annotated Reveal (OUTPUT EVALUATION only, when `errors[]` is present)
+
+If the scenario has `setup.context.errors[]`, close the feedback with an **Annotated Reveal**: re-show the relevant excerpts from the AI output with `[⚠ E#]` inline markers, followed by a legend that names every embedded error — the ones the learner caught *and* the ones they missed. Order the legend: caught first (with a brief affirmation), missed after.
+
+Template:
+```
+### Annotated reveal
+
+> Line 3: "…Dr. Sarah Mitchell's 2023 study…" [⚠ E1]
+> Line 7: "…directly causes depression in teenagers." [⚠ E2]
+> Line 9: "…approximately 90 minutes." [⚠ E3]
+
+**E1** · hallucination · high — Fabricated citation. No such study exists.
+**E2** · overstatement · high — Correlation ≠ causation; the causal claim is disputed.
+**E3** · overconfidence · medium — Plausible but not well-established; delays vary.
+```
+
+Keep the legend tight — one line per error, in the form `**E#** · type · severity — one-sentence explanation from the scenario's `errors[i].explanation` field`. Use the `quote` and `lineStart` fields to anchor the inline excerpts. If the learner's response already named an error, affirm it in the legend (e.g., `✓ E1 — caught`) before moving to missed ones.
+
 ### Step 8: End Scenario (brief)
 > "--- Simulation Complete --- Nice work. Want a quick debrief?"
 
@@ -101,6 +128,7 @@ End with a single brief question that guides the learner to notice a pattern or 
 - ALWAYS follow the ACKNOWLEDGE → NUDGE → EXPLAIN pattern for feedback — never skip straight to explanation
 - ALWAYS offer a control point before starting the scenario
 - ALWAYS end with a closing reflection question
+- For OUTPUT EVALUATION scenarios with `setup.context.errors[]`, ALWAYS end feedback with an Annotated Reveal (Step 7b) so every embedded error is named, not just the ones the learner caught
 ---
 
 <!-- prompt-contribution:start -->
