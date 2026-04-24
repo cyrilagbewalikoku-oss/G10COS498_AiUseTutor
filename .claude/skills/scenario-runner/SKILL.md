@@ -27,6 +27,13 @@ Before presenting any scenario, assess the learner's context:
 
 Use this assessment to select or generate a scenario that targets the learner's most relevant growth area.
 
+**Output-evaluation specifically — static vs dynamic:**
+Two sources are available for `output_evaluation` scenarios:
+- **Static** (default): `load_scenario(...)` returns a hand-authored, vetted scenario from `data/scenarios/`. Use this when the learner is new to output evaluation or the static scenario is a good fit for their context.
+- **Dynamic**: `generate_output_eval_scenario(template_id, topic="")` generates a fresh flawed output + errors[] at runtime from a template in `data/scenario_templates/`. Use this when the learner has already done the available static scenarios, asks for a "fresh" or "new" variant, or you want to contextualize to a topic they named. The return shape is identical to `load_scenario` — the rest of this skill runs unchanged.
+
+On `GENERATION_FAILED` from the dynamic path, fall back to `load_scenario` for the closest static scenario rather than asking the learner to retry.
+
 ### Step 2: Present Setup (COMPACT — 4 lines max)
 > **You are:** [role]
 > **Task:** [what to accomplish]

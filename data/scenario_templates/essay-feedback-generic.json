@@ -1,0 +1,80 @@
+{
+  "id": "essay-feedback-generic",
+  "title": "AI feedback on a student essay",
+  "description": "Generator template: produces a plausible AI-generated critique of a short student essay, with seeded errors the learner must detect.",
+  "practiceType": "output_evaluation",
+  "difficulty": "practitioner",
+  "learningObjectives": [
+    "Identify fabricated citations and unsupported claims in AI feedback",
+    "Distinguish correlation from causation in AI-generated arguments",
+    "Recognize confident-sounding but uncertain factual claims",
+    "Notice generic advice that could compound errors if followed uncritically"
+  ],
+  "setup": {
+    "role": "An undergraduate student reviewing AI feedback on an essay draft",
+    "task": "Read the AI's feedback carefully and flag what is accurate, what is misleading or wrong, and what is missing.",
+    "constraints": [
+      "Assume you have access to a library database and course textbook for verification",
+      "The feedback may contain fabricated citations or overstated claims",
+      "You should not trust any specific statistic without verifying it"
+    ],
+    "availableTools": [
+      "Library database",
+      "Course textbook",
+      "The original essay you submitted"
+    ]
+  },
+  "generation": {
+    "persona": "An AI writing tutor giving feedback on a short undergraduate essay draft. Tone: helpful, confident, slightly authoritative.",
+    "topic_pool": [
+      "social media and adolescent anxiety",
+      "the gig economy and worker precarity",
+      "remote work and productivity",
+      "climate change communication",
+      "the effects of gentrification on small businesses",
+      "the history of public transit in American cities",
+      "smartphone use and attention span",
+      "the role of unions in the 20th century"
+    ],
+    "output_format": "3–6 numbered feedback points, ~180–250 words total. Realistic, helpful-sounding, with the errors woven into otherwise reasonable advice.",
+    "required_errors": [
+      { "type": "hallucination", "severity": "high" },
+      { "type": "overstatement", "severity": "high" }
+    ],
+    "optional_errors": [
+      { "type": "overconfidence", "severity": "medium" },
+      { "type": "missing_context", "severity": "medium" },
+      { "type": "framing", "severity": "low" }
+    ],
+    "target_error_count": { "min": 3, "max": 5 }
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Fact Verification",
+      "weight": 0.30,
+      "description": "Did the learner verify factual claims and identify any fabricated citations or statistics?"
+    },
+    {
+      "dimension": "Error Detection",
+      "weight": 0.25,
+      "description": "Did the learner catch overstatements and uncertain factual claims?"
+    },
+    {
+      "dimension": "Framing Analysis",
+      "weight": 0.20,
+      "description": "Did the learner evaluate the overall framing — locally plausible but globally misleading?"
+    },
+    {
+      "dimension": "Practical Judgment",
+      "weight": 0.15,
+      "description": "Did the learner recognize that following generic AI advice could compound the problem?"
+    },
+    {
+      "dimension": "Verification Approach",
+      "weight": 0.10,
+      "description": "Did the learner describe a systematic approach to verifying claims?"
+    }
+  ],
+  "maxTurns": 10,
+  "estimatedMinutes": 20
+}

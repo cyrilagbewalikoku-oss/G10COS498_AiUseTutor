@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ScenarioTemplate",
+  "description": "A lightweight spec used by generate_output_eval_scenario to produce a full output_evaluation scenario at runtime. Templates describe persona, topic pool, and the required mix of error types; the generator fills in aiOutput + errors[] on each invocation.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique template identifier, e.g. 'essay-feedback-generic'" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "practiceType": { "type": "string", "const": "output_evaluation" },
+    "difficulty": {
+      "type": "string",
+      "enum": ["novice", "practitioner", "advanced", "critical_thinker"]
+    },
+    "learningObjectives": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "setup": {
+      "type": "object",
+      "description": "Skeleton of the scenario setup. aiOutput/errors are NOT authored here — the generator fills them in.",
+      "properties": {
+        "role": { "type": "string" },
+        "task": { "type": "string" },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "availableTools": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["role", "task"]
+    },
+    "generation": {
+      "type": "object",
+      "description": "Instructions for the generator.",
+      "properties": {
+        "persona": {
+          "type": "string",
+          "description": "Who the simulated AI is supposed to be (e.g. 'AI tutor giving feedback on a student essay')."
+        },
+        "topic_pool": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Candidate topics; the tool picks one per invocation unless the caller supplies `topic`."
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Shape of the expected aiOutput, e.g. '3–5 numbered feedback points, ~200 words'."
+        },
+        "required_errors": {
+          "type": "array",
+          "description": "Error types that MUST be seeded in every generated output.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["hallucination", "overstatement", "logical_contradiction", "missing_context", "bias", "framing", "overconfidence"]
+              },
+              "severity": { "type": "string", "enum": ["low", "medium", "high"] }
+            },
+            "required": ["type"]
+          }
+        },
+        "optional_errors": {
+          "type": "array",
+          "description": "Error types the generator may add to reach target_error_count.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["hallucination", "overstatement", "logical_contradiction", "missing_context", "bias", "framing", "overconfidence"]
+              },
+              "severity": { "type": "string", "enum": ["low", "medium", "high"] }
+            },
+            "required": ["type"]
+          }
+        },
+        "target_error_count": {
+          "type": "object",
+          "properties": {
+            "min": { "type": "integer", "minimum": 1 },
+            "max": { "type": "integer", "minimum": 1 }
+          },
+          "required": ["min", "max"]
+        }
+      },
+      "required": ["persona", "topic_pool", "output_format", "required_errors", "target_error_count"]
+    },
+    "evaluationCriteria": {
+      "type": "array",
+      "description": "Passed through verbatim into the generated scenario.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dimension": { "type": "string" },
+          "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+          "description": { "type": "string" }
+        },
+        "required": ["dimension", "weight", "description"]
+      }
+    },
+    "maxTurns": { "type": "integer" },
+    "estimatedMinutes": { "type": "integer" }
+  },
+  "required": ["id", "title", "description", "practiceType", "difficulty", "setup", "generation", "evaluationCriteria", "maxTurns"]
+}

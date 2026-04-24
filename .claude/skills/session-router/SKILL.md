@@ -25,7 +25,7 @@ If the user is mid-lesson or mid-practice:
 | learning | "teach me", "what is", "explain", "how does X work" | `/concept-explainer` |
 | practicing | "let's practice", "I want to try", "give me a scenario" | `/scenario-runner` |
 | prompt-crafting | "help me write a prompt", shares a prompt | `/prompt-coaching` |
-| output-evaluation | "evaluate this output", "find the errors", "what's wrong with this" | `/scenario-runner` (output evaluation type) |
+| output-evaluation | "evaluate this output", "find the errors", "what's wrong with this", "fresh variant", "new output-eval" | `/scenario-runner` (output evaluation type — uses `generate_output_eval_scenario` when the learner asks for a fresh variant or has exhausted static scenarios) |
 | appropriateness | "should I use AI for", "is AI appropriate", "when should I use AI" | `/scenario-runner` (appropriateness judgment type) |
 | workflow-design | "design a workflow", "plan my AI steps", "how should I structure this" | `/scenario-runner` (workflow design type) |
 | questioning | specific question about a concept | `/concept-explainer` (targeted) |

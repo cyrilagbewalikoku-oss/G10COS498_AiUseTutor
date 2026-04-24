@@ -1,0 +1,81 @@
+{
+  "id": "research-summary-generic",
+  "title": "AI research summary with embedded flaws",
+  "description": "Generator template: produces a plausible AI-generated research brief on a current topic, with seeded errors the learner must detect.",
+  "practiceType": "output_evaluation",
+  "difficulty": "practitioner",
+  "learningObjectives": [
+    "Spot fabricated citations in research-style prose",
+    "Separate summary claims from interpretive claims",
+    "Recognize selective framing and one-sided evidence",
+    "Notice unsupported numerical precision"
+  ],
+  "setup": {
+    "role": "A researcher skimming an AI-written briefing before including it in a report",
+    "task": "Decide what is safe to keep, what needs verification, and what should be removed before the briefing is used downstream.",
+    "constraints": [
+      "You can only spend a few minutes — focus on flagging, not rewriting",
+      "Any claim you keep will be read as if you endorsed it",
+      "The briefing may contain fabricated studies or misrepresented findings"
+    ],
+    "availableTools": [
+      "Scholar search",
+      "Your own domain knowledge",
+      "The briefing's original prompt"
+    ]
+  },
+  "generation": {
+    "persona": "An AI research assistant producing a short briefing paragraph for a knowledgeable but time-pressed reader. Tone: neutral, summary-style, confident.",
+    "topic_pool": [
+      "the effects of minimum wage increases on small-business employment",
+      "the state of evidence on four-day work weeks",
+      "renewable energy adoption in Sub-Saharan Africa",
+      "the mental-health effects of long-term remote work",
+      "the economic impact of generative AI on entry-level white-collar jobs",
+      "microplastics and human health outcomes",
+      "the history of rent-control policy in North American cities",
+      "the replication crisis in social psychology"
+    ],
+    "output_format": "A single prose briefing, 5–8 sentences, ~180–230 words. No bullet list — flowing text so the learner has to read closely.",
+    "required_errors": [
+      { "type": "hallucination", "severity": "high" },
+      { "type": "framing", "severity": "medium" }
+    ],
+    "optional_errors": [
+      { "type": "overconfidence", "severity": "medium" },
+      { "type": "missing_context", "severity": "medium" },
+      { "type": "bias", "severity": "low" },
+      { "type": "overstatement", "severity": "medium" }
+    ],
+    "target_error_count": { "min": 3, "max": 5 }
+  },
+  "evaluationCriteria": [
+    {
+      "dimension": "Fact Verification",
+      "weight": 0.30,
+      "description": "Did the learner flag specific claims that require sourcing or challenge?"
+    },
+    {
+      "dimension": "Error Detection",
+      "weight": 0.25,
+      "description": "Did the learner identify fabricated studies or unsupported numbers?"
+    },
+    {
+      "dimension": "Framing Analysis",
+      "weight": 0.25,
+      "description": "Did the learner notice one-sided framing or selective emphasis?"
+    },
+    {
+      "dimension": "Practical Judgment",
+      "weight": 0.10,
+      "description": "Did the learner recognize the risk of passing the briefing on unverified?"
+    },
+    {
+      "dimension": "Verification Approach",
+      "weight": 0.10,
+      "description": "Did the learner describe how they would verify each flagged claim?"
+    }
+  ],
+  "maxTurns": 10,
+  "estimatedMinutes": 20
+}

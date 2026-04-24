@@ -5,9 +5,11 @@ Tools handle data I/O only. All pedagogical logic lives in the system prompt.
 
 import json
 import os
+import random
 import re
 from pathlib import Path
 
+import anthropic
 from anthropic import beta_tool
 
 # Restrict profile filenames to letters/digits/hyphen/underscore + .json
@@ -220,6 +222,251 @@ def load_rubric(rubric_name: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Dynamic scenario generation (output_evaluation only, for now)
+# ---------------------------------------------------------------------------
+
+# Error types allowed on an output_evaluation scenario. Mirrors the enum in
+# data/schemas/scenario.schema.json. Kept here so the generator can validate
+# without pulling in a full JSON-Schema validator.
+_ALLOWED_ERROR_TYPES = {
+    "hallucination",
+    "overstatement",
+    "logical_contradiction",
+    "missing_context",
+    "bias",
+    "framing",
+    "overconfidence",
+}
+
+_GENERATOR_MODEL = "claude-haiku-4-5-20251001"
+_GENERATOR_MAX_TOKENS = 4000
+
+# Meta-prompt used when making a nested API call to generate a fresh
+# output-evaluation scenario from a template. Kept private to this module —
+# it is NOT part of the SAGE system prompt (which is auto-generated from
+# CLAUDE.md + skills).
+OUTPUT_EVAL_GENERATOR_PROMPT = """\
+You are a scenario generator for SAGE, an AI literacy tutor. Produce ONE practice \
+scenario in strict JSON for the OUTPUT EVALUATION practice type.
+
+Given a template spec and a chosen topic, you generate:
+- A realistic "aiOutput" — what a confident AI might plausibly produce for the \
+given persona, topic, and output_format. It should read like a real AI response: \
+helpful-sounding and authoritative, with flaws woven into otherwise reasonable \
+material.
+- A parallel "errors" array. Every required_errors type from the template must \
+appear. You may add optional_errors up to the target_error_count range.
+
+HARD RULES (obey all of these):
+1. Output ONLY a single JSON object. No prose. No markdown fences. No commentary.
+2. Every errors[i].quote MUST be an EXACT substring of aiOutput — copied \
+verbatim, character for character. If the quote is not in aiOutput, the \
+scenario is invalid and will be rejected.
+3. errors[i].type MUST be one of: hallucination, overstatement, \
+logical_contradiction, missing_context, bias, framing, overconfidence.
+4. Give each error a unique id (e1, e2, e3, ...). Each error should point to a \
+DIFFERENT quote.
+5. Use \\n for newlines inside aiOutput. lineStart/lineEnd are 1-indexed line \
+numbers in aiOutput after splitting on \\n.
+6. Keep the total error count inside target_error_count.min..max.
+7. Do not telegraph the errors in aiOutput — the learner is supposed to catch \
+them. But keep them detectable by a careful reader.
+
+OUTPUT SHAPE (fields with <angle brackets> you must fill in; fields quoted \
+literally must appear as-is):
+
+{
+  "id": "<generated-id-including-topic-slug>",
+  "title": "<short title>",
+  "description": "<one sentence describing the exercise>",
+  "type": "output_evaluation",
+  "practiceType": "output_evaluation",
+  "difficulty": "<copy template.difficulty>",
+  "learningObjectives": ["<copy template.learningObjectives verbatim>"],
+  "setup": {
+    "role": "<copy template.setup.role>",
+    "task": "<copy template.setup.task>",
+    "constraints": ["<copy template.setup.constraints verbatim, if present>"],
+    "availableTools": ["<copy template.setup.availableTools verbatim, if present>"],
+    "context": {
+      "aiOutput": "<the flawed AI output, with \\n newlines>",
+      "groundTruth": "<1-3 sentence narrative of what is accurate vs misleading>",
+      "errors": [
+        {
+          "id": "e1",
+          "quote": "<exact substring of aiOutput>",
+          "lineStart": <int>,
+          "lineEnd": <int>,
+          "type": "<one of the allowed error types>",
+          "severity": "<low|medium|high>",
+          "explanation": "<one sentence, shown to the learner in the reveal>"
+        }
+      ]
+    }
+  },
+  "evaluationCriteria": [ <copy template.evaluationCriteria verbatim> ],
+  "maxTurns": <copy template.maxTurns>,
+  "estimatedMinutes": <copy template.estimatedMinutes, default 20>
+}
+
+Template (JSON):
+{template_json}
+
+Chosen topic: {topic}
+
+Return the JSON object now. Nothing else.
+"""
+
+
+def _strip_code_fences(text: str) -> str:
+    """Strip surrounding ```json ... ``` fences if the model added them anyway."""
+    text = text.strip()
+    if text.startswith("```"):
+        first_newline = text.find("\n")
+        if first_newline != -1:
+            text = text[first_newline + 1 :]
+        if text.endswith("```"):
+            text = text[:-3]
+    return text.strip()
+
+
+def _recompute_line_span(ai_output: str, quote: str) -> tuple[int, int] | None:
+    """Find 1-indexed line span of `quote` in `ai_output`. Returns None if missing."""
+    if not quote or quote not in ai_output:
+        return None
+    # Find the character offset of the first occurrence.
+    start = ai_output.index(quote)
+    end = start + len(quote)
+    line_start = ai_output.count("\n", 0, start) + 1
+    line_end = ai_output.count("\n", 0, end) + 1
+    return line_start, line_end
+
+
+def _validate_and_repair(
+    scenario: dict, required_types: list[str], count_min: int, count_max: int
+) -> dict | None:
+    """Verify structural invariants and rewrite line numbers from actual quote positions.
+
+    Returns the repaired scenario, or None if it cannot be repaired.
+    """
+    try:
+        context = scenario["setup"]["context"]
+        ai_output = context["aiOutput"]
+        errors = context.get("errors", [])
+    except (KeyError, TypeError):
+        return None
+
+    if not isinstance(ai_output, str) or not isinstance(errors, list):
+        return None
+    if not (count_min <= len(errors) <= count_max):
+        return None
+
+    seen_types: set[str] = set()
+    repaired_errors: list[dict] = []
+    for err in errors:
+        if not isinstance(err, dict):
+            return None
+        err_type = err.get("type")
+        quote = err.get("quote")
+        if err_type not in _ALLOWED_ERROR_TYPES:
+            return None
+        span = _recompute_line_span(ai_output, quote or "")
+        if span is None:
+            return None
+        err["lineStart"], err["lineEnd"] = span
+        seen_types.add(err_type)
+        repaired_errors.append(err)
+
+    missing_required = [t for t in required_types if t not in seen_types]
+    if missing_required:
+        return None
+
+    context["errors"] = repaired_errors
+    scenario.setdefault("type", "output_evaluation")
+    scenario.setdefault("practiceType", "output_evaluation")
+    return scenario
+
+
+def _load_template(template_id: str) -> dict | None:
+    """Load a scenario template by id. Returns None if not found."""
+    templates_dir = DATA_DIR / "scenario_templates"
+    if not templates_dir.exists():
+        return None
+    for filepath in sorted(templates_dir.glob("*.json")):
+        try:
+            template = json.loads(filepath.read_text())
+        except (json.JSONDecodeError, OSError):
+            continue
+        tid = template.get("id", filepath.stem)
+        if template_id in tid or template_id in filepath.stem:
+            return template
+    return None
+
+
+@beta_tool
+def generate_output_eval_scenario(template_id: str, topic: str = "") -> str:
+    """Generate a fresh output-evaluation scenario from a template, at runtime.
+
+    Loads a template from data/scenario_templates/, makes a nested Claude API
+    call that produces a flawed aiOutput plus a matching errors[] array, then
+    validates and returns the scenario as JSON. The returned shape matches
+    load_scenario's output so scenario-runner can present it identically.
+
+    Returns 'NOT_FOUND' if the template id doesn't match any template,
+    'GENERATION_FAILED' if generation or validation fails after one retry.
+
+    Args:
+        template_id: Template id, e.g. 'essay-feedback-generic'. Partial match.
+        topic: Optional topic override. If empty, one is picked from the \
+template's topic_pool.
+    """
+    template = _load_template(template_id)
+    if template is None:
+        return "NOT_FOUND"
+
+    generation = template.get("generation", {})
+    pool = generation.get("topic_pool", [])
+    chosen_topic = topic.strip() if topic else (random.choice(pool) if pool else "")
+
+    required_types = [e["type"] for e in generation.get("required_errors", [])]
+    count_spec = generation.get("target_error_count", {"min": 3, "max": 5})
+    count_min = int(count_spec.get("min", 3))
+    count_max = int(count_spec.get("max", 5))
+
+    prompt = OUTPUT_EVAL_GENERATOR_PROMPT.format(
+        template_json=json.dumps(template, indent=2),
+        topic=chosen_topic or "(generator's choice)",
+    )
+
+    client = anthropic.Anthropic()
+    for _attempt in range(2):
+        try:
+            response = client.messages.create(
+                model=_GENERATOR_MODEL,
+                max_tokens=_GENERATOR_MAX_TOKENS,
+                messages=[{"role": "user", "content": prompt}],
+            )
+        except anthropic.APIError:
+            continue
+
+        raw = "".join(
+            block.text for block in response.content if block.type == "text"
+        )
+        try:
+            scenario = json.loads(_strip_code_fences(raw))
+        except json.JSONDecodeError:
+            continue
+
+        repaired = _validate_and_repair(
+            scenario, required_types, count_min, count_max
+        )
+        if repaired is not None:
+            return json.dumps(repaired, indent=2)
+
+    return "GENERATION_FAILED"
+
+
+# ---------------------------------------------------------------------------
 # Collect all tools for the agent
 # ---------------------------------------------------------------------------
 
@@ -230,4 +477,5 @@ ALL_TOOLS = [
     list_scenarios,
     load_scenario,
     load_rubric,
+    generate_output_eval_scenario,
 ]

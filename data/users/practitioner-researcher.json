@@ -1,0 +1,38 @@
+{
+  "id": "u-practitioner-researcher-001",
+  "name": "Cy",
+  "role": "researcher",
+  "level": "practitioner",
+  "goals": [
+    "Use AI to enhance research workflows"
+  ],
+  "priorKnowledge": {
+    "hasUsedChatbots": true,
+    "hasUsedAgents": false,
+    "toolsUsed": [],
+    "selfRatedExperience": null,
+    "knownConcepts": ["chatbot vs agent distinction", "privacy risk"]
+  },
+  "dimensionScores": {
+    "conceptualUnderstanding": 2.5,
+    "promptingSkill": 2.0,
+    "outputEvaluation": 2.0,
+    "ethicalReasoning": 2.5,
+    "criticalThinking": 2.0
+  },
+  "competencyScores": {
+    "promptCrafting": 0,
+    "outputEvaluation": 0,
+    "appropriatenessJudgment": 0,
+    "workflowDesign": 0
+  },
+  "learningPath": [
+    { "moduleId": "m-201", "title": "Your First Prompt", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-302", "title": "Can You Trust the Output?", "status": "not_started", "completedAt": null },
+    { "moduleId": "m-501", "title": "Workflow Design for Research", "status": "in_progress", "completedAt": null }
+  ],
+  "sessionCount": 1,
+  "totalInteractions": 0,
+  "createdAt": "2026-04-20T00:00:00Z",
+  "lastActiveAt": "2026-04-20T00:00:00Z"
+}
