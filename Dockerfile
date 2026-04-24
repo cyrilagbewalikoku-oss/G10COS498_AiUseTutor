@@ -7,6 +7,8 @@ COPY pyproject.toml ./
 # Copy source and the canonical data tree (scenarios, rubrics, seed users, etc.)
 COPY sage/ sage/
 COPY data/ data/
+COPY .streamlit/ .streamlit/
+COPY .claude/skills/ .claude/skills/
 COPY CLAUDE.md ./
 RUN pip install --no-cache-dir .
 ENV PYTHONPATH=/app
