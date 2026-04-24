@@ -3,10 +3,11 @@
   "checkpoint_id": "e13b2aae268e",
   "strategy": "manual-commit",
   "branch": "AgentV2.1",
-  "checkpoints_count": 2,
+  "checkpoints_count": 4,
   "files_touched": [
     ".claude/skills/scenario-runner/SKILL.md",
     ".claude/skills/session-router/SKILL.md",
+    "data/users/practitioner-researcher.json",
     "sage/tools.py"
   ],
   "sessions": [
@@ -21,13 +22,19 @@
       "transcript": "/e1/3b2aae268e/1/full.jsonl",
       "content_hash": "/e1/3b2aae268e/1/content_hash.txt",
       "prompt": "/e1/3b2aae268e/1/prompt.txt"
+    },
+    {
+      "metadata": "/e1/3b2aae268e/2/metadata.json",
+      "transcript": "/e1/3b2aae268e/2/full.jsonl",
+      "content_hash": "/e1/3b2aae268e/2/content_hash.txt",
+      "prompt": "/e1/3b2aae268e/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 3905,
-    "cache_creation_tokens": 119019,
-    "cache_read_tokens": 603390,
-    "output_tokens": 20821,
-    "api_call_count": 15
+    "input_tokens": 4086,
+    "cache_creation_tokens": 508561,
+    "cache_read_tokens": 21033269,
+    "output_tokens": 137665,
+    "api_call_count": 142
   }
 }

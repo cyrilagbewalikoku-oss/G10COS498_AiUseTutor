@@ -1,0 +1,36 @@
+what are some features we can add to this agent as we're now running in railway to improve the interaction and ui/ux
+
+---
+
+showing progress and feeling personal
+
+---
+
+a small cohort which will be demo'ing
+
+---
+
+doing a deep research of existing models, what would be the best?
+
+---
+
+we can go ahead and write up the plan for this
+
+---
+
+<ide_opened_file>The user opened the file /Users/cyril/Documents/G10_AIUseTutor/G10COS498_AiUseTutor/CHANGELOG.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+commit all changes and push to the branch
+
+---
+
+how do I check whether it has been pushed onto railway
+
+---
+
+on the welcome page the user should have the option to just go in as nobody and based on onboarding you will be able to tell the particular (so probably a buttono r something to show you can go in as person whithout identifying yourself.
+
+---
+
+on the welcome page the user should have the option to just go in as nobody and based on onboarding you will be able to tell the particular (so probably a buttono r something to show you can go in as person whithout identifying yourself.
+
+And also once they enter the chat interface, the "welcome, I am sage.... needs to pop up in the chat"
