@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "e13b2aae268e",
+  "session_id": "97d44d8c-59e5-4e9c-b384-5b0e2545e593",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-24T19:30:15.379303Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "sage/tools.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "373d45631367",
+  "token_usage": {
+    "input_tokens": 3881,
+    "cache_creation_tokens": 87490,
+    "cache_read_tokens": 255077,
+    "output_tokens": 16460,
+    "api_call_count": 6
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-24T19:30:15.375061Z",
+    "agent_lines": 246,
+    "agent_removed": 0,
+    "human_added": 1,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 247,
+    "total_lines_changed": 248,
+    "agent_percentage": 99.19354838709677,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 417,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".githooks/post-merge": 83,
+        "data/scenario_templates/essay-feedback-generic.json": 80,
+        "data/scenario_templates/research-summary-generic.json": 81,
+        "data/schemas/scenario-template.schema.json": 105,
+        "data/users/cyril.json": 28,
+        "data/users/practitioner-researcher.json": 38,
+        "sage/tools.py": 2
+      }
+    }
+  ]
+}
