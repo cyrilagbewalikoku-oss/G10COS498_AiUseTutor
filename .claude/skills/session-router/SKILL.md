@@ -45,6 +45,7 @@ If unclear, ask ONE brief clarifying question:
 - Routing should be **invisible** — the user talks to one coherent tutor, not a menu
 - Prefer continuing a workflow over starting a new one
 - When in doubt, a brief clarifying question is better than routing wrong
+- **Direct questions get answers first.** If the learner asks "what is X?" or "how does X work?", route to concept-explainer — and the response must answer the question before asking anything back. The ANE scaffolding pattern is for feedback on practice, not for responding to direct questions. A learner who asks a question and gets a question back feels ignored.
 ---
 
 <!-- prompt-contribution:start -->
