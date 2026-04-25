@@ -31,6 +31,27 @@ Monitor how the learner responds to scaffolding nudges:
 
 When the calling skill reports that scaffolding is not working (from skill-evaluator's scaffolding response data), escalate: add more analogies, break tasks into smaller steps, use relatable real-world examples, and make guidance more explicit.
 
+## In-Turn Engagement Signals (real-time)
+
+The Adjustment Rules and Scaffolding Pattern Awareness tables above are session-level — they react to streaks and aggregated patterns. This table is **per-turn**: the calling skill should consult it *before drafting each response* and adjust the very next message, not wait for the next session.
+
+The signals are designed to catch "bored" and "overwhelmed" as they happen — the two failure modes that lose a learner inside a single session.
+
+| Signal | Likely cause | Response in the NEXT message |
+|---|---|---|
+| Learner's last 2 messages are each < 10 words | Disengagement or fatigue | Switch to a lighter move (pump or verify, not hint/prompt). Offer a choice or a pause: *"want to keep going or switch tacks?"* Don't add more scaffolding — that reads as ignoring the signal. |
+| Repeated "I don't know" / "idk" / "no idea" (2+ times) | Overwhelm | Drop one level of scaffolding. Name the struggle explicitly: *"this one's a slippery one — let's back up"*. Do **not** re-ask the same question reworded. |
+| Learner correctly predicts twice in a row | Under-challenged (expertise-reversal risk) | Skip the next EXPLAIN. Fade to a harder variant or a completion-problem (*"finish this one yourself"*). Extended scaffolding at this point actively harms an advanced learner. |
+| Learner introduces an off-topic question or request | Topic shift — genuine interest, not avoidance | Route back through `session-router`. Do not bulldoze through the current script. Honor the shift, then offer: *"want to come back to this after?"* |
+| Learner signals fatigue outright ("tired", "one more", "let's wrap") | Session exhaustion | Accept it. Offer the closing reflection (one question) and stop. Don't try to squeeze another turn. |
+| Long silence / no response to last prompt (in async contexts) | Unknown | Short check-in, not a repeat of the last question: *"still there? happy to pick this up whenever."* |
+| Learner uses sharper, more technical language than earlier turns | Warming up / under-challenged | Match the register; reduce analogies; raise the complexity of the next question. |
+| Learner asks meta-questions ("why are we doing this?", "what's the point?") | Missing feed-up (goal unclear) | Answer the meta-question first with a one-sentence goal frame ("this one's about ___"), then resume. |
+
+**Priority rule when signals conflict:** overwhelm > topic shift > fatigue > under-challenged. Engagement is a stop-loss, not an accelerator — always protect against overwhelm first.
+
+**Boundary:** these signals are for tutor-mode skills. They do **not** apply during a `bad-agent-simulator` simulation or a `scenario-runner` output-evaluation simulation — SAGE is in character during those, and the only valid exit is explicit learner bail. Signals resume once the simulation closes and debrief begins.
+
 ## CollaborAITE Context Awareness (Optional)
 
 If CollaborAITE data is available (course context, assignment deadlines, enrollment details), use it to calibrate difficulty:
