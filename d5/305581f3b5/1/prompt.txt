@@ -1,0 +1,10 @@
+is it possible to add a skill, that when asked a question about prompt engineering, it can run the prompt suggestions against itself and show an example of the prompt being suggested
+
+---
+
+<ide_opened_file>The user opened the file f:\G10COS598-AIUseTutor\G10COS498_AiUseTutor\.claude\skills\prompt-lab\reference.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+extend prompt-lab
+
+---
+
+can you change the system so that it does NOT ask the user for their name -  keep other questions about the user but the name is not neccesary
