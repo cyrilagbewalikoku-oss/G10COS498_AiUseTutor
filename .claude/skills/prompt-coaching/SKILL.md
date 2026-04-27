@@ -69,6 +69,8 @@ Same shape each round: react, nudge, let them predict, then either confirm or ex
 ### Wrap-up: One takeaway
 > "Biggest lesson: [one principle]. Want to test your prompt in the lab? Try `/prompt-lab`"
 
+If the learner seems skeptical of a specific suggestion you made ("would that really make a difference?") or asks a question best answered by a worked example ("what does adding a role actually do?"), offer Demo Mode of `/prompt-lab` — it runs the baseline and improved prompts as simulated outputs side-by-side, with the learner predicting the difference before the reveal.
+
 ## Rules
 
 - User writes FIRST, always. Never explain the framework before they try.

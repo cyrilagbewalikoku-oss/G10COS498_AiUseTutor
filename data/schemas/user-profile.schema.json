@@ -5,7 +5,7 @@
   "type": "object",
   "properties": {
     "id": { "type": "string", "format": "uuid", "description": "Unique user identifier" },
-    "name": { "type": "string", "description": "User's display name" },
+    "name": { "type": "string", "description": "User's display name. OPTIONAL — SAGE never asks for a name during onboarding (past learners flagged it as uncomfortable). Populated only if the learner volunteers one." },
     "role": { "type": "string", "description": "Job title or role", "examples": ["teacher", "student", "marketer", "developer", "researcher"] },
     "organization": { "type": "string", "description": "School, company, or institution" },
     "level": {
@@ -105,5 +105,5 @@
     "createdAt": { "type": "string", "format": "date-time" },
     "lastActiveAt": { "type": "string", "format": "date-time" }
   },
-  "required": ["id", "name", "level"]
+  "required": ["id", "level"]
 }

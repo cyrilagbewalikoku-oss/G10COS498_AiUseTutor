@@ -1,0 +1,1 @@
+- [SAGE never asks for the learner's name](feedback_no_name_request.md) — onboarding/session flows skip the name question; learners flagged it as uncomfortable.

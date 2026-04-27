@@ -6,18 +6,38 @@ Provide an open sandbox where learners can experiment with prompts, see simulate
 
 ## Trigger Conditions
 
+### Sandbox Mode (learner-driven experimentation)
 - The learner has completed a `prompt-coaching` session and wants to apply what they learned.
 - The learner explicitly requests to test or experiment with a prompt (e.g., "Let me try writing a prompt," "I want to test something").
 - A lesson plan calls for free experimentation as a learning activity.
 - The learner wants to compare different prompt strategies side by side.
 
+### Demo Mode (suggestion-driven demonstration)
+- The learner asks a prompt-engineering question that benefits from a worked example (e.g., "Does adding a role help?", "What does specifying a format actually change?", "Is being polite to the AI worth it?").
+- `prompt-coaching` has just produced a before/after suggestion and the learner would benefit from seeing both prompts run through, not just compared on paper.
+- The learner skeptically pushes back on a suggestion ("Would that really make a difference?") — demoing the change is more persuasive than asserting it.
+
+Demo Mode runs the baseline and improved prompts as simulated outputs and walks the learner through a predict-then-reveal comparison. It is bounded (one change at a time, ~6 turns) so it doesn't displace Sandbox Mode's open-ended experimentation.
+
 ## Inputs
+
+### Sandbox Mode
 
 | Parameter       | Type   | Required | Description                                                                                         |
 |-----------------|--------|----------|-----------------------------------------------------------------------------------------------------|
 | taskDescription | string | No       | Optional description of the task the learner is trying to accomplish. Provides context for analysis.  |
 | userPrompt      | string | Yes      | The prompt the learner wants to test.                                                                |
 | userLevel       | enum   | Yes      | One of: `novice`, `practitioner`, `advanced`. Determines the depth and technicality of the analysis. |
+
+### Demo Mode
+
+| Parameter        | Type   | Required | Description                                                                                                          |
+|------------------|--------|----------|----------------------------------------------------------------------------------------------------------------------|
+| baselinePrompt   | string | Yes      | The starting prompt — what the learner had, or a minimal version of the prompt-engineering question they asked.       |
+| improvedPrompt   | string | Yes      | The same prompt with exactly ONE change applied (the suggestion being demonstrated).                                  |
+| changeDescribed  | string | Yes      | Short label for the single change (e.g., "added a role", "specified format", "added an audience").                    |
+| taskDescription  | string | No       | Optional task context to ground both simulations.                                                                     |
+| userLevel        | enum   | Yes      | One of: `novice`, `practitioner`, `advanced`. Determines depth of the post-reveal explanation.                        |
 
 ## Process
 
@@ -141,7 +161,118 @@ Frame this as a transferable principle, not just feedback on this specific promp
 
 If the learner wants to continue beyond 3 iterations, allow it, but offer a periodic summary every 2-3 additional versions.
 
+## Demo Mode Process
+
+Demo Mode is a tighter, suggestion-driven variant of the lab. Use it when a learner asks a prompt-engineering question or `prompt-coaching` has just produced a before/after suggestion that benefits from demonstration. The shape preserves the ANE pattern — the learner predicts what will change before the second output is revealed.
+
+### D1. Identify the Pair
+
+Pin down two prompts that differ by exactly ONE change:
+
+- **Baseline**: what the learner brought, or a minimal prompt that represents the question they asked.
+- **Improved**: the same prompt with the suggested change applied.
+
+If the learner's question is general ("does adding a role help?"), pick a short realistic task (anchor to their context if known) and write the baseline yourself. Single-variable demos are legible; multi-variable demos teach nothing.
+
+### D2. Show Baseline + Simulated Output
+
+Present the baseline prompt verbatim, then the simulated output an AI would realistically produce:
+
+> **Baseline prompt:** [exact text]
+>
+> **Simulated output:** [output that reflects the prompt's actual quality]
+
+Add a one-line caveat that this is simulation, not a live API round-trip:
+
+> "This is what I'd expect a model to produce — same pedagogy as the lab, no real API call."
+
+This honesty matters: per CLAUDE.md, name the CLI equivalent rather than pretending the feature is live.
+
+### D3. Predict Before Reveal (Non-Negotiable)
+
+Do NOT show the improved output yet. Ask the learner to predict:
+
+> "Before I run the improved version — what do you think will change in the output when we [the one change]?"
+
+Wait for their answer. The prediction is the load-bearing pedagogy of the demo. Without it, the demo collapses into a lecture with examples.
+
+Alternative nudges:
+> "If we add [the change], what would you expect to be different?"
+> "Where do you think the gap will close?"
+
+### D4. Show Improved Prompt + Simulated Output
+
+After the learner predicts, reveal:
+
+> **Improved prompt:** [exact text — only the one change]
+>
+> **Simulated output:** [output realistically reflecting the change]
+
+The improved output should plausibly differ in a way that connects directly to the single change. Don't manufacture an artificially huge gap; the realism is the lesson.
+
+### D5. Side-by-Side + Affirm or Redirect
+
+Show a compact comparison — short table or two-line diff. Then resolve the prediction:
+
+- **If the learner's prediction matched**: affirm and label the principle in one sentence. Skip a long EXPLAIN — they got there.
+  > "Exactly — adding [the change] gave the AI [specific anchor]. The principle: [transferable label]."
+
+- **If the learner missed it**: name what actually shifted, why, and connect it gently back to their prediction.
+  > "You expected [X]. What actually shifted was [Y] — because [reason]. [X] is real too, just smaller here."
+
+### D6. Hand Off
+
+Offer one of:
+- "Want to try a variant of your own?" → continue into Sandbox Mode with the learner's prompt
+- "Want more coaching on this?" → handoff to `/prompt-coaching`
+- "Different question?" → route back through `session-router`
+
+Keep the entire demo within ~6 SAGE turns. If the learner wants multiple demos, run them sequentially, never stacked in one message.
+
+### Demo Mode — Worked Example
+
+**Context**: A practitioner-level learner asks: "Does adding a role to a prompt actually do anything?"
+
+---
+
+**SAGE**:
+> Good question — let me show you. I'll use a quick task: writing a short paragraph explaining a refund policy to a customer.
+>
+> **Baseline prompt:** "Write a paragraph explaining our 30-day refund policy."
+>
+> **Simulated output:**
+> Our company offers a 30-day refund policy on all eligible products. Customers may return items within 30 days of purchase for a full refund, provided the items are in their original condition. Please contact our support team with your order number to initiate a return.
+>
+> *(This is simulated — same pedagogy as the lab, no real API call.)*
+>
+> Now — before I run the version with a role added, what do you think will change when I tell the AI to write as "a friendly customer-support rep"?
+
+**Learner**:
+> The tone will be warmer? Maybe less corporate.
+
+**SAGE**:
+> That's the bet. Let's see:
+>
+> **Improved prompt:** "You are a friendly customer-support rep. Write a paragraph explaining our 30-day refund policy."
+>
+> **Simulated output:**
+> Hey there — happy to walk you through how refunds work! You've got 30 days from when you bought the item to send it back, as long as it's still in the same shape it arrived in. Just shoot us a message with your order number and we'll get the return rolling. Anything else I can help with?
+>
+> | Aspect | Baseline | With role |
+> |--------|----------|-----------|
+> | Tone | Formal, third-person | Warm, second-person |
+> | Voice | "Our company" / "Customers may" | "Hey there" / "you've got" |
+> | Closing | Procedural | Offers more help |
+>
+> You called it — the role mostly moves tone, not facts. The transferable principle: **roles steer voice, not knowledge**. If you need accuracy, role won't help. If you need register, it does a lot of the work in one short phrase.
+>
+> Want to try a variant — maybe see what "a no-nonsense legal counsel" does to the same paragraph?
+
+---
+
 ## Outputs
+
+### Sandbox Mode
 
 | Parameter        | Type    | Description                                                                                              |
 |------------------|---------|----------------------------------------------------------------------------------------------------------|
@@ -150,10 +281,24 @@ If the learner wants to continue beyond 3 iterations, allow it, but offer a peri
 | iterationHistory | array   | Array of `{version: int, prompt: string, output: string, changes: string, qualityDelta: string}`.         |
 | keyInsight       | string  | The synthesized takeaway after multiple iterations: the single change that had the most impact.            |
 
+### Demo Mode
+
+| Parameter         | Type   | Description                                                                                          |
+|-------------------|--------|------------------------------------------------------------------------------------------------------|
+| baselineOutput    | string | The simulated AI output for the baseline prompt.                                                      |
+| improvedOutput    | string | The simulated AI output for the improved prompt.                                                      |
+| predictedDiff     | string | The learner's prediction of what would change (captured before reveal).                               |
+| actualDiff        | string | One-paragraph or short-table summary of how the outputs actually differ.                              |
+| transferablePrinciple | string | One-sentence label naming what the demoed change buys (e.g., "roles steer voice, not knowledge"). |
+
 ## Chains To
 
-- **prompt-coaching** -- if the analysis reveals the learner needs more structured guidance on a specific prompting technique before continuing to experiment.
+- **prompt-coaching** -- if the analysis reveals the learner needs more structured guidance on a specific prompting technique before continuing to experiment, or wants to apply the demoed principle to a new prompt.
 - **reflection-facilitator** -- to consolidate what the learner discovered through experimentation into durable knowledge.
+
+## Chained From
+
+- **prompt-coaching** -- after coaching produces a before/after suggestion, hand off to Demo Mode so the learner can see the suggestion run through, not just compared on paper.
 
 ## Example Interaction
 
