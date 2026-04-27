@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d5305581f3b5",
+  "strategy": "manual-commit",
+  "branch": "better-onboarding",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".claude/skills/session-router/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d5/305581f3b5/0/metadata.json",
+      "transcript": "/d5/305581f3b5/0/full.jsonl",
+      "content_hash": "/d5/305581f3b5/0/content_hash.txt",
+      "prompt": "/d5/305581f3b5/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 54437,
+    "cache_read_tokens": 635274,
+    "output_tokens": 6937,
+    "api_call_count": 16
+  }
+}

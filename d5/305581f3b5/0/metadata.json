@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d5305581f3b5",
+  "session_id": "73a1d65d-334e-45a1-ae2c-83190b7fd229",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-27T13:57:36.8807909Z",
+  "branch": "better-onboarding",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".claude/skills/session-router/SKILL.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "4c6f97957a23",
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 54437,
+    "cache_read_tokens": 635274,
+    "output_tokens": 6937,
+    "api_call_count": 16
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-27T13:57:36.8498377Z",
+    "agent_lines": 0,
+    "agent_removed": 1,
+    "human_added": 243,
+    "human_modified": 62,
+    "human_removed": 0,
+    "total_committed": 305,
+    "total_lines_changed": 343,
+    "agent_percentage": 0.2915451895043732,
+    "metric_version": 2
+  }
+}
