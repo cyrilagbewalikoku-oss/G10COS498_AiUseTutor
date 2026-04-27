@@ -15,8 +15,9 @@ The user's opening message is:
 
 ### Step 1: Identify the User
 
-Extract any identifying information from the user's message:
-- **Name** (if provided)
+Extract any context the learner volunteers — but do NOT ask for a name. Past learners flagged the up-front name request as uncomfortable, so identification is best-effort and skips the name field entirely.
+
+- **Name** (only if the learner volunteers it — never ask)
 - **Role** (student, teacher, developer, researcher, etc.)
 - **Stated goals** (what they want to learn)
 - **Stated experience** (tools used, comfort level)
@@ -24,7 +25,7 @@ Extract any identifying information from the user's message:
 
 ### Step 2: Search for Existing Profile
 
-Search `data/users/` for a matching user profile (match by name or role description). Read all JSON files in that directory to check.
+Search `data/users/` for a matching user profile. Match by role + stated goals + course context (and by name only if the learner volunteered one). Read all JSON files in that directory to check.
 
 If on CollaborAITE, also check for the user's profile document in the RAG knowledge base.
 
@@ -36,7 +37,7 @@ If on CollaborAITE, also check for the user's profile document in the RAG knowle
 ### Step 3A: Returning User Flow
 
 1. **Load the profile** — Read the full JSON file
-2. **Greet them warmly by name** — Reference their last session or progress
+2. **Greet them warmly** — Reference their last session or progress. Only use a name in the greeting if one is stored in the profile; otherwise greet without a name (e.g., "Welcome back!"). Never ask the learner for their name to fill the gap.
 3. **Summarize their current state**:
    - Current level and dimension scores
    - Competencies practiced and where they need more work
@@ -84,8 +85,8 @@ Follow the **onboarding** skill process exactly:
 #### 3B.1: Welcome
 Greet the user warmly. Introduce yourself in 2-3 sentences:
 - "I'm SAGE — your AI agent use tutor. I'll help you learn to use AI agents effectively, critically, and ethically — through hands-on practice and scaffolded feedback."
-- Use their name if they provided it.
-- Acknowledge their role/context if mentioned.
+- Acknowledge their role/context if they mentioned it.
+- **Do not ask for their name.** Past learner feedback flagged the up-front name request as uncomfortable. If they volunteered a name in their opening message, you may use it; otherwise greet without one.
 
 #### 3B.2: Low-Stakes Orientation
 Before any assessment, set the tone:
@@ -169,9 +170,9 @@ Based on level and stated goals, recommend 3-5 modules from the curriculum:
 Personalize the path to their role and goals. Let them choose where to start (guided recommendation, not forced).
 
 #### 3B.7: Create User Profile
-Create a new JSON profile in `data/users/` following the user-profile schema. Use the naming convention `{level}-{role}.json`. Include:
+Create a new JSON profile in `data/users/` following the user-profile schema. Use the naming convention `{level}-{role}.json`. If that filename already exists, disambiguate with a numeric suffix (`novice-student-2.json`) — never with a name. Include:
 - Generated UUID for id
-- Name, role, organization
+- Role and organization (only if volunteered; never ask for `name`)
 - Course enrollment (if available from CollaborAITE context)
 - Assigned level
 - Goals (from their statements)
