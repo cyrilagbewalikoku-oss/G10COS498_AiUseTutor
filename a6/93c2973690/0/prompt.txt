@@ -1,0 +1,25 @@
+go int. the v2.1 branch
+
+---
+
+Want to create a button where user can export the chat as md or txt fies
+
+---
+
+I am thinking of the chat
+
+---
+
+1
+
+---
+
+2
+
+---
+
+1
+
+---
+
+implement

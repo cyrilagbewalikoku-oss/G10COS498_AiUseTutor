@@ -1,0 +1,107 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "a693c2973690",
+  "session_id": "eb402870-a33b-4c4f-8b40-c1f47503ce13",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T15:44:41.034477Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 7,
+  "files_touched": [
+    "sage/app.py",
+    "sage/export.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "76f88b9f2fac",
+  "token_usage": {
+    "input_tokens": 84,
+    "cache_creation_tokens": 105966,
+    "cache_read_tokens": 1775091,
+    "output_tokens": 10918,
+    "api_call_count": 35
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-28T15:44:41.029609Z",
+    "agent_lines": 574,
+    "agent_removed": 26,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 574,
+    "total_lines_changed": 600,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 850,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".githooks/post-merge": 83,
+        "CHANGELOG.md": 64,
+        "build/lib/sage/__main__.py": 5,
+        "build/lib/sage/agent.py": 93,
+        "build/lib/sage/app.py": 141,
+        "build/lib/sage/prompts.py": 211,
+        "build/lib/sage/tools.py": 213,
+        "build/lib/sage/ui.py": 12,
+        "data/users/cyril.json": 28
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 170,
+      "agent_lines_removed": 1
+    }
+  ]
+}
