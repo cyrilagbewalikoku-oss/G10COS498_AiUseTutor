@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "99f32f91281f",
+  "session_id": "4c93a663-1a6c-4e43-b960-0a1768e505dc",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T16:03:19.213928Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "sage/app.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "e152c02d651a",
+  "token_usage": {
+    "input_tokens": 48,
+    "cache_creation_tokens": 438668,
+    "cache_read_tokens": 5883458,
+    "output_tokens": 36194,
+    "api_call_count": 28
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-28T16:03:19.18436Z",
+    "agent_lines": 26,
+    "agent_removed": 28,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 26,
+    "total_lines_changed": 54,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
