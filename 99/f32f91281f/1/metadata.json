@@ -1,0 +1,50 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "99f32f91281f",
+  "session_id": "eb402870-a33b-4c4f-8b40-c1f47503ce13",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T16:03:19.302585Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "sage/app.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "2ff99100f4d7",
+  "token_usage": {
+    "input_tokens": 160,
+    "cache_creation_tokens": 144693,
+    "cache_read_tokens": 5798689,
+    "output_tokens": 29679,
+    "api_call_count": 81
+  },
+  "session_metrics": {
+    "turn_count": 12
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-28T16:03:19.295182Z",
+    "agent_lines": 26,
+    "agent_removed": 28,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 26,
+    "total_lines_changed": 54,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 111,
+      "user_lines_removed": 0,
+      "agent_lines_added": 26,
+      "agent_lines_removed": 28,
+      "user_added_per_file": {
+        ".githooks/post-merge": 83,
+        "data/users/cyril.json": 28
+      }
+    }
+  ]
+}
