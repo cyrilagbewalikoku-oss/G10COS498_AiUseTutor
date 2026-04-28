@@ -502,6 +502,32 @@ with st.sidebar:
                 )
             st.rerun()
 
+    if st.session_state.messages:
+        st.divider()
+        st.markdown("**Export chat**")
+        fmt = st.selectbox(
+            "Format",
+            options=[".md", ".txt"],
+            index=0,
+            label_visibility="collapsed",
+            key="export_format",
+        )
+        if fmt == ".md":
+            data = export.messages_to_markdown(st.session_state.messages)
+            mime = "text/markdown"
+        else:
+            data = export.messages_to_text(st.session_state.messages)
+            mime = "text/plain"
+        slug = re.sub(r"[^A-Za-z0-9]+", "-", profile.get("name") or "anon").strip("-").lower() or "anon"
+        stamp = datetime.now().strftime("%Y-%m-%d-%H%M")
+        st.download_button(
+            "Download",
+            data=data,
+            file_name=f"sage-chat-{slug}-{stamp}{fmt}",
+            mime=mime,
+            use_container_width=True,
+        )
+
     st.divider()
     if st.button("Start new session", use_container_width=True):
         if _is_anonymous(profile):
@@ -622,34 +648,6 @@ if needs_response:
 
 
 # ── Chat input ───────────────────────────────────────────────────────────
-
-if st.session_state.messages:
-    with st._bottom:
-        fmt_col, btn_col = st.columns([1, 3])
-        with fmt_col:
-            fmt = st.selectbox(
-                "Format",
-                options=[".md", ".txt"],
-                index=0,
-                label_visibility="collapsed",
-                key="export_format",
-            )
-        with btn_col:
-            if fmt == ".md":
-                data = export.messages_to_markdown(st.session_state.messages)
-                mime = "text/markdown"
-            else:
-                data = export.messages_to_text(st.session_state.messages)
-                mime = "text/plain"
-            slug = re.sub(r"[^A-Za-z0-9]+", "-", profile.get("name") or "anon").strip("-").lower() or "anon"
-            stamp = datetime.now().strftime("%Y-%m-%d-%H%M")
-            st.download_button(
-                "Export chat",
-                data=data,
-                file_name=f"sage-chat-{slug}-{stamp}{fmt}",
-                mime=mime,
-                use_container_width=True,
-            )
 
 if prompt := st.chat_input("Message SAGE..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
