@@ -3,7 +3,7 @@
   "checkpoint_id": "ed7cf1fb422b",
   "strategy": "manual-commit",
   "branch": "AgentV2.1",
-  "checkpoints_count": 5,
+  "checkpoints_count": 9,
   "files_touched": [
     "sage/app.py"
   ],
@@ -19,13 +19,19 @@
       "transcript": "/ed/7cf1fb422b/1/full.jsonl",
       "content_hash": "/ed/7cf1fb422b/1/content_hash.txt",
       "prompt": "/ed/7cf1fb422b/1/prompt.txt"
+    },
+    {
+      "metadata": "/ed/7cf1fb422b/2/metadata.json",
+      "transcript": "/ed/7cf1fb422b/2/full.jsonl",
+      "content_hash": "/ed/7cf1fb422b/2/content_hash.txt",
+      "prompt": "/ed/7cf1fb422b/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 63,
-    "cache_creation_tokens": 473231,
-    "cache_read_tokens": 3667101,
-    "output_tokens": 43604,
-    "api_call_count": 28
+    "input_tokens": 195,
+    "cache_creation_tokens": 603977,
+    "cache_read_tokens": 7694757,
+    "output_tokens": 66724,
+    "api_call_count": 91
   }
 }

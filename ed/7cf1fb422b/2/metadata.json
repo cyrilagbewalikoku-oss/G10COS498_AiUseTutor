@@ -1,0 +1,75 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "ed7cf1fb422b",
+  "session_id": "eb402870-a33b-4c4f-8b40-c1f47503ce13",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-28T15:55:32.031312Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "sage/app.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "7922f2b26f05",
+  "token_usage": {
+    "input_tokens": 132,
+    "cache_creation_tokens": 130746,
+    "cache_read_tokens": 4027656,
+    "output_tokens": 23120,
+    "api_call_count": 63
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-28T15:55:32.02303Z",
+    "agent_lines": 28,
+    "agent_removed": 30,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 28,
+    "total_lines_changed": 58,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 65,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "Dockerfile.dev": 22,
+        "docker-compose.dev.yml": 21,
+        "scripts/dev-docker.sh": 22
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 152,
+      "user_lines_removed": 0,
+      "agent_lines_added": 139,
+      "agent_lines_removed": 30,
+      "user_added_per_file": {
+        "reports/iteration-2.md": 152
+      }
+    }
+  ]
+}
