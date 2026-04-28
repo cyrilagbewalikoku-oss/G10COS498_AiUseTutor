@@ -7,10 +7,11 @@ Or:  sage-ui  (after pip install)
 import json
 import os
 import re
+from datetime import datetime
 
 import streamlit as st
 
-from sage import components, session_store
+from sage import components, export, session_store
 from sage.prompts import SYSTEM_PROMPT as FROZEN_PROMPT
 from sage.skill_loader import build_system_prompt
 
@@ -527,6 +528,36 @@ else:
         f"{_level_label(profile)} · "
         f"Today's focus: {_focus_dimension(profile)}"
     )
+
+
+# ── Export chat ──────────────────────────────────────────────────────────
+
+if st.session_state.messages:
+    fmt_col, btn_col = st.columns([1, 3])
+    with fmt_col:
+        fmt = st.selectbox(
+            "Format",
+            options=[".md", ".txt"],
+            index=0,
+            label_visibility="collapsed",
+            key="export_format",
+        )
+    with btn_col:
+        if fmt == ".md":
+            data = export.messages_to_markdown(st.session_state.messages)
+            mime = "text/markdown"
+        else:
+            data = export.messages_to_text(st.session_state.messages)
+            mime = "text/plain"
+        slug = re.sub(r"[^A-Za-z0-9]+", "-", profile.get("name") or "anon").strip("-").lower() or "anon"
+        stamp = datetime.now().strftime("%Y-%m-%d-%H%M")
+        st.download_button(
+            "Export chat",
+            data=data,
+            file_name=f"sage-chat-{slug}-{stamp}{fmt}",
+            mime=mime,
+            use_container_width=True,
+        )
 
 
 # ── Display chat history ─────────────────────────────────────────────────
