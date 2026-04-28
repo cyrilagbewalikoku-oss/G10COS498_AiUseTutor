@@ -1,0 +1,70 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "e13b2aae268e",
+  "session_id": "d09782c8-7ede-44e8-ad73-2a5704b3e817",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-24T19:30:15.765626Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/session-router/SKILL.md",
+    "data/scenario_templates/essay-feedback-generic.json",
+    "data/scenario_templates/research-summary-generic.json",
+    "data/schemas/scenario-template.schema.json",
+    "sage/tools.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "d079d8a0dc9f",
+  "token_usage": {
+    "input_tokens": 85,
+    "cache_creation_tokens": 154634,
+    "cache_read_tokens": 3589789,
+    "output_tokens": 36305,
+    "api_call_count": 45
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-24T19:30:15.755648Z",
+    "agent_lines": 522,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 522,
+    "total_lines_changed": 523,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 149,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".githooks/post-merge": 83,
+        "data/users/cyril.json": 28,
+        "data/users/practitioner-researcher.json": 38
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 149,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 149,
+      "agent_lines_removed": 0
+    }
+  ]
+}

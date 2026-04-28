@@ -1,0 +1,17 @@
+<ide_opened_file>The user opened the file /Users/cyril/Documents/G10_AIUseTutor/G10COS498_AiUseTutor/sage/tools.py in the IDE. This may or may not be related to the current task.</ide_opened_file>
+I am thinking of ways to improve the interaction and make it more smooth and easy frohte user to learn and also have a good converastionw ith the agent adapting witht he style and level>
+
+Do a deep research on the types of research on this and what types of conversation method works for people to learn more(always account for the features we have in this agent)
+
+---
+
+<ide_opened_file>The user opened the file /Users/cyril/Documents/G10_AIUseTutor/G10COS498_AiUseTutor/CHANGELOG.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+any updates?
+
+---
+
+pick up from where we left off
+
+---
+
+Yeah, however commit and push to the branch now

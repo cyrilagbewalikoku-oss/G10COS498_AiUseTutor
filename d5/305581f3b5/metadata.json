@@ -1,0 +1,52 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d5305581f3b5",
+  "strategy": "manual-commit",
+  "branch": "better-onboarding",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".claude/skills/onboarding/SKILL.md",
+    ".claude/skills/onboarding/reference.md",
+    ".claude/skills/prompt-coaching/SKILL.md",
+    ".claude/skills/prompt-lab/SKILL.md",
+    ".claude/skills/prompt-lab/reference.md",
+    ".claude/skills/session-router/SKILL.md",
+    ".claude/skills/session-start.md",
+    "data/schemas/user-profile.schema.json",
+    "memory/MEMORY.md",
+    "memory/feedback_no_name_request.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d5/305581f3b5/0/metadata.json",
+      "transcript": "/d5/305581f3b5/0/full.jsonl",
+      "content_hash": "/d5/305581f3b5/0/content_hash.txt",
+      "prompt": "/d5/305581f3b5/0/prompt.txt"
+    },
+    {
+      "metadata": "/d5/305581f3b5/1/metadata.json",
+      "transcript": "/d5/305581f3b5/1/full.jsonl",
+      "content_hash": "/d5/305581f3b5/1/content_hash.txt",
+      "prompt": "/d5/305581f3b5/1/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 70,
+    "cache_creation_tokens": 192959,
+    "cache_read_tokens": 3830664,
+    "output_tokens": 30285,
+    "api_call_count": 51
+  },
+  "combined_attribution": {
+    "calculated_at": "2026-04-27T13:57:37.5126684Z",
+    "agent_lines": 19,
+    "agent_removed": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 19,
+    "total_lines_changed": 21,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}

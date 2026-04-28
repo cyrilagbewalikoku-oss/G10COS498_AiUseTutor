@@ -1,0 +1,36 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "16d4e32cf073",
+  "strategy": "manual-commit",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".claude/skills/bad-agent-simulator/SKILL.md",
+    ".claude/skills/concept-explainer/SKILL.md",
+    ".claude/skills/difficulty-adapter/SKILL.md",
+    ".claude/skills/improve-interaction/SKILL.md",
+    ".claude/skills/knowledge-check/SKILL.md",
+    ".claude/skills/progress-reporter/SKILL.md",
+    ".claude/skills/prompt-coaching/SKILL.md",
+    ".claude/skills/scenario-runner/SKILL.md",
+    ".claude/skills/session-router/SKILL.md",
+    ".claude/skills/voice-and-register/SKILL.md",
+    "CLAUDE.md",
+    "data/research/motivational-scaffolding.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/16/d4e32cf073/0/metadata.json",
+      "transcript": "/16/d4e32cf073/0/full.jsonl",
+      "content_hash": "/16/d4e32cf073/0/content_hash.txt",
+      "prompt": "/16/d4e32cf073/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 78,
+    "cache_creation_tokens": 256974,
+    "cache_read_tokens": 9040610,
+    "output_tokens": 52866,
+    "api_call_count": 55
+  }
+}

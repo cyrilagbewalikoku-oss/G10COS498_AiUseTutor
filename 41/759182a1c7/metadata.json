@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "41759182a1c7",
+  "strategy": "manual-commit",
+  "branch": "questions-fix",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".claude/skills/concept-explainer/SKILL.md",
+    ".claude/skills/ethical-guidance/SKILL.md",
+    ".claude/skills/session-router/SKILL.md",
+    "CLAUDE.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/41/759182a1c7/0/metadata.json",
+      "transcript": "/41/759182a1c7/0/full.jsonl",
+      "content_hash": "/41/759182a1c7/0/content_hash.txt",
+      "prompt": "/41/759182a1c7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 54437,
+    "cache_read_tokens": 635274,
+    "output_tokens": 6937,
+    "api_call_count": 16
+  }
+}

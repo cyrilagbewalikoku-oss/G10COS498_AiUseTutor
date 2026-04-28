@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "a693c2973690",
+  "strategy": "manual-commit",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 7,
+  "files_touched": [
+    "sage/app.py",
+    "sage/export.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a6/93c2973690/0/metadata.json",
+      "transcript": "/a6/93c2973690/0/full.jsonl",
+      "content_hash": "/a6/93c2973690/0/content_hash.txt",
+      "prompt": "/a6/93c2973690/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 84,
+    "cache_creation_tokens": 105966,
+    "cache_read_tokens": 1775091,
+    "output_tokens": 10918,
+    "api_call_count": 35
+  }
+}
