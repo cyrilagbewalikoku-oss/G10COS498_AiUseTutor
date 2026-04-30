@@ -1,0 +1,42 @@
+we're working on the evaluation and were running both intrinsic and extrinsic evaluation.
+I am about sharing some stuf I want us to work through
+
+---
+
+we filled out this part:
+Step 3: Intrinsic evaluation
+Define 1–3 metrics that capture an important aspect of your agent’s performance (e.g., factual accuracy, task completeness, response brevity, trade-off clarity).
+Implement these metrics using either:
+LLM-as-a-judge (provide prompt & scoring rubric to an LLM, return numerical score)
+Code-based scoring (string matching, word count, time to completion, etc.)
+Test the metrics on at least 3 example interactions with your agent
+This one will require you to interact with your agent for at least three times, ideally with you simulating diverse personas to create diverse use cases -- Think of how they would represent different use scenarios or edge cases!
+If you feel motivated, you could also try creating simulated LLM personas that would have simulated conversation with the agent, similar to Co-Gym.
+Save both the metric definitions and results.
+To submit this part, I recommend you just link give a link to a branch on your project's github repository.
+Below is some example code implementing the same verifier using LLM-as-judge and rule-based python function (though the rule-based method would miss edge cases for sure). The default starter implementation provided below uses the Judges library, but you can also create it from scratch or use another library. Some useful reference links, from the Huggingface Cookbook:
+
+Using LLM-as-a-judge 🧑‍⚖️ for an automated and versatile evaluation -- A general walkthrough on LLM-as-judge (check it out / see also the documentation)https://huggingface.co/learn/cookbook/en/llm_judge
+Evaluating AI Search Engines with judges - the open-source library for LLM-as-a-judge evaluators ⚖️ https://huggingface.co/learn/cookbook/en/llm_judge_evaluating_ai_search_engines_with_judges_library-- More examples on the Judges library.
+TODO: Please fill in your intrinsic evaluation design here.
+Metric 1: Response Brevity
+
+How it's computed: Count number of complete sentences
+What it hopes to reflect: Conciseness of response
+Metric 2: Task completeness
+
+How it's computed: LLM-as-a-judge
+What it hopes to reflect: Task completeness
+Then provide a link to a branch on your project's github repository with your implmentation of these metrics.
+
+---
+
+did you create the original when we started working earlier today?
+
+---
+
+please anything about this should eb only in the intrinsic folder
+
+---
+
+perfect
