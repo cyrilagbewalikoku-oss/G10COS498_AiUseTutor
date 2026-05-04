@@ -23,3 +23,11 @@ dist/
 # Per-learner session transcripts (runtime data, written by sage/session_store.py).
 # The directory itself is kept via .gitkeep so the layout is visible.
 data/interactions/*/
+
+# Evaluation harness runtime data
+evaluation/fixtures/simulated/*.json
+evaluation/results/*.json
+evaluation/results/*.md
+evaluation/results/.judge-cache.json
+!evaluation/results/.gitkeep
+!evaluation/fixtures/simulated/.gitkeep

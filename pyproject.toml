@@ -18,3 +18,12 @@ sage-ui = "sage.ui:main"
 
 [tool.setuptools.packages.find]
 include = ["sage"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["evaluation/tests"]
