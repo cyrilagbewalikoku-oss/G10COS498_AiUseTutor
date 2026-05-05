@@ -12,11 +12,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from datetime import datetime
+import re
+from datetime import datetime, timezone
 from pathlib import Path
 
 import anthropic
 from anthropic.types import TextBlock
+
+from evaluation.metrics.transcript import Transcript, Turn
 
 try:
     from sage.prompts import SYSTEM_PROMPT as SAGE_SYSTEM_PROMPT
@@ -53,13 +56,15 @@ def _invert_roles(history: list[dict]) -> list[dict]:
 
 
 def _should_stop(text: str, stop_phrases: list[str]) -> bool:
+    """Match stop phrases on word boundaries so 'tired' doesn't fire on 'tiredness'."""
     low = text.lower()
-    return any(phrase in low for phrase in stop_phrases)
+    return any(
+        re.search(rf"\b{re.escape(phrase.lower())}\b", low)
+        for phrase in stop_phrases
+    )
 
 
-def simulate(persona: dict, client: anthropic.Anthropic) -> "Transcript":
-    from evaluation.metrics.transcript import Transcript, Turn
-
+def simulate(persona: dict, client: anthropic.Anthropic) -> Transcript:
     history: list[dict] = [{"role": "user", "content": persona["opening"]}]
 
     for _ in range(persona["max_turns"]):
@@ -94,10 +99,10 @@ def simulate(persona: dict, client: anthropic.Anthropic) -> "Transcript":
     )
 
 
-def _save(transcript) -> Path:
+def _save(transcript: Transcript) -> Path:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     persona_id = transcript.source_id.split("/", 1)[1]
-    timestamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     path = OUT_DIR / f"{persona_id}-{timestamp}.json"
     path.write_text(json.dumps(transcript.to_dict(), indent=2))
     return path
