@@ -15,6 +15,7 @@ import argparse
 import json
 import os
 import subprocess
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -48,9 +49,13 @@ def _load_authored() -> list[Transcript]:
 
 
 def _load_simulated() -> list[Transcript]:
+    """Load simulated transcripts; skip and warn on malformed files instead of aborting."""
     out: list[Transcript] = []
     for path in sorted(SIMULATED_DIR.glob("*.json")):
-        out.append(parse_simulated_json(path))
+        try:
+            out.append(parse_simulated_json(path))
+        except ValueError as e:
+            print(f"Skipping malformed simulated transcript {path.name}: {e}", file=sys.stderr)
     return out
 
 
