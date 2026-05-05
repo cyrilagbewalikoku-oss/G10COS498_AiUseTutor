@@ -1,9 +1,11 @@
 """Run both intrinsic-evaluation metrics over all available transcripts.
 
 Sources:
-  - examples/interactions/positive/*.md   (origin="authored", expected positive signal)
-  - examples/interactions/negative/*.md   (origin="authored", expected negative signal)
-  - evaluation/fixtures/simulated/*.json  (origin="simulated")
+  - examples/interactions/positive/*.md     (origin="authored", expected positive signal)
+  - examples/interactions/negative/*.md     (origin="authored", expected negative signal)
+  - evaluation/fixtures/simulated/*.json    (origin="simulated", from persona simulator)
+  - evaluation/fixtures/exports/*.{md,txt}  (origin="exported", from the Streamlit app's
+                                            "Export chat" button; see sage/export.py)
 
 Outputs:
   - evaluation/results/<run_id>-results.json
@@ -23,11 +25,17 @@ from typing import Iterable
 
 from evaluation.metrics.answer_first import AnthropicJudge, score_answer_first
 from evaluation.metrics.front_loading import score_front_loading
-from evaluation.metrics.transcript import Transcript, parse_markdown, parse_simulated_json
+from evaluation.metrics.transcript import (
+    Transcript,
+    parse_exported_chat,
+    parse_markdown,
+    parse_simulated_json,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES_DIR = REPO_ROOT / "examples" / "interactions"
 SIMULATED_DIR = Path(__file__).parent / "fixtures" / "simulated"
+EXPORTS_DIR = Path(__file__).parent / "fixtures" / "exports"
 RESULTS_DIR = Path(__file__).parent / "results"
 JUDGE_CACHE_PATH = RESULTS_DIR / ".judge-cache.json"
 
@@ -56,6 +64,26 @@ def _load_simulated() -> list[Transcript]:
             out.append(parse_simulated_json(path))
         except ValueError as e:
             print(f"Skipping malformed simulated transcript {path.name}: {e}", file=sys.stderr)
+    return out
+
+
+def _load_exported() -> list[Transcript]:
+    """Load chats exported from the SAGE Streamlit app.
+
+    Picks up *.md and *.txt under evaluation/fixtures/exports/. Files with
+    zero parseable turns are skipped with a warning so a stray README or
+    template doesn't pollute the run.
+    """
+    out: list[Transcript] = []
+    if not EXPORTS_DIR.exists():
+        return out
+    for path in sorted(p for ext in ("*.md", "*.txt") for p in EXPORTS_DIR.glob(ext)):
+        source_id = f"exported/{path.stem}"
+        transcript = parse_exported_chat(path.read_text(), source_id=source_id)
+        if not transcript.turns:
+            print(f"Skipping {path.name}: no parseable turns found", file=sys.stderr)
+            continue
+        out.append(transcript)
     return out
 
 
@@ -198,7 +226,7 @@ def main(argv: list[str] | None = None) -> None:
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    transcripts = _load_authored() + _load_simulated()
+    transcripts = _load_authored() + _load_simulated() + _load_exported()
     if not transcripts:
         raise SystemExit("No transcripts found. Run the simulator or check examples/interactions/.")
 

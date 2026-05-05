@@ -1,10 +1,19 @@
-"""Markdown and JSON transcript parsing.
+"""Markdown, JSON, and exported-chat transcript parsing.
 
-The authored transcripts in examples/interactions/ use **LEARNER**: / **SAGE**:
-markers, or named-learner markers like **JAKE**: / **PRIYA**: / **CHEN**:. Any
-all-caps token maps to "sage" if it is SAGE or AI AGENT (simulation mode), and
-"learner" otherwise. The simulated transcripts produced by the persona simulator
-are JSON with the same Turn shape. Both produce a Transcript dataclass.
+Three sources, all producing a Transcript dataclass:
+
+1. Authored markdown (examples/interactions/) — uses ``**LEARNER**:`` / ``**SAGE**:``
+   or named-learner markers like ``**JAKE**:`` / ``**PRIYA**:`` / ``**CHEN**:``. Any
+   all-caps token maps to "sage" if it is SAGE or AI AGENT (simulation mode), and
+   "learner" otherwise.
+
+2. Simulated JSON (evaluation/fixtures/simulated/) — produced by the persona
+   simulator with the canonical {source_id, origin, turns} shape.
+
+3. Exported chats (evaluation/fixtures/exports/) — produced by the deployed
+   Streamlit app's "Export chat" button via sage/export.py. Two formats:
+     - Markdown: alternating ``### You`` and ``### SAGE`` headers.
+     - Plain text: alternating ``You:`` and ``SAGE:`` labels.
 """
 from __future__ import annotations
 
@@ -15,7 +24,7 @@ from pathlib import Path
 from typing import Literal, Union
 
 Speaker = Literal["learner", "sage"]
-Origin = Literal["authored", "simulated"]
+Origin = Literal["authored", "simulated", "exported"]
 
 
 @dataclass
@@ -71,6 +80,35 @@ def parse_markdown(md: str, source_id: str, origin: Origin) -> Transcript:
         text = md[start:end].strip()
         turns.append(Turn(index=i, speaker=speaker, text=text))
     return Transcript(source_id=source_id, origin=origin, turns=turns)
+
+
+# Markers used by sage/export.py. Both formats alternate strict learner/sage turns.
+_EXPORT_MD_RE = re.compile(r"^### (You|SAGE)\s*$", re.MULTILINE)
+_EXPORT_TXT_RE = re.compile(r"^(You|SAGE):\s*$", re.MULTILINE)
+
+
+def parse_exported_chat(text: str, source_id: str) -> Transcript:
+    """Parse a chat exported from the SAGE Streamlit app (sage/export.py).
+
+    Auto-detects markdown (``### You`` / ``### SAGE``) vs plain text (``You:`` /
+    ``SAGE:``) format. ``You`` always maps to "learner"; ``SAGE`` to "sage".
+    Returns ``Transcript(origin="exported")`` with sequential turn indices.
+    """
+    md_matches = list(_EXPORT_MD_RE.finditer(text))
+    txt_matches = list(_EXPORT_TXT_RE.finditer(text))
+    matches = md_matches if len(md_matches) >= len(txt_matches) else txt_matches
+    if not matches:
+        return Transcript(source_id=source_id, origin="exported", turns=[])
+
+    turns: list[Turn] = []
+    for i, m in enumerate(matches):
+        speaker: Speaker = "learner" if m.group(1).upper() == "YOU" else "sage"
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        body = text[start:end].strip()
+        if body:
+            turns.append(Turn(index=len(turns), speaker=speaker, text=body))
+    return Transcript(source_id=source_id, origin="exported", turns=turns)
 
 
 def parse_simulated_json(path: Union[str, Path]) -> Transcript:
