@@ -10,12 +10,12 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
 
 import anthropic
+from anthropic.types import TextBlock
 
 
 def cache_key(model: str, template_version: str, learner_msg: str, sage_msg: str) -> str:
@@ -51,15 +51,40 @@ class JudgeCache:
         self.path.write_text(json.dumps(self._data, indent=2))
 
 
-_JSON_BLOCK_RE = re.compile(r"\{.*\}", re.DOTALL)
-
-
 def _extract_json(text: str) -> dict:
-    """Extract the first {...} block from a model response and parse it."""
-    m = _JSON_BLOCK_RE.search(text)
-    if not m:
+    """Extract the first balanced {...} object from a model response and parse it.
+
+    Walks the string from the first `{`, tracking brace depth (ignoring braces
+    that appear inside JSON string literals), and returns the substring from
+    that opening brace to the matching closing brace. Raises ValueError if no
+    balanced object is found.
+    """
+    start = text.find("{")
+    if start < 0:
         raise ValueError(f"No JSON object found in judge output: {text!r}")
-    return json.loads(m.group(0))
+
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return json.loads(text[start : i + 1])
+    raise ValueError(f"Unbalanced JSON object in judge output: {text!r}")
 
 
 @dataclass
@@ -96,7 +121,13 @@ def call_judge_json(
         system=call.system,
         messages=[{"role": "user", "content": call.user}],
     )
-    raw = response.content[0].text  # type: ignore[union-attr]
+    text_block = next(
+        (b for b in response.content if isinstance(b, TextBlock)),
+        None,
+    )
+    if text_block is None:
+        raise ValueError(f"No text block in judge response: {response.content!r}")
+    raw = text_block.text
     parsed = _extract_json(raw)
 
     if cache is not None and key is not None:
