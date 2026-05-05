@@ -1,88 +1,215 @@
 # SAGE Intrinsic Evaluation
 
-Two metrics that score SAGE against its own pedagogical contract.
+Two metrics that score SAGE against its own pedagogical contract:
 
-## Metrics
+- **Front-Loading Discipline** (rule-based): does SAGE keep responses short and ask one question at a time?
+- **Answer-First Adherence** (LLM-as-judge): when the learner asks SAGE a direct question, does SAGE answer before redirecting?
+
+Three transcript sources feed the metrics: 7 authored examples, 3 persona-simulated sessions, and any chats you export from the deployed Streamlit app.
+
+---
+
+## One-time setup
+
+```bash
+# from the repo root
+python3 -m venv venv && source venv/bin/activate
+pip install -e ".[dev]"
+```
+
+Activate the venv (`source venv/bin/activate`) at the start of every new terminal session.
+
+---
+
+## Running an evaluation — five cases
+
+Pick the case that matches what you want to do. Cases 1–3 spend no API tokens; cases 4–5 do.
+
+### Case 1 — Verify the harness (unit tests, no API spend)
+
+**When:** You just cloned, or you want to confirm nothing's broken before running anything else.
+
+```bash
+pytest evaluation/tests -v
+```
+
+Expected: **53 tests pass** in <1 second. Covers parser, both metrics, judge cache, JSON extraction.
+
+---
+
+### Case 2 — Rule-based scoring on authored transcripts (no API spend)
+
+**When:** You want to see Metric 1 (Front-Loading) discriminate the 7 authored transcripts. Sanity-check the harness without spending tokens.
+
+```bash
+python -m evaluation.run_evaluation --no-judge
+```
+
+Produces a dated `<run-id>-results.json` and `<run-id>-summary.md` in `evaluation/results/`. The summary shows positive vs negative front-loading pass rates (expect roughly 50% vs 33%).
+
+---
+
+### Case 3 — Score a chat you exported from the SAGE app (no API spend if rule-based)
+
+**When:** You ran a real SAGE conversation in the Streamlit app and want to grade it.
+
+1. In the SAGE app's sidebar, open **Export chat**, pick `.md` or `.txt`, click **Download**.
+2. Move the file into the exports drop-zone:
+   ```bash
+   mv ~/Downloads/sage-chat-*.md evaluation/fixtures/exports/
+   ```
+3. Run the evaluation. Either:
+   ```bash
+   python -m evaluation.run_evaluation --no-judge   # rule-based only
+   ```
+   or, with `ANTHROPIC_API_KEY` set:
+   ```bash
+   python -m evaluation.run_evaluation              # both metrics
+   ```
+
+The exported transcript appears in the summary under the `exported` label alongside `authored` and `simulated`. Drop in as many exports as you like — they're all picked up automatically.
+
+> Exports are gitignored by default since real chats may contain personal data.
+
+---
+
+### Case 4 — Generate fresh persona-simulated SAGE conversations (spends API tokens)
+
+**When:** You want new transcripts where Claude (running as SAGE) is driven by simulated learner personas. Useful for stress-testing the metrics on realistic dialogue.
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+python -m evaluation.personas.simulator --all     # all 3 personas
+# or
+python -m evaluation.personas.simulator --persona novice-curious   # one at a time
+```
+
+Writes timestamped JSON files to `evaluation/fixtures/simulated/`. Each persona produces ~6–11 turns. Cost: well under $0.10 per persona. Personas defined in `evaluation/personas/personas.json`:
+
+- `novice-curious` — first-year student, short yes/no questions
+- `skeptical-engineer` — pointed factual questions, low patience
+- `fatigued-returner` — terse, asks to wrap up
+
+To re-score after generating new simulated transcripts, run Case 2 or Case 5.
+
+---
+
+### Case 5 — Full evaluation: both metrics, all sources (spends API tokens)
+
+**When:** You want the canonical assignment-submission run.
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+./evaluation/run_all.sh
+```
+
+`run_all.sh` does five things in order:
+
+1. Sanity checks (API key set, anthropic SDK importable)
+2. Runs the 53 unit tests
+3. Generates 3 fresh persona-simulated transcripts
+4. Runs both metrics over all available transcripts (authored + simulated + any exports you've dropped in)
+5. Prints the summary and shows the exact `git add -f` command to commit the canonical run
+
+If you want the steps separately:
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+pytest evaluation/tests -q                              # 1
+python -m evaluation.personas.simulator --all           # 3
+python -m evaluation.run_evaluation                     # 4
+```
+
+The judge cache lives at `evaluation/results/.judge-cache.json` — re-runs against unchanged transcripts cost zero tokens.
+
+---
+
+## What an evaluation produces
+
+Two files per run, dated by UTC timestamp:
+
+| File | Contents |
+|---|---|
+| `evaluation/results/<run-id>-results.json` | Raw per-turn scores, including full judge reasoning for every applicable Metric 2 turn |
+| `evaluation/results/<run-id>-summary.md` | Markdown summary: overall pass rates, by-label table, per-transcript breakdown, sanity-check paragraph |
+
+Side artifacts:
+
+- `evaluation/results/.judge-cache.json` — hash-keyed cache (gitignored)
+- `evaluation/fixtures/simulated/*.json` — simulator outputs (gitignored)
+- `evaluation/fixtures/exports/*.{md,txt}` — chats you dropped in (gitignored)
+
+---
+
+## Metrics, in detail
 
 ### Metric 1 — Front-Loading Discipline (rule-based)
+
 Per SAGE turn, two sub-checks:
-- **Question Discipline** — count of `?` must be ≤ 1 (catches stacked questions in one turn).
-- **Pre-Pause Length** — number of sentences before the first `?` must be ≤ 4 (catches walls of text before SAGE invites the learner in). If the turn has no `?`, the whole turn is measured.
+
+- **Question Discipline** — count of `?` characters must be ≤ 1. Catches stacked questions like `"What did you mean? And why?"`.
+- **Pre-Pause Length** — sentences before the first `?` (or whole turn if no `?`) must be ≤ 4. Catches walls of text before SAGE invites the learner in.
 
 A turn passes when both sub-checks pass.
 
 ### Metric 2 — Answer-First Adherence (LLM-as-judge)
-Two-stage judge applied to SAGE turns whose immediately preceding learner turn is a direct question.
-- **Stage 1 (Haiku 4.5):** classify the prior learner message — `yes_no`, `factual`, `open`, or `not_a_question`. Only `yes_no` and `factual` qualify for grading.
-- **Stage 2 (Sonnet 4.6):** grade SAGE's reply — `answered_first`, `answered_and_followed_up`, `redirected_without_answer`, or `non_answer`.
+
+Two-stage judge, applied only to SAGE turns whose immediately preceding learner turn is a direct question.
+
+- **Stage 1 — Classifier (Haiku 4.5):** labels the prior learner message as `yes_no`, `factual`, `open`, or `not_a_question`. Only `yes_no` and `factual` qualify for grading.
+- **Stage 2 — Grader (Sonnet 4.6):** labels SAGE's reply as `answered_first`, `answered_and_followed_up`, `redirected_without_answer`, or `non_answer`.
 
 A turn passes when behavior is `answered_first` or `answered_and_followed_up`.
 
 > **Note on `answered_first`:** the metric only checks the *order* of answer vs. redirection, not whether SAGE asked a follow-up question. SAGE can pass by answering and stopping. CLAUDE.md's "answer, then deepen with a question" pattern is a stricter pedagogical norm; this metric is deliberately more permissive.
 
-## Test data
+---
+
+## Transcript sources
 
 The runner combines three sources, all turned into the same `Transcript` shape:
 
-- **Authored** (7 transcripts): `examples/interactions/{positive,negative}/*.md` — 4 positive + 3 negative. Markers may be `**LEARNER**:` or named-learner like `**JAKE**:`, `**PRIYA**:`, `**CHEN**:`.
-- **Simulated** (3 sessions): `evaluation/fixtures/simulated/*.json` — produced by `evaluation.personas.simulator`. Personas: `novice-curious` (yes/no questions), `skeptical-engineer` (factual questions), `fatigued-returner` (terse, asks to wrap up). Gitignored.
-- **Exported** (any number): `evaluation/fixtures/exports/*.{md,txt}` — chats downloaded from the SAGE Streamlit app's "Export chat" button (see `sage/export.py`). The parser auto-detects markdown (`### You` / `### SAGE`) vs plain text (`You:` / `SAGE:`) format. Drop a file in, re-run the runner — it gets scored automatically. Gitignored by default since exports may contain real learner data.
+| Source | Path | Format | Origin tag | Committed? |
+|---|---|---|---|---|
+| Authored | `examples/interactions/{positive,negative}/*.md` | `**LEARNER**:` / `**SAGE**:` markers (or named-learner: `**JAKE**:`, `**PRIYA**:`, `**CHEN**:`) | `authored` | yes |
+| Simulated | `evaluation/fixtures/simulated/*.json` | Canonical `{source_id, origin, turns}` JSON | `simulated` | no |
+| Exported | `evaluation/fixtures/exports/*.{md,txt}` | `### You` / `### SAGE` (markdown) or `You:` / `SAGE:` (text) — auto-detected | `exported` | no |
 
-### Scoring an exported chat
-
-```bash
-# In the Streamlit app: open the sidebar's "Export chat" panel, pick .md or .txt, click Download.
-mv ~/Downloads/sage-chat-*.md evaluation/fixtures/exports/
-python -m evaluation.run_evaluation
-```
-
-The new transcript shows up in the summary under the `exported` label alongside `authored` and `simulated`.
-
-## Running it
-
-```bash
-# install dev deps once
-pip install -e ".[dev]"
-
-# run unit tests (no API tokens)
-pytest evaluation/tests -v
-
-# rule-based metric only (no API tokens)
-python -m evaluation.run_evaluation --no-judge
-
-# generate persona transcripts (spends API tokens)
-export ANTHROPIC_API_KEY="<your-key>"
-python -m evaluation.personas.simulator --all
-
-# both metrics (uses cache after first run)
-python -m evaluation.run_evaluation
-```
-
-## Output
-
-- `evaluation/results/<run-id>-results.json` — raw per-turn scores with full judge reasoning
-- `evaluation/results/<run-id>-summary.md` — human-readable aggregates + per-transcript breakdown + sanity check
-- `evaluation/results/.judge-cache.json` — gitignored hash-keyed judge cache (re-runs against unchanged transcripts cost zero tokens)
+---
 
 ## Architecture
 
 ```
 evaluation/
   metrics/
-    transcript.py      # authored markdown + simulated JSON + exported-chat parser
-    front_loading.py   # Metric 1 (rule-based)
-    judge.py           # Anthropic SDK wrapper + cache + balanced JSON extractor
-    answer_first.py    # Metric 2 (two-stage LLM-as-judge)
+    transcript.py        # authored markdown + simulated JSON + exported-chat parser
+    front_loading.py     # Metric 1 (rule-based)
+    judge.py             # Anthropic SDK wrapper + cache + balanced JSON extractor
+    answer_first.py      # Metric 2 (two-stage LLM-as-judge)
   personas/
-    personas.json      # 3 persona definitions
-    simulator.py       # persona-LLM ↔ SAGE conversation driver
-  tests/               # 53 unit tests
-  fixtures/simulated/  # simulator output (gitignored)
-  fixtures/exports/    # drop-zone for chats exported from the Streamlit app (gitignored)
-  results/             # dated runs (gitignored except .gitkeep)
-  run_evaluation.py    # entry point — loads transcripts, runs metrics, writes results
+    personas.json        # 3 persona definitions
+    simulator.py         # persona-LLM ↔ SAGE conversation driver
+  tests/                 # 53 unit tests
+  fixtures/simulated/    # simulator output (gitignored)
+  fixtures/exports/      # drop-zone for exported chats (gitignored)
+  results/               # dated runs (gitignored except .gitkeep)
+  run_evaluation.py      # entry point — loads transcripts, runs metrics, writes results
+  run_all.sh             # one-shot: sanity + tests + simulator + full eval
 ```
+
+---
+
+## Troubleshooting
+
+- **`ANTHROPIC_API_KEY not set`** — export it (`export ANTHROPIC_API_KEY=sk-ant-...`) or add `--no-judge` to skip Metric 2.
+- **`No transcripts found`** — `examples/interactions/` is missing. Either you're not in the repo root or the assignment's seed transcripts have been removed.
+- **`Cannot import sage.prompts`** — run `pip install -e .` from the repo root so SAGE's package is importable.
+- **A bad simulated JSON aborted my run** — fixed in `0eda5d9`: malformed files are now skipped with a warning rather than crashing the run.
+- **My exported chat shows zero turns in the summary** — the file got skipped because no markers were detected. Make sure it's the actual download from the app's Export panel, not e.g. a screenshot or copy-paste of the rendered chat.
+
+---
 
 ## Design
 
-See `docs/superpowers/specs/2026-05-04-intrinsic-evaluation-design.md` for the full design rationale and `docs/superpowers/plans/2026-05-04-intrinsic-evaluation.md` for the implementation plan.
+- Spec: `docs/superpowers/specs/2026-05-04-intrinsic-evaluation-design.md`
+- Implementation plan: `docs/superpowers/plans/2026-05-04-intrinsic-evaluation.md`
