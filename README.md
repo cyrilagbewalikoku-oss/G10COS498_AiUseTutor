@@ -218,6 +218,19 @@ Built on **Merrill's First Principles** and **Bloom's Revised Taxonomy**:
 - The Claude Code skills version requires a Claude Code subscription
 - CollaborAITE features (sidebar nudges, scheduled reflections, peer patterns) are deferred
 
+## Evaluation
+
+Intrinsic evaluation harness lives in [`evaluation/`](evaluation/). It runs two metrics — front-loading discipline (rule-based) and answer-first adherence (LLM-as-judge) — against authored transcripts plus persona-simulated sessions, and writes dated results.
+
+```bash
+pytest evaluation/tests -v                          # 46 unit tests, no API spend
+python -m evaluation.run_evaluation --no-judge      # rule-based smoke run
+python -m evaluation.personas.simulator --all       # generate simulated transcripts
+python -m evaluation.run_evaluation                 # full eval with LLM judge
+```
+
+See [`evaluation/README.md`](evaluation/README.md) for details.
+
 ## Feedback
 
 Open a [GitHub Issue](https://github.com/Elorm-K/498_Agents/issues) with what you tried, what happened, and what you expected.
