@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 from evaluation.metrics.transcript import parse_markdown, parse_simulated_json, Turn, Transcript
 
@@ -55,3 +56,50 @@ def test_parse_simulated_json_round_trip(tmp_path):
     assert len(t.turns) == 2
     assert t.turns[0].speaker == "learner"
     assert t.turns[1].text == "hello"
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+REAL_TRANSCRIPTS = sorted((REPO_ROOT / "examples" / "interactions").rglob("*.md"))
+
+
+@pytest.mark.parametrize("path", REAL_TRANSCRIPTS, ids=lambda p: p.name)
+def test_real_authored_transcript_alternates_speakers(path):
+    t = parse_markdown(
+        path.read_text(),
+        source_id=str(path.relative_to(REPO_ROOT)),
+        origin="authored",
+    )
+    speakers = [turn.speaker for turn in t.turns]
+    assert len(speakers) >= 2, f"{path.name}: too few turns parsed"
+    assert "learner" in speakers, f"{path.name}: no learner turns parsed"
+    assert "sage" in speakers, f"{path.name}: no sage turns parsed"
+    # Speakers should mostly alternate; no two consecutive turns from the same speaker.
+    consecutive_dupes = sum(1 for i in range(1, len(speakers)) if speakers[i] == speakers[i - 1])
+    assert consecutive_dupes == 0, (
+        f"{path.name}: found {consecutive_dupes} consecutive same-speaker turns. Speakers: {speakers}"
+    )
+
+
+def test_parse_simulated_json_raises_with_path_on_missing_key(tmp_path):
+    p = tmp_path / "bad.json"
+    p.write_text('{"source_id": "x", "origin": "simulated"}')  # no "turns"
+    with pytest.raises(ValueError, match=r"Invalid simulated transcript at .+bad\.json"):
+        parse_simulated_json(p)
+
+
+def test_parse_simulated_json_raises_with_path_on_bad_json(tmp_path):
+    p = tmp_path / "bad.json"
+    p.write_text("not valid json")
+    with pytest.raises(ValueError, match=r"Invalid simulated transcript at .+bad\.json"):
+        parse_simulated_json(p)
+
+
+def test_parse_simulated_json_raises_on_invalid_speaker(tmp_path):
+    p = tmp_path / "bad.json"
+    p.write_text(__import__("json").dumps({
+        "source_id": "x",
+        "origin": "simulated",
+        "turns": [{"index": 0, "speaker": "robot", "text": "hi"}],
+    }))
+    with pytest.raises(ValueError, match=r"Invalid speaker"):
+        parse_simulated_json(p)
