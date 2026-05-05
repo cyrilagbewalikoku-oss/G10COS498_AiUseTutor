@@ -9,8 +9,11 @@ Pass condition: behavior in {answered_first, answered_and_followed_up}.
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any, Optional, Protocol
+
+import anthropic
 
 from evaluation.metrics.judge import JudgeCache, JudgeCall, call_judge_json
 from evaluation.metrics.transcript import Transcript
@@ -56,9 +59,15 @@ class JudgeProtocol(Protocol):
 class AnthropicJudge:
     """Real judge: calls Claude via the Anthropic SDK with a JSON cache."""
 
-    def __init__(self, cache_path: Optional[Path] = None, client=None):
+    def __init__(
+        self,
+        cache_path: Optional[Path] = None,
+        client: Optional[anthropic.Anthropic] = None,
+    ):
         self.cache: Optional[JudgeCache] = JudgeCache(cache_path) if cache_path else None
-        self.client = client  # If None, call_judge_json constructs one.
+        # Construct the SDK client once and reuse it across every classify/grade call.
+        # Otherwise call_judge_json would build a fresh client per turn.
+        self.client = client or anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     def classify(self, learner_message: str) -> dict:
         call = JudgeCall(
