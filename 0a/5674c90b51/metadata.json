@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "0a5674c90b51",
+  "strategy": "manual-commit",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "evaluation/personas/simulator.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0a/5674c90b51/0/metadata.json",
+      "transcript": "/0a/5674c90b51/0/full.jsonl",
+      "context": "/0a/5674c90b51/0/context.md",
+      "content_hash": "/0a/5674c90b51/0/content_hash.txt",
+      "prompt": "/0a/5674c90b51/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 310,
+    "cache_creation_tokens": 1202666,
+    "cache_read_tokens": 41236720,
+    "output_tokens": 195572,
+    "api_call_count": 188
+  }
+}
