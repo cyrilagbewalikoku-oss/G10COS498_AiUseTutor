@@ -1,0 +1,78 @@
+{
+  "cli_version": "0.5.5",
+  "checkpoint_id": "bf57b2215018",
+  "session_id": "e974f457-824d-46c6-9bfe-a764f9764eae",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-30T03:06:53.120606Z",
+  "branch": "evaluations/v2.1",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "evaluations/intrinsic/plan.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "128b083d9c5a",
+  "token_usage": {
+    "input_tokens": 64,
+    "cache_creation_tokens": 143977,
+    "cache_read_tokens": 1672381,
+    "output_tokens": 45761,
+    "api_call_count": 24
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-30T03:06:53.112623Z",
+    "agent_lines": 219,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 219,
+    "total_lines_changed": 219,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 111,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".githooks/post-merge": 83,
+        "data/users/cyril.json": 28
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 111,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 330,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 330,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 330,
+      "agent_lines_removed": 0
+    }
+  ]
+}

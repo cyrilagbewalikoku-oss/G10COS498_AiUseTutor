@@ -1,0 +1,29 @@
+how can we run a good extrinsic evaluation of this agent based on what we see here:
+### TODO: Please fill in study protocol here.
+
+- **Evaluation objective**:
+- **Participant type**:
+- **Tasks**:
+- **Metrics and analysis**:
+- **Baselines**:
+- **Interview questions / pre or post survey design**:
+
+---
+
+hold up
+
+---
+
+let me re-read the plan and make comments
+
+---
+
+i like this, it can also be stored in the folder evaluations but ina subfolder called extrinsic
+
+---
+
+will taking out the orgiinal cause any issues?
+
+---
+
+take it out of there and let it only be in the extrinsic folder
