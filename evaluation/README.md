@@ -49,27 +49,82 @@ Produces a dated `<run-id>-results.json` and `<run-id>-summary.md` in `evaluatio
 
 ---
 
-### Case 3 — Score a chat you exported from the SAGE app (no API spend if rule-based)
+### Case 3 — Score a chat you exported from the SAGE app
 
-**When:** You ran a real SAGE conversation in the Streamlit app and want to grade it.
+**When:** You ran a real SAGE conversation in the Streamlit app and want to grade *just that conversation*.
 
-1. In the SAGE app's sidebar, open **Export chat**, pick `.md` or `.txt`, click **Download**.
-2. Move the file into the exports drop-zone:
-   ```bash
-   mv ~/Downloads/sage-chat-*.md evaluation/fixtures/exports/
-   ```
-3. Run the evaluation. Either:
-   ```bash
-   python -m evaluation.run_evaluation --no-judge   # rule-based only
-   ```
-   or, with `ANTHROPIC_API_KEY` set:
-   ```bash
-   python -m evaluation.run_evaluation              # both metrics
-   ```
+#### Step 1 — Get the export
 
-The exported transcript appears in the summary under the `exported` label alongside `authored` and `simulated`. Drop in as many exports as you like — they're all picked up automatically.
+In the SAGE Streamlit app:
 
-> Exports are gitignored by default since real chats may contain personal data.
+1. Open the left sidebar.
+2. Scroll to the **Export chat** panel (above the chat input box).
+3. Pick **`.md`** (recommended — preserves formatting) or **`.txt`**.
+4. Click **Download**. The file lands in your Downloads folder, named `sage-chat-<your-name>-<timestamp>.md`.
+
+#### Step 2 — Drop it into the exports folder
+
+```bash
+mv ~/Downloads/sage-chat-*.md evaluation/fixtures/exports/
+```
+
+You can drop in as many exports as you like — they're all picked up automatically. Files are gitignored by default since real chats may contain personal data.
+
+#### Step 3 — Run the evaluation
+
+**Just your chat (no API spend, fastest):**
+
+```bash
+python -m evaluation.run_evaluation --exports-only --no-judge
+```
+
+**Just your chat with the LLM judge (spends ~$0.05):**
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+python -m evaluation.run_evaluation --exports-only
+```
+
+**Your chat *plus* the authored examples and any simulated sessions** (so you can compare against baseline corpora):
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."   # only needed without --no-judge
+python -m evaluation.run_evaluation
+```
+
+#### Step 4 — Read the summary
+
+The runner prints two paths. Open the `*-summary.md` one:
+
+```bash
+ls -t evaluation/results/*-summary.md | head -n 1 | xargs cat
+```
+
+In `--exports-only` mode you'll see something like:
+
+```
+# Intrinsic Evaluation Results — 2026-05-05T15-36Z
+
+- **SAGE version:** `ad6e0e8...`
+- **Transcripts evaluated:** 1
+
+## Overall pass rates
+| Metric         | Applicable turns | Passed | Pass rate |
+|---             |---               |---     |---        |
+| front_loading  | 12               | 9      | 0.75      |
+| answer_first   | 3                | 2      | 0.667     |
+
+## Per-transcript breakdown
+- **exported/sage-chat-elvis-2026-05-05-1422** (exported, 12 SAGE turns): front-loading 9/12, answer-first 2/3
+```
+
+The full per-turn details — including the LLM judge's reasoning for each Metric 2 turn — live in the matching `*-results.json` file.
+
+#### Tips
+
+- **Multiple chats at once:** drop several files; each appears as its own row in the per-transcript breakdown.
+- **Iterating on a single chat:** delete the old file before dropping the new one, or keep both — timestamps in the filenames disambiguate.
+- **Cleanup:** when you're done, `rm evaluation/fixtures/exports/*.md evaluation/fixtures/exports/*.txt` clears the drop-zone.
 
 ---
 
