@@ -4,7 +4,11 @@ sage/__init__.py
 sage/__main__.py
 sage/agent.py
 sage/app.py
+sage/components.py
+sage/export.py
 sage/prompts.py
+sage/session_store.py
+sage/skill_loader.py
 sage/tools.py
 sage/ui.py
 sage_tutor.egg-info/PKG-INFO

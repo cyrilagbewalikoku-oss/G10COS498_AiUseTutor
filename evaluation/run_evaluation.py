@@ -220,15 +220,31 @@ def _write_summary(run_id: str, results: list[TranscriptScored], aggregates: dic
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Score SAGE transcripts on Front-Loading and Answer-First metrics.",
+    )
     parser.add_argument("--no-judge", action="store_true", help="Skip Metric 2 (no API calls)")
+    parser.add_argument(
+        "--exports-only",
+        action="store_true",
+        help="Score only chats in evaluation/fixtures/exports/, skipping authored and simulated transcripts.",
+    )
     args = parser.parse_args(argv)
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    transcripts = _load_authored() + _load_simulated() + _load_exported()
-    if not transcripts:
-        raise SystemExit("No transcripts found. Run the simulator or check examples/interactions/.")
+    if args.exports_only:
+        transcripts = _load_exported()
+        if not transcripts:
+            raise SystemExit(
+                "No exports found in evaluation/fixtures/exports/. "
+                "Drop a .md or .txt file there (downloaded from the SAGE app's "
+                "Export chat panel) and re-run."
+            )
+    else:
+        transcripts = _load_authored() + _load_simulated() + _load_exported()
+        if not transcripts:
+            raise SystemExit("No transcripts found. Run the simulator or check examples/interactions/.")
 
     if args.no_judge:
         judge = None
