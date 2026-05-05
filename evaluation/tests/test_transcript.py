@@ -7,7 +7,6 @@ from evaluation.metrics.transcript import (
     Transcript,
     Turn,
 )
-from sage.export import messages_to_markdown, messages_to_text
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample_transcript.md"
 
@@ -112,19 +111,42 @@ def test_parse_simulated_json_raises_on_invalid_speaker(tmp_path):
         parse_simulated_json(p)
 
 
-# --- parse_exported_chat: markdown format from sage.export.messages_to_markdown ---
+# --- parse_exported_chat: matches the format produced by sage/export.py ---
+# Sample strings inlined here so the eval module's tests don't depend on the SAGE app.
 
-_SAMPLE_MESSAGES = [
-    {"role": "user", "content": "What is a hallucination?"},
-    {"role": "assistant", "content": "A confident-but-wrong generation. Want an example?"},
-    {"role": "user", "content": "Yes please."},
-    {"role": "assistant", "content": "Sure — imagine a fake citation that looks real."},
-]
+_SAMPLE_EXPORT_MD = """### You
+
+What is a hallucination?
+
+### SAGE
+
+A confident-but-wrong generation. Want an example?
+
+### You
+
+Yes please.
+
+### SAGE
+
+Sure — imagine a fake citation that looks real.
+"""
+
+_SAMPLE_EXPORT_TXT = """You:
+What is a hallucination?
+
+SAGE:
+A confident-but-wrong generation. Want an example?
+
+You:
+Yes please.
+
+SAGE:
+Sure — imagine a fake citation that looks real.
+"""
 
 
-def test_parse_exported_md_round_trips_with_export_module():
-    md = messages_to_markdown(_SAMPLE_MESSAGES)
-    t = parse_exported_chat(md, source_id="exports/demo")
+def test_parse_exported_md_format():
+    t = parse_exported_chat(_SAMPLE_EXPORT_MD, source_id="exports/demo")
     assert t.origin == "exported"
     assert t.source_id == "exports/demo"
     assert [turn.speaker for turn in t.turns] == ["learner", "sage", "learner", "sage"]
@@ -132,17 +154,15 @@ def test_parse_exported_md_round_trips_with_export_module():
     assert t.turns[3].text == "Sure — imagine a fake citation that looks real."
 
 
-def test_parse_exported_txt_round_trips_with_export_module():
-    txt = messages_to_text(_SAMPLE_MESSAGES)
-    t = parse_exported_chat(txt, source_id="exports/demo")
+def test_parse_exported_txt_format():
+    t = parse_exported_chat(_SAMPLE_EXPORT_TXT, source_id="exports/demo")
     assert t.origin == "exported"
     assert [turn.speaker for turn in t.turns] == ["learner", "sage", "learner", "sage"]
     assert t.turns[1].text.startswith("A confident-but-wrong generation")
 
 
 def test_parse_exported_md_indices_are_sequential():
-    md = messages_to_markdown(_SAMPLE_MESSAGES)
-    t = parse_exported_chat(md, source_id="x")
+    t = parse_exported_chat(_SAMPLE_EXPORT_MD, source_id="x")
     assert [turn.index for turn in t.turns] == [0, 1, 2, 3]
 
 

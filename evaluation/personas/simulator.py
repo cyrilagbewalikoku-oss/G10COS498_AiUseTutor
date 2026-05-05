@@ -1,11 +1,21 @@
 """Persona-driven SAGE simulation.
 
 Drives a conversation between a persona-LLM (acting as the learner) and SAGE.
-Both run on Anthropic. SAGE uses the deployed system prompt from sage.prompts.
+Both run on Anthropic.
+
+The agent-under-test's system prompt comes from one of three places, in order:
+    1. ``--sage-prompt FILE`` CLI flag (highest priority)
+    2. ``SAGE_SYSTEM_PROMPT_FILE`` environment variable
+    3. The ``sage.prompts.SYSTEM_PROMPT`` module attribute, if importable
+
+If none are available the simulator exits with a clear error. This decoupling
+keeps ``evaluation/`` self-contained: a user evaluating a different agent can
+just point ``--sage-prompt`` at their own prompt file.
 
 Usage:
     python -m evaluation.personas.simulator --persona novice-curious
     python -m evaluation.personas.simulator --all
+    python -m evaluation.personas.simulator --all --sage-prompt my-agent.txt
 """
 from __future__ import annotations
 
@@ -15,20 +25,12 @@ import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 
 import anthropic
 from anthropic.types import TextBlock
 
 from evaluation.metrics.transcript import Transcript, Turn
-
-try:
-    from sage.prompts import SYSTEM_PROMPT as SAGE_SYSTEM_PROMPT
-except ImportError as e:
-    raise SystemExit(
-        "Cannot import sage.prompts. Make sure you've run `pip install -e .` "
-        "from the project root and that scripts/build_prompts.py has been run "
-        f"to generate sage/prompts.py.\nOriginal error: {e}"
-    )
 
 PERSONAS_PATH = Path(__file__).parent / "personas.json"
 OUT_DIR = Path(__file__).parent.parent / "fixtures" / "simulated"
@@ -36,6 +38,30 @@ OUT_DIR = Path(__file__).parent.parent / "fixtures" / "simulated"
 SAGE_MODEL = "claude-opus-4-7"
 PERSONA_MODEL = "claude-haiku-4-5"
 MAX_TOKENS = 800
+
+
+def _load_agent_system_prompt(cli_path: Optional[str]) -> str:
+    """Resolve the agent-under-test's system prompt.
+
+    Priority: CLI flag > SAGE_SYSTEM_PROMPT_FILE env var > sage.prompts module.
+    Exits with a clear message if none of the three sources is available.
+    """
+    if cli_path:
+        return Path(cli_path).read_text()
+    env_path = os.environ.get("SAGE_SYSTEM_PROMPT_FILE")
+    if env_path:
+        return Path(env_path).read_text()
+    try:
+        from sage.prompts import SYSTEM_PROMPT
+        return SYSTEM_PROMPT
+    except ImportError as e:
+        raise SystemExit(
+            "No agent system prompt available. Provide one of:\n"
+            "  --sage-prompt PATH                    (CLI flag)\n"
+            "  SAGE_SYSTEM_PROMPT_FILE=PATH          (environment variable)\n"
+            "  sage.prompts.SYSTEM_PROMPT            (importable module)\n"
+            f"\nFallback import error: {e}"
+        )
 
 
 def _extract_text(response) -> str:
@@ -64,14 +90,18 @@ def _should_stop(text: str, stop_phrases: list[str]) -> bool:
     )
 
 
-def simulate(persona: dict, client: anthropic.Anthropic) -> Transcript:
+def simulate(
+    persona: dict,
+    client: anthropic.Anthropic,
+    sage_system_prompt: str,
+) -> Transcript:
     history: list[dict] = [{"role": "user", "content": persona["opening"]}]
 
     for _ in range(persona["max_turns"]):
         sage_response = client.messages.create(
             model=SAGE_MODEL,
             max_tokens=MAX_TOKENS,
-            system=SAGE_SYSTEM_PROMPT,
+            system=sage_system_prompt,
             messages=history,
         )
         sage_text = _extract_text(sage_response)
@@ -113,7 +143,14 @@ def main(argv: list[str] | None = None) -> None:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--persona", help="Persona id from personas.json")
     group.add_argument("--all", action="store_true", help="Run all personas")
+    parser.add_argument(
+        "--sage-prompt",
+        help="Path to a text file containing the agent's system prompt. "
+             "Overrides SAGE_SYSTEM_PROMPT_FILE and sage.prompts.SYSTEM_PROMPT.",
+    )
     args = parser.parse_args(argv)
+
+    sage_system_prompt = _load_agent_system_prompt(args.sage_prompt)
 
     personas = json.loads(PERSONAS_PATH.read_text())
     if args.all:
@@ -126,7 +163,7 @@ def main(argv: list[str] | None = None) -> None:
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     for persona in chosen:
         print(f"Running persona: {persona['id']}...")
-        transcript = simulate(persona, client)
+        transcript = simulate(persona, client, sage_system_prompt)
         path = _save(transcript)
         print(f"  -> wrote {path} ({len(transcript.turns)} turns)")
 

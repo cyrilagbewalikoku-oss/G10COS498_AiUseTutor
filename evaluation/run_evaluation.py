@@ -33,7 +33,7 @@ from evaluation.metrics.transcript import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-EXAMPLES_DIR = REPO_ROOT / "examples" / "interactions"
+DEFAULT_AUTHORED_DIR = REPO_ROOT / "examples" / "interactions"
 SIMULATED_DIR = Path(__file__).parent / "fixtures" / "simulated"
 EXPORTS_DIR = Path(__file__).parent / "fixtures" / "exports"
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -47,10 +47,15 @@ class TranscriptScored:
     answer_first: list[dict]
 
 
-def _load_authored() -> list[Transcript]:
+def _load_authored(authored_dir: Path = DEFAULT_AUTHORED_DIR) -> list[Transcript]:
+    """Load authored transcripts from {authored_dir}/{positive,negative}/*.md.
+
+    Skips silently if subdirs don't exist — useful when the eval module is
+    used in a project without curated authored transcripts.
+    """
     out: list[Transcript] = []
     for label in ("positive", "negative"):
-        for path in sorted((EXAMPLES_DIR / label).glob("*.md")):
+        for path in sorted((authored_dir / label).glob("*.md")):
             source_id = f"{label}/{path.stem}"
             out.append(parse_markdown(path.read_text(), source_id=source_id, origin="authored"))
     return out
@@ -229,6 +234,15 @@ def main(argv: list[str] | None = None) -> None:
         action="store_true",
         help="Score only chats in evaluation/fixtures/exports/, skipping authored and simulated transcripts.",
     )
+    parser.add_argument(
+        "--authored-dir",
+        type=Path,
+        default=DEFAULT_AUTHORED_DIR,
+        help=(
+            "Directory containing authored transcripts under positive/ and negative/ "
+            f"subdirs (default: {DEFAULT_AUTHORED_DIR.relative_to(REPO_ROOT) if DEFAULT_AUTHORED_DIR.is_relative_to(REPO_ROOT) else DEFAULT_AUTHORED_DIR})."
+        ),
+    )
     args = parser.parse_args(argv)
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -242,9 +256,13 @@ def main(argv: list[str] | None = None) -> None:
                 "Export chat panel) and re-run."
             )
     else:
-        transcripts = _load_authored() + _load_simulated() + _load_exported()
+        transcripts = _load_authored(args.authored_dir) + _load_simulated() + _load_exported()
         if not transcripts:
-            raise SystemExit("No transcripts found. Run the simulator or check examples/interactions/.")
+            raise SystemExit(
+                f"No transcripts found. Drop chats into evaluation/fixtures/exports/, "
+                f"run the simulator, or point --authored-dir at a directory with "
+                f"positive/*.md and negative/*.md (currently: {args.authored_dir})."
+            )
 
     if args.no_judge:
         judge = None

@@ -264,6 +264,29 @@ evaluation/
 
 ---
 
+## Reusing this harness for a different agent
+
+The `evaluation/` directory is **self-contained** — no module-level imports from `sage.*`, no hardcoded paths to project-specific corpora at the boundaries. To evaluate a different Anthropic-based agent:
+
+1. **Provide the agent's system prompt** to the simulator via either:
+   ```bash
+   python -m evaluation.personas.simulator --all --sage-prompt my-agent.txt
+   # or
+   export SAGE_SYSTEM_PROMPT_FILE=my-agent.txt
+   python -m evaluation.personas.simulator --all
+   ```
+   If `sage.prompts.SYSTEM_PROMPT` is importable, it's used as a fallback when neither override is set.
+
+2. **Point at your authored corpus** (optional) via:
+   ```bash
+   python -m evaluation.run_evaluation --authored-dir path/to/transcripts
+   ```
+   The directory must contain `positive/*.md` and `negative/*.md` subdirectories using `**LEARNER**:` / `**SAGE**:` markers (or any consistent named markers — the parser auto-detects). Default points at this project's `examples/interactions/`.
+
+3. **The metric definitions and judge prompts** in `evaluation/metrics/` are agent-agnostic — they grade any conversation that follows the SAGE-style learner/agent turn structure.
+
+The only project-specific dependency that remains is the persona system prompts in `evaluation/personas/personas.json`, which are general enough to drive most coaching agents but can be edited freely.
+
 ## Design
 
 - Spec: `docs/superpowers/specs/2026-05-04-intrinsic-evaluation-design.md`
