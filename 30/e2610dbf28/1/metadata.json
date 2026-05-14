@@ -1,13 +1,14 @@
 {
   "cli_version": "0.4.9",
   "checkpoint_id": "30e2610dbf28",
+  "session_id": "7dc8cf2b-a6ca-43c2-b754-2e11b7d6667a",
   "strategy": "manual-commit",
+  "created_at": "2026-05-14T18:42:06.741785Z",
   "branch": "AgentV2.1",
-  "checkpoints_count": 4,
+  "checkpoints_count": 3,
   "files_touched": [
     "docs/final-vs-4-16-comparison.md",
     "docs/sphere-card-intrinsic.json",
-    "docs/technical-report.md",
     "evaluation/AIAgents_S26_SAGE.ipynb",
     "evaluation/fixtures/prompts/sage-prompt-4-16-7c5492d.txt",
     "evaluation/fixtures/prompts/sage-prompt-final-AgentV2.1.txt",
@@ -19,27 +20,22 @@
     "evaluation/fixtures/simulated/final-agent/skeptical-engineer-20260505T140859Z.json",
     "evaluation/run_evaluation.py"
   ],
-  "sessions": [
-    {
-      "metadata": "/30/e2610dbf28/0/metadata.json",
-      "transcript": "/30/e2610dbf28/0/full.jsonl",
-      "context": "/30/e2610dbf28/0/context.md",
-      "content_hash": "/30/e2610dbf28/0/content_hash.txt",
-      "prompt": "/30/e2610dbf28/0/prompt.txt"
-    },
-    {
-      "metadata": "/30/e2610dbf28/1/metadata.json",
-      "transcript": "/30/e2610dbf28/1/full.jsonl",
-      "context": "/30/e2610dbf28/1/context.md",
-      "content_hash": "/30/e2610dbf28/1/content_hash.txt",
-      "prompt": "/30/e2610dbf28/1/prompt.txt"
-    }
-  ],
+  "agent": "Claude Code",
+  "turn_id": "d8d0e11d3526",
   "token_usage": {
-    "input_tokens": 138,
-    "cache_creation_tokens": 284923,
-    "cache_read_tokens": 10915775,
-    "output_tokens": 63202,
-    "api_call_count": 108
+    "input_tokens": 129,
+    "cache_creation_tokens": 230532,
+    "cache_read_tokens": 10784237,
+    "output_tokens": 56110,
+    "api_call_count": 104
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-14T18:42:06.5443Z",
+    "agent_lines": 977,
+    "human_added": 89,
+    "human_modified": 655,
+    "human_removed": 0,
+    "total_committed": 1721,
+    "agent_percentage": 56.769320162696104
   }
 }
