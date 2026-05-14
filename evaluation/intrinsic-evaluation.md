@@ -180,7 +180,7 @@ for t in transcripts:
     scored.append(TranscriptScored(transcript=t, front_loading=fl, answer_first=af))
 
 aggregates = _aggregate(scored)
-# write evaluation/results/<run_id>-results.json + summary.md
+# write Experiment Results/<run_id>-results.json + summary.md
 ```
 
 ---
@@ -253,8 +253,8 @@ Each session is reproducible by running `python -m evaluation.personas.simulator
 - Metric definitions and code: `evaluation/metrics/`
 - Persona simulator + persona definitions: `evaluation/personas/`
 - 53 unit tests covering parser, both metrics, judge cache, JSON extraction: `evaluation/tests/`
-- Per-run JSON + markdown summaries: `evaluation/results/<run-id>-{results.json,summary.md}`
-- Hash-keyed judge cache (free re-runs): `evaluation/results/.judge-cache.json`
+- Per-run JSON + markdown summaries: `Experiment Results/<run-id>-{results.json,summary.md}`
+- Hash-keyed judge cache (free re-runs): `Experiment Results/.judge-cache.json`
 - One-shot driver: `evaluation/run_all.sh`
 
 Design rationale: `docs/superpowers/specs/2026-05-04-intrinsic-evaluation-design.md`

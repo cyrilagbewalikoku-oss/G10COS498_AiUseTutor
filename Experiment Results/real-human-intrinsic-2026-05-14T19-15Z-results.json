@@ -1,0 +1,556 @@
+{
+  "run_id": "real-human-intrinsic-2026-05-14T19-15Z",
+  "sage_version": "7e508a56607305f3f6db3250c2a080872fa92954",
+  "aggregates": {
+    "overall": {
+      "front_loading": {
+        "applicable": 21,
+        "passed": 12,
+        "rate": 0.571
+      },
+      "answer_first": {
+        "applicable": 3,
+        "passed": 2,
+        "rate": 0.667
+      }
+    },
+    "by_label": {
+      "exported": {
+        "front_loading": {
+          "applicable": 21,
+          "passed": 12,
+          "rate": 0.571
+        },
+        "answer_first": {
+          "applicable": 3,
+          "passed": 2,
+          "rate": 0.667
+        }
+      }
+    }
+  },
+  "transcripts": [
+    {
+      "source_id": "exported/sage-chat-CK-pdf-export",
+      "origin": "exported",
+      "turn_results": [
+        {
+          "turn_index": 0,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 0
+          },
+          "answer_first": {
+            "turn_index": 0,
+            "applicable": false,
+            "kind": null,
+            "behavior": null,
+            "reasoning": "no prior learner turn",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 2,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 8,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 2
+          },
+          "answer_first": {
+            "turn_index": 2,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor gave a substantive answer to the learner's question about AI literacy, listing five key components and noting that practice builds these skills. The tutor also addressed the 'what to focus on' part by identifying prompting as the priority. After providing this answer, the tutor then asked a follow-up coaching question to personalize the next steps.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 4,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 5,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 4
+          },
+          "answer_first": {
+            "turn_index": 4,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a statement of intent or goal, not a direct question. It expresses what the learner wants to do but doesn't ask for specific information, explanation, or a yes/no answer. It's an opening statement that invites coaching dialogue rather than a question requiring a substantive answer.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 6,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 5,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 6
+          },
+          "answer_first": {
+            "turn_index": 6,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is an imperative statement/request (command to demonstrate), not a question seeking information or clarification. It expresses what the learner wants the tutor to do rather than asking for explanation or knowledge.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 8,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 8
+          },
+          "answer_first": {
+            "turn_index": 8,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "Single letter 'b' is not a question, statement, or meaningful communication. It appears to be a typing error, incomplete message, or acknowledgment signal rather than a substantive learner inquiry.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 10,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 2,
+              "passed": false
+            },
+            "pre_pause": {
+              "sentences": 6,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 10
+          },
+          "answer_first": {
+            "turn_index": 10,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "Single letter 'b' is not a question, statement, or meaningful communication. It appears to be a typing error, incomplete message, or acknowledgment signal rather than a substantive learner inquiry.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 12,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 12
+          },
+          "answer_first": {
+            "turn_index": 12,
+            "applicable": false,
+            "kind": "open",
+            "behavior": null,
+            "reasoning": "This is an open-ended request inviting the tutor to provide feedback and discussion about the learner's prompt-writing work shown in the conversation. It's not a yes/no question, not a request for a definition/fact, and not a statement\u2014it's an invitation for substantive dialogue that the tutor should engage with directly before asking coaching questions.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 14,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 6,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 14
+          },
+          "answer_first": {
+            "turn_index": 14,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a statement or fragment indicating the learner has made a choice or is providing feedback. It does not pose a question requiring a substantive answer. It appears to be either a compliance message (selecting an option) or a brief statement rather than an inquiry.",
+            "passed": null
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "exported/sage-chat-learner-2026-05-09-0011",
+      "origin": "exported",
+      "turn_results": [
+        {
+          "turn_index": 0,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 0
+          },
+          "answer_first": {
+            "turn_index": 0,
+            "applicable": false,
+            "kind": null,
+            "behavior": null,
+            "reasoning": "no prior learner turn",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 2,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 2
+          },
+          "answer_first": {
+            "turn_index": 2,
+            "applicable": true,
+            "kind": "yes_no",
+            "behavior": "redirected_without_answer",
+            "reasoning": "The tutor did not provide any substantive answer about whether the learner should use AI for their project. Instead, the tutor immediately redirected to a coaching question asking the learner to identify their concern. No guidance, criteria, or information was given to actually address the learner's direct question.",
+            "passed": false
+          }
+        },
+        {
+          "turn_index": 4,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 3,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 4
+          },
+          "answer_first": {
+            "turn_index": 4,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "The message is just a number with no interrogative content or request for information. It appears to be a statement or possibly a response to a multiple choice or numbered list, not a direct question requiring substantive answer.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 6,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 2,
+              "passed": false
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": false,
+            "turn_index": 6
+          },
+          "answer_first": {
+            "turn_index": 6,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "Single-word affirmative response indicating agreement or acknowledgment, not a question or request for information.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 8,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 5,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 8
+          },
+          "answer_first": {
+            "turn_index": 8,
+            "applicable": true,
+            "kind": "yes_no",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor gave a substantive answer to the learner's question about whether using AI is okay ('It can be \u2014 but it depends on two things'), provided actionable guidance about checking the syllabus, and then followed up with a coaching question about learning outcomes.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 10,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 2,
+              "passed": false
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": false,
+            "turn_index": 10
+          },
+          "answer_first": {
+            "turn_index": 10,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a statement of fact about a policy or requirement. The learner is sharing information rather than asking for clarification, advice, or an answer to a question.",
+            "passed": null
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "exported/sage-chat-learner-2026-05-14-1849",
+      "origin": "exported",
+      "turn_results": [
+        {
+          "turn_index": 0,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 0
+          },
+          "answer_first": {
+            "turn_index": 0,
+            "applicable": false,
+            "kind": null,
+            "behavior": null,
+            "reasoning": "no prior learner turn",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 2,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 0,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 2
+          },
+          "answer_first": {
+            "turn_index": 2,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a request for help but not phrased as a direct question. It's an implicit invitation for the tutor to engage, but the learner hasn't asked a specific question requiring a substantive answer. The learner appears to be setting up for a conversation where they would share the prompt, but the message itself is a statement/request rather than a question.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 4,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 4
+          },
+          "answer_first": {
+            "turn_index": 4,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a series of imperative statements (commands/requests) rather than a question. The learner is asking the tutor to perform tasks, not asking for information, clarification, or coaching. There is no question mark and no interrogative structure.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 6,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 4,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 6
+          },
+          "answer_first": {
+            "turn_index": 6,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a statement describing hypothetical questions others might ask ('they would ask...'), not a direct question from the learner to the tutor. It's a description or example of potential inquiries rather than an actual question requiring a substantive answer.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 8,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 5,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 8
+          },
+          "answer_first": {
+            "turn_index": 8,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a statement or assertion, not a question. It appears to be a response or answer to a previous prompt, rather than a direct question requiring substantive information from the tutor.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 10,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 10
+          },
+          "answer_first": {
+            "turn_index": 10,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a bare noun phrase with no interrogative structure. It appears to be a topic label or incomplete statement rather than a question seeking information or clarification.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 12,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 0,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 4,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 12
+          },
+          "answer_first": {
+            "turn_index": 12,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a statement or topic phrase, not a question. It lacks interrogative structure (no question mark, question word, or inverted syntax) and reads as a topic label or directive rather than an inquiry requiring a substantive answer.",
+            "passed": null
+          }
+        }
+      ]
+    }
+  ]
+}

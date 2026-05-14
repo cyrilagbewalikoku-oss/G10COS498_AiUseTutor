@@ -45,9 +45,9 @@ python -m evaluation.run_evaluation \
 Saved artifacts (referenced by the notebook so a grader does not have to
 re-run anything):
 
-- `evaluation/results/agent-4-16-2026-05-14T18-20Z-{results.json,summary.md}`
-- `evaluation/results/agent-final-2026-05-14T18-20Z-{results.json,summary.md}`
-- `evaluation/results/final-agent-2026-05-14T18-15Z-{results.json,summary.md}` — full final-agent run including the 7 authored transcripts (53 SAGE turns)
+- `Experiment Results/agent-4-16-2026-05-14T18-20Z-{results.json,summary.md}`
+- `Experiment Results/agent-final-2026-05-14T18-20Z-{results.json,summary.md}`
+- `Experiment Results/final-agent-2026-05-14T18-15Z-{results.json,summary.md}` — full final-agent run including the 7 authored transcripts (53 SAGE turns)
 
 Authored transcripts are static "gold" examples and are identical under both
 agents, so the head-to-head comparison uses only the 19 simulated SAGE turns

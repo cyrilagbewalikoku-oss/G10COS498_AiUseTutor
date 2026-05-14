@@ -163,9 +163,25 @@ data/
   scenarios/                   # 8 practice scenarios
   rubrics/                     # 3 evaluation rubrics
 examples/
-  interactions/                # 6 example transcripts (3 positive, 3 negative)
+  interactions/                # 7 example transcripts (4 positive, 3 negative)
   workflows/                   # 3 end-to-end workflow demos
-docs/                          # Architecture, pedagogical model, content map
+evaluation/
+  metrics/                     # Front-loading + answer-first metric code
+  personas/                    # Persona-driven SAGE simulator
+  fixtures/                    # Persona transcripts + 4-16/final SYSTEM_PROMPT files
+  AIAgents_S26_SAGE-V2.ipynb   # Project evaluation notebook — LATEST (with outputs + extrinsic study)
+  AIAgents_S26_SAGE.ipynb      # Earlier notebook (kept for reference)
+  intrinsic-evaluation.md      # Metric definitions, implementation, results
+Experiment Results/            # Saved JSON + Markdown for every eval run
+                               #   final-agent-*       → final agent, full corpus (53 turns)
+                               #   agent-final-*       → final agent, simulated-only (head-to-head)
+                               #   agent-4-16-*        → 4-16 agent (item #4 in submission)
+                               #   real-human-*        → 3 real participants from the extrinsic study
+docs/
+  technical-report.md          # 3–4 page technical summary (item 7)
+  final-vs-4-16-comparison.md  # 3–4 page comparison + future work (item 5)
+  sphere-card-intrinsic.json   # SPHERE Evaluation Card
+  architecture.md / roadmap.md / pedagogical-model.md / content-map.md
 ```
 
 ## How It Works
@@ -220,16 +236,50 @@ Built on **Merrill's First Principles** and **Bloom's Revised Taxonomy**:
 
 ## Evaluation
 
-Intrinsic evaluation harness lives in [`evaluation/`](evaluation/). It runs two metrics — front-loading discipline (rule-based) and answer-first adherence (LLM-as-judge) — against authored transcripts plus persona-simulated sessions, and writes dated results.
+The intrinsic evaluation harness lives in [`evaluation/`](evaluation/). It runs two metrics — front-loading discipline (rule-based) and answer-first adherence (LLM-as-judge) — against authored transcripts plus persona-simulated sessions, and writes dated results into [`Experiment Results/`](Experiment%20Results/) at the repo root.
 
 ```bash
-pytest evaluation/tests -v                          # 46 unit tests, no API spend
+pytest evaluation/tests -v                          # 53 unit tests, no API spend
 python -m evaluation.run_evaluation --no-judge      # rule-based smoke run
 python -m evaluation.personas.simulator --all       # generate simulated transcripts
 python -m evaluation.run_evaluation                 # full eval with LLM judge
 ```
 
-See [`evaluation/README.md`](evaluation/README.md) for details.
+Methodology and metric definitions: [`evaluation/intrinsic-evaluation.md`](evaluation/intrinsic-evaluation.md). Five running-case walkthroughs (smoke run, judge run, exported chats, etc.) live in [`evaluation/README.md`](evaluation/README.md).
+
+The same two intrinsic metrics were also run against the three real-human chats from the extrinsic user study (the Subject 1/2/3 sessions). Run label: `real-human-intrinsic`. Source transcripts: [`evaluation/fixtures/exports/`](evaluation/fixtures/exports/). Saved results: [`Experiment Results/real-human-intrinsic-2026-05-14T19-15Z-{results.json,summary.md}`](Experiment%20Results/). Headline numbers: Front-Loading 12/21 (0.571), Answer-First 2/3 (0.667) across 21 SAGE turns.
+
+## Project Submission Map (for reviewers)
+
+The seven submission items from the assignment brief, mapped to files in this repo. Every result is committed under [`Experiment Results/`](Experiment%20Results/) so a reviewer can read every table without re-running the harness.
+
+| # | Item | Where to look |
+|---|------|---------------|
+| 1 | **Project specification** | [`docs/architecture.md`](docs/architecture.md), [`docs/technical-report.md`](docs/technical-report.md). Agent contract: [`CLAUDE.md`](CLAUDE.md). |
+| 2 | **Prior iteration report (+ final-sprint addendum)** | [`docs/roadmap.md`](docs/roadmap.md) for the prior plan; [`docs/final-vs-4-16-comparison.md` §3–§4](docs/final-vs-4-16-comparison.md) covers what *was* and *was not* accomplished after the 4-23 feedback. |
+| 3 | **Completed final project evaluation (latest agent)** | **Latest notebook:** [`evaluation/AIAgents_S26_SAGE-V2.ipynb`](evaluation/AIAgents_S26_SAGE-V2.ipynb) (cell outputs pre-populated; includes the extrinsic-study write-ups and SPHERE card). Saved results: [`Experiment Results/final-agent-2026-05-14T18-15Z-results.json`](Experiment%20Results/final-agent-2026-05-14T18-15Z-results.json) + matching `summary.md`. Full corpus = 7 authored + 3 persona-simulated transcripts, 53 SAGE turns. **Real-human run** (3 transcripts from the extrinsic-study participants, 21 SAGE turns): [`Experiment Results/real-human-intrinsic-2026-05-14T19-15Z-results.json`](Experiment%20Results/real-human-intrinsic-2026-05-14T19-15Z-results.json) + matching `summary.md`. Source chats: [`evaluation/fixtures/exports/`](evaluation/fixtures/exports/). |
+| 4 | **4-16 agent — Experiment Results section** | Section in [`evaluation/AIAgents_S26_SAGE-V2.ipynb`](evaluation/AIAgents_S26_SAGE-V2.ipynb) ("Final agent vs. 4-16 agent — Experiment Results comparison"). Commit pinned: [`build/agent-2` @ 7c5492d](https://github.com/cyrilagbewalikoku-oss/G10COS498_AiUseTutor/commit/7c5492d7d71a7381b2ead3df453627963c296e7e). Saved results: [`Experiment Results/agent-4-16-2026-05-14T18-20Z-results.json`](Experiment%20Results/agent-4-16-2026-05-14T18-20Z-results.json) + matching `summary.md`. 4-16 system prompt fixture: [`evaluation/fixtures/prompts/sage-prompt-4-16-7c5492d.txt`](evaluation/fixtures/prompts/sage-prompt-4-16-7c5492d.txt). |
+| 5 | **3–4 page write-up (latest vs 4-16 + future work + plan)** | [`docs/final-vs-4-16-comparison.md`](docs/final-vs-4-16-comparison.md). §1–§3: per-metric, per-persona deltas with hypotheses for what changed and why. §4: ~1.5 pages of future work and design rationale across three concrete proposals (mechanical-constraints block, expanded persona corpus, new routing metric). |
+| 6 | **GitHub repo** | <https://github.com/cyrilagbewalikoku-oss/G10COS498_AiUseTutor/> (final branch: [`AgentV2.1`](https://github.com/cyrilagbewalikoku-oss/G10COS498_AiUseTutor/tree/AgentV2.1)). |
+| 7 | **3–4 page technical summary** | [`docs/technical-report.md`](docs/technical-report.md). |
+
+**SPHERE Evaluation Card:** [`docs/sphere-card-intrinsic.json`](docs/sphere-card-intrinsic.json).
+
+**Reproduce all numbers from scratch (optional — saved JSON is already committed):**
+
+```bash
+# Final agent — uses sage.prompts.SYSTEM_PROMPT
+python -m evaluation.personas.simulator --all
+python -m evaluation.run_evaluation --label final-agent
+
+# 4-16 agent — same code, different system prompt
+python -m evaluation.personas.simulator --all \
+  --sage-prompt evaluation/fixtures/prompts/sage-prompt-4-16-7c5492d.txt
+mv evaluation/fixtures/simulated/*.json evaluation/fixtures/simulated/4-16-agent/
+python -m evaluation.run_evaluation \
+  --simulated-dir evaluation/fixtures/simulated/4-16-agent \
+  --no-authored --label agent-4-16
+```
 
 ## Feedback
 

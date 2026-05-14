@@ -45,7 +45,7 @@ Expected: **53 tests pass** in <1 second. Covers parser, both metrics, judge cac
 python -m evaluation.run_evaluation --no-judge
 ```
 
-Produces a dated `<run-id>-results.json` and `<run-id>-summary.md` in `evaluation/results/`. The summary shows positive vs negative front-loading pass rates (expect roughly 50% vs 33%).
+Produces a dated `<run-id>-results.json` and `<run-id>-summary.md` in `Experiment Results/`. The summary shows positive vs negative front-loading pass rates (expect roughly 50% vs 33%).
 
 ---
 
@@ -97,7 +97,7 @@ python -m evaluation.run_evaluation
 The runner prints two paths. Open the `*-summary.md` one:
 
 ```bash
-ls -t evaluation/results/*-summary.md | head -n 1 | xargs cat
+ls -t Experiment Results/*-summary.md | head -n 1 | xargs cat
 ```
 
 In `--exports-only` mode you'll see something like:
@@ -175,7 +175,7 @@ python -m evaluation.personas.simulator --all           # 3
 python -m evaluation.run_evaluation                     # 4
 ```
 
-The judge cache lives at `evaluation/results/.judge-cache.json` — re-runs against unchanged transcripts cost zero tokens.
+The judge cache lives at `Experiment Results/.judge-cache.json` — re-runs against unchanged transcripts cost zero tokens.
 
 ---
 
@@ -185,12 +185,12 @@ Two files per run, dated by UTC timestamp:
 
 | File | Contents |
 |---|---|
-| `evaluation/results/<run-id>-results.json` | Raw per-turn scores, including full judge reasoning for every applicable Metric 2 turn |
-| `evaluation/results/<run-id>-summary.md` | Markdown summary: overall pass rates, by-label table, per-transcript breakdown, sanity-check paragraph |
+| `Experiment Results/<run-id>-results.json` | Raw per-turn scores, including full judge reasoning for every applicable Metric 2 turn |
+| `Experiment Results/<run-id>-summary.md` | Markdown summary: overall pass rates, by-label table, per-transcript breakdown, sanity-check paragraph |
 
 Side artifacts:
 
-- `evaluation/results/.judge-cache.json` — hash-keyed cache (gitignored)
+- `Experiment Results/.judge-cache.json` — hash-keyed cache (gitignored)
 - `evaluation/fixtures/simulated/*.json` — simulator outputs (gitignored)
 - `evaluation/fixtures/exports/*.{md,txt}` — chats you dropped in (gitignored)
 

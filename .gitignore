@@ -25,12 +25,8 @@ dist/
 data/interactions/*/
 
 # Evaluation harness runtime data
-evaluation/fixtures/simulated/*.json
 evaluation/fixtures/exports/*.md
 evaluation/fixtures/exports/*.txt
-evaluation/results/*.json
-evaluation/results/*.md
-evaluation/results/.judge-cache.json
-!evaluation/results/.gitkeep
+Experiment Results/.judge-cache.json
 !evaluation/fixtures/simulated/.gitkeep
 !evaluation/fixtures/exports/.gitkeep

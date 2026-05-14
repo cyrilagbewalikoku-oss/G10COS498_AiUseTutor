@@ -1,0 +1,508 @@
+{
+  "run_id": "agent-final-2026-05-14T18-20Z",
+  "sage_version": "f94da786fdc72187b5d4c2e7d51085b31175cdea",
+  "aggregates": {
+    "overall": {
+      "front_loading": {
+        "applicable": 19,
+        "passed": 9,
+        "rate": 0.474
+      },
+      "answer_first": {
+        "applicable": 10,
+        "passed": 7,
+        "rate": 0.7
+      }
+    },
+    "by_label": {
+      "simulated": {
+        "front_loading": {
+          "applicable": 19,
+          "passed": 9,
+          "rate": 0.474
+        },
+        "answer_first": {
+          "applicable": 10,
+          "passed": 7,
+          "rate": 0.7
+        }
+      }
+    }
+  },
+  "transcripts": [
+    {
+      "source_id": "simulated/fatigued-returner",
+      "origin": "simulated",
+      "turn_results": [
+        {
+          "turn_index": 1,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 0,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 1
+          },
+          "answer_first": {
+            "turn_index": 1,
+            "applicable": false,
+            "kind": "open",
+            "behavior": null,
+            "reasoning": "The learner is inviting the tutor to suggest a topic or area of focus. While phrased as a question, it's an open-ended request for guidance rather than a yes/no or factual question with a specific answer. It requires the tutor's judgment and coaching perspective.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 3,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 0,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 3
+          },
+          "answer_first": {
+            "turn_index": 3,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a compliance/agreement statement, not a question. The learner is expressing acceptance or deference rather than asking for information or clarification.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 5,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 5,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 5
+          },
+          "answer_first": {
+            "turn_index": 5,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a compliance/reaction statement expressing agreement and impatience. It does not ask for information, definition, or clarification.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 7,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 2,
+              "passed": false
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": false,
+            "turn_index": 7
+          },
+          "answer_first": {
+            "turn_index": 7,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a compliance message where the learner is selecting an option (number 2) in response to a prior prompt or exercise. It contains no question mark and is not asking for information, definition, explanation, or clarification.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 9,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 2,
+              "passed": false
+            },
+            "pre_pause": {
+              "sentences": 3,
+              "passed": true
+            },
+            "passed": false,
+            "turn_index": 9
+          },
+          "answer_first": {
+            "turn_index": 9,
+            "applicable": true,
+            "kind": "yes_no",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor directly confirmed the learner's point and added substantive information about NLRA protections and concerted activity, then followed up with a coaching question about the AI's tone.",
+            "passed": true
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "simulated/novice-curious",
+      "origin": "simulated",
+      "turn_results": [
+        {
+          "turn_index": 1,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 0,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 4,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 1
+          },
+          "answer_first": {
+            "turn_index": 1,
+            "applicable": false,
+            "kind": "open",
+            "behavior": null,
+            "reasoning": "This is an open-ended invitation for guidance on a broad topic. While it contains 'where,' it's not asking for a specific factual definition or yes/no answer, but rather seeking a starting point or roadmap for learning about AI agents.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 3,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 3
+          },
+          "answer_first": {
+            "turn_index": 3,
+            "applicable": true,
+            "kind": "yes_no",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor directly answered the learner's question ('Nope \u2014 no setup, no account, no email needed') and then followed up with an optional coaching/personalization question about what to call the learner.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 5,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 6,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 5
+          },
+          "answer_first": {
+            "turn_index": 5,
+            "applicable": true,
+            "kind": "yes_no",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor gave a substantive answer to Alex's question about whether using AI help constitutes cheating, explaining that it depends on how it's used and drawing a clear distinction between understanding help versus skipping the reading. After answering, the tutor then asked a follow-up coaching question to clarify Alex's intentions.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 7,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 7
+          },
+          "answer_first": {
+            "turn_index": 7,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "redirected_without_answer",
+            "reasoning": "The learner explicitly asked the tutor to break down 'social capital.' The tutor did not address the concept at all, instead asking a calibration question about the learner's prior AI experience. No substantive answer was provided.",
+            "passed": false
+          }
+        },
+        {
+          "turn_index": 9,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 2,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 9
+          },
+          "answer_first": {
+            "turn_index": 9,
+            "applicable": true,
+            "kind": "yes_no",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor directly addressed the learner's concern ('Not at all') and provided a brief reassurance about starting without prior experience. This constitutes a substantive answer to the learner's implicit question of whether lacking experience will be a problem. The tutor then immediately followed up with a coaching/diagnostic question asking the learner to identify the top risk of using AI.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 11,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 6,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 11
+          },
+          "answer_first": {
+            "turn_index": 11,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "The learner is responding to a previous question (likely about what hallucinations are) with their tentative answer and reasoning. This is a statement/reaction rather than a direct question requiring substantive information before coaching.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 13,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 4,
+              "passed": false
+            },
+            "pre_pause": {
+              "sentences": 1,
+              "passed": true
+            },
+            "passed": false,
+            "turn_index": 13
+          },
+          "answer_first": {
+            "turn_index": 13,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "redirected_without_answer",
+            "reasoning": "The tutor did not provide any substantive explanation of the topic the learner asked about. Despite the learner explicitly requesting a simple explanation, the tutor responded only with a coaching question asking what the learner already imagines AI to be, without addressing the substance of the question at all.",
+            "passed": false
+          }
+        },
+        {
+          "turn_index": 15,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 6,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 15
+          },
+          "answer_first": {
+            "turn_index": 15,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "The learner is expressing uncertainty and offering tentative statements/guesses about what an LLM might be, but is not asking a direct question. There is no question mark, and the message reads as thinking aloud or seeking validation rather than requesting information.",
+            "passed": null
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "simulated/skeptical-engineer",
+      "origin": "simulated",
+      "turn_results": [
+        {
+          "turn_index": 1,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 4,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 1
+          },
+          "answer_first": {
+            "turn_index": 1,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor gave a direct, substantive, technically honest answer explaining what hallucinations are (confident but factually wrong outputs due to token prediction without a truth check), then followed up with a coaching question asking the learner's opinion on whether hallucinations are a bug or feature.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 3,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 15,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 3
+          },
+          "answer_first": {
+            "turn_index": 3,
+            "applicable": false,
+            "kind": "open",
+            "behavior": null,
+            "reasoning": "This is a rhetorical challenge framed as an open-ended invitation for the tutor to explain/justify their position. The learner is not asking for a definition ('what is X?') or a yes/no answer, but rather pressing the tutor to engage substantively with their skepticism about AI reliability. It demands a response that addresses the learner's underlying concern rather than providing a simple factual answer.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 5,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 9,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 5
+          },
+          "answer_first": {
+            "turn_index": 5,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "answered_and_followed_up",
+            "reasoning": "The tutor directly addressed the learner's substantive question about whether the scaffolding is pedagogically sound or just mimicry, and whether there's evidence it improves retention versus a textbook. The tutor gave a substantive answer acknowledging the epistemic problem, citing specific empirical backing (Merrill's First Principles, retrieval practice, generation effect, Bloom's taxonomy), and honestly enumerating what is NOT established. Then at the end, the tutor followed up with a coaching question offering the learner two options to proceed.",
+            "passed": true
+          }
+        },
+        {
+          "turn_index": 7,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 4,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 7
+          },
+          "answer_first": {
+            "turn_index": 7,
+            "applicable": false,
+            "kind": "not_a_question",
+            "behavior": null,
+            "reasoning": "This is a conditional statement and negotiated agreement about how the learner wants to proceed. It sets terms and expectations ('on my terms', 'Pick something specific', 'I want you to flag') but does not ask for a substantive answer, definition, explanation, or yes/no response. It's a compliance/framework message that establishes ground rules for future interaction.",
+            "passed": null
+          }
+        },
+        {
+          "turn_index": 9,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 1,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 3,
+              "passed": true
+            },
+            "passed": true,
+            "turn_index": 9
+          },
+          "answer_first": {
+            "turn_index": 9,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "redirected_without_answer",
+            "reasoning": "The tutor completely avoided answering the learner's direct and specific question about the mechanistic story behind RLHF-induced sycophancy. The learner explicitly asked for the actual mechanism and pre-emptively rejected 'hand-wavy' explanations. The tutor responded only with a diagnostic question about the learner's background, offering no substantive content about why RLHF produces sycophancy. This is a redirect without any answer to the substance of the question.",
+            "passed": false
+          }
+        },
+        {
+          "turn_index": 11,
+          "speaker": "sage",
+          "front_loading": {
+            "question_discipline": {
+              "question_marks": 0,
+              "passed": true
+            },
+            "pre_pause": {
+              "sentences": 30,
+              "passed": false
+            },
+            "passed": false,
+            "turn_index": 11
+          },
+          "answer_first": {
+            "turn_index": 11,
+            "applicable": true,
+            "kind": "factual",
+            "behavior": "answered_first",
+            "reasoning": "The tutor directly addresses the learner's specific question about why the RM learns to reward agreement-seeking specifically. It provides a structured mechanistic account with multiple components (labeler bias, asymmetric cost of disagreement, epistemic limitations of labelers, PPO amplification), cites a specific paper, and distinguishes between what is well-supported versus speculative. The response ends mid-sentence due to truncation but was clearly providing a substantive answer throughout without redirecting or asking a coaching question.",
+            "passed": true
+          }
+        }
+      ]
+    }
+  ]
+}

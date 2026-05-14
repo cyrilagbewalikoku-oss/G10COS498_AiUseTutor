@@ -8,8 +8,8 @@ Sources:
                                             "Export chat" button; see sage/export.py)
 
 Outputs:
-  - evaluation/results/<run_id>-results.json
-  - evaluation/results/<run_id>-summary.md
+  - Experiment Results/<run_id>-results.json
+  - Experiment Results/<run_id>-summary.md
 """
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_AUTHORED_DIR = REPO_ROOT / "examples" / "interactions"
 SIMULATED_DIR = Path(__file__).parent / "fixtures" / "simulated"
 EXPORTS_DIR = Path(__file__).parent / "fixtures" / "exports"
-RESULTS_DIR = Path(__file__).parent / "results"
+RESULTS_DIR = REPO_ROOT / "Experiment Results"
 JUDGE_CACHE_PATH = RESULTS_DIR / ".judge-cache.json"
 
 
