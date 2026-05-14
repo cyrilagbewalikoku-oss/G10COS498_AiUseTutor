@@ -1,0 +1,53 @@
+{
+  "cli_version": "0.4.9",
+  "checkpoint_id": "d708007fad95",
+  "session_id": "7dc8cf2b-a6ca-43c2-b754-2e11b7d6667a",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-14T19:19:40.079482Z",
+  "branch": "AgentV2.1",
+  "checkpoints_count": 7,
+  "files_touched": [
+    ".gitignore",
+    "Experiment Results/agent-4-16-2026-05-14T18-20Z-results.json",
+    "Experiment Results/agent-4-16-2026-05-14T18-20Z-summary.md",
+    "Experiment Results/agent-final-2026-05-14T18-20Z-results.json",
+    "Experiment Results/agent-final-2026-05-14T18-20Z-summary.md",
+    "Experiment Results/final-agent-2026-05-14T18-15Z-results.json",
+    "Experiment Results/final-agent-2026-05-14T18-15Z-summary.md",
+    "Experiment Results/real-human-intrinsic-2026-05-14T19-13Z-results.json",
+    "Experiment Results/real-human-intrinsic-2026-05-14T19-13Z-summary.md",
+    "Experiment Results/real-human-intrinsic-2026-05-14T19-15Z-results.json",
+    "Experiment Results/real-human-intrinsic-2026-05-14T19-15Z-summary.md",
+    "README.md",
+    "docs/final-vs-4-16-comparison.md",
+    "docs/sphere-card-intrinsic.json",
+    "docs/technical-report.md",
+    "evaluation/AIAgents_S26_SAGE-V2.ipynb",
+    "evaluation/AIAgents_S26_SAGE.ipynb",
+    "evaluation/README.md",
+    "evaluation/fixtures/exports/_originals/SAGE — AI Literacy Tutor.pdf",
+    "evaluation/fixtures/exports/_originals/readme.MD",
+    "evaluation/intrinsic-evaluation.md",
+    "evaluation/run_evaluation.py"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "4db2a42d36cc",
+  "checkpoint_transcript_start": 375,
+  "transcript_lines_at_start": 375,
+  "token_usage": {
+    "input_tokens": 106,
+    "cache_creation_tokens": 76774,
+    "cache_read_tokens": 14774180,
+    "output_tokens": 41504,
+    "api_call_count": 71
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-14T19:19:39.793298Z",
+    "agent_lines": 0,
+    "human_added": 825,
+    "human_modified": 8905,
+    "human_removed": 0,
+    "total_committed": 825,
+    "agent_percentage": 0
+  }
+}
