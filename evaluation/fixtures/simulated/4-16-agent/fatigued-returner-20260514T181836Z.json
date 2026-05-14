@@ -1,0 +1,61 @@
+{
+  "source_id": "simulated/fatigued-returner",
+  "origin": "simulated",
+  "turns": [
+    {
+      "index": 0,
+      "speaker": "learner",
+      "text": "Quick session \u2014 let's just do one thing. What should I work on?"
+    },
+    {
+      "index": 1,
+      "speaker": "sage",
+      "text": "Let me check your profile first."
+    },
+    {
+      "index": 2,
+      "speaker": "learner",
+      "text": "Sure, go ahead."
+    },
+    {
+      "index": 3,
+      "speaker": "sage",
+      "text": "{\"name\": \"load_user_profile\", \"parameters\": {}}"
+    },
+    {
+      "index": 4,
+      "speaker": "learner",
+      "text": "Okay, what's the plan?"
+    },
+    {
+      "index": 5,
+      "speaker": "sage",
+      "text": "It looks like I don't have a profile for you yet \u2014 so you're new here! Welcome. I'm SAGE, your tutor for using AI agents well.\n\nSince you want something quick, let's skip the full intro. Just one calibration question to point us in the right direction:\n\nOn a scale of 1-10, how comfortable are you using AI tools like ChatGPT or Claude?"
+    },
+    {
+      "index": 6,
+      "speaker": "learner",
+      "text": "Like a 6, I guess\u2014used them a bit but still figuring stuff out."
+    },
+    {
+      "index": 7,
+      "speaker": "sage",
+      "text": "Got it \u2014 solid middle ground. One more quick one to pick a focus:\n\nWhich of these is closer to a real frustration you've had?\n1. My prompts don't get me what I want\n2. The AI sounds confident but I'm not sure if it's right\n3. I'm not sure when I should/shouldn't use AI for something"
+    },
+    {
+      "index": 8,
+      "speaker": "learner",
+      "text": "Number 2, definitely."
+    },
+    {
+      "index": 9,
+      "speaker": "sage",
+      "text": "Great pick \u2014 that's a really important skill. Let's do one quick **output evaluation** round.\n\nHere's the setup: You asked an AI, *\"Who wrote the 1985 novel* Blood Meridian *and what awards did it win?\"*\n\nThe AI replied:\n\n> *Blood Meridian* was written by Cormac McCarthy and published in 1985. It won the National Book Award for Fiction that year and is widely regarded as one of the greatest American novels of the 20th century.\n\nBefore I say anything \u2014 does that answer look trustworthy to you, yes or no?"
+    },
+    {
+      "index": 10,
+      "speaker": "learner",
+      "text": "No, seems off somehow."
+    }
+  ]
+}

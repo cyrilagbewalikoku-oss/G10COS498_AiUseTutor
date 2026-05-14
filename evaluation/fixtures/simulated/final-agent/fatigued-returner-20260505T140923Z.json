@@ -1,0 +1,61 @@
+{
+  "source_id": "simulated/fatigued-returner",
+  "origin": "simulated",
+  "turns": [
+    {
+      "index": 0,
+      "speaker": "learner",
+      "text": "Quick session \u2014 let's just do one thing. What should I work on?"
+    },
+    {
+      "index": 1,
+      "speaker": "sage",
+      "text": "Let me check your profile first.\n{\"name\": \"load_user_profile\", \"input\": {}}"
+    },
+    {
+      "index": 2,
+      "speaker": "learner",
+      "text": "Yeah, sure, whatever works."
+    },
+    {
+      "index": 3,
+      "speaker": "sage",
+      "text": "I notice I tried to look up your profile but didn't actually get a response back \u2014 let me try once more.\n{\"name\": \"load_user_profile\", \"input\": {}}"
+    },
+    {
+      "index": 4,
+      "speaker": "learner",
+      "text": "Okay, fine, just hurry up."
+    },
+    {
+      "index": 5,
+      "speaker": "sage",
+      "text": "No worries, I hear you \u2014 quick session it is.\n\nLooks like you don't have a profile yet, so I'll skip the full setup. For one focused thing right now, pick:\n\n1. Sharpen a prompt you used recently\n2. Spot what's wrong in a flawed AI response\n3. Decide if AI even fits a specific task\n\nWhich one?"
+    },
+    {
+      "index": 6,
+      "speaker": "learner",
+      "text": "Um, number 2 I guess."
+    },
+    {
+      "index": 7,
+      "speaker": "sage",
+      "text": "Good pick. Here's the setup:\n\n**You are** a small business owner. **You asked** an AI: \"Is it legal to fire an employee for posting negative things about my company on social media?\"\n\n**The AI replied:**\n> Yes, in the United States employment is \"at-will,\" meaning you can fire an employee for any reason, including social media posts criticizing your company. As long as you're not discriminating based on a protected class, you're fully within your rights. I'd recommend documenting the posts and proceeding with termination.\n\nYour job: spot what's wrong, misleading, or missing. What jumps out first?"
+    },
+    {
+      "index": 8,
+      "speaker": "learner",
+      "text": "It's missing the part about protected speech and union stuff, right?"
+    },
+    {
+      "index": 9,
+      "speaker": "sage",
+      "text": "Yes \u2014 exactly right. The NLRA protects \"concerted activity,\" meaning employees discussing wages, conditions, or organizing \u2014 even on social media \u2014 is often protected, even in non-union workplaces. That's a big omission.\n\nBefore I tell you what else is off \u2014 what's the AI's *tone* doing here? Is it acting like an assistant or something else?"
+    },
+    {
+      "index": 10,
+      "speaker": "learner",
+      "text": "It's acting like a lawyer, which it shouldn't."
+    }
+  ]
+}

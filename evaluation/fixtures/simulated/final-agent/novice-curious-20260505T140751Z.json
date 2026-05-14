@@ -1,0 +1,91 @@
+{
+  "source_id": "simulated/novice-curious",
+  "origin": "simulated",
+  "turns": [
+    {
+      "index": 0,
+      "speaker": "learner",
+      "text": "I'm new to AI agents. Where do I start?"
+    },
+    {
+      "index": 1,
+      "speaker": "sage",
+      "text": "Welcome! I'm SAGE \u2014 your AI agent use tutor. I'll help you learn to use AI well, ethically, and critically.\n\nLet me check if we've met before."
+    },
+    {
+      "index": 2,
+      "speaker": "learner",
+      "text": "Oh cool, thanks! So like... do I need to do something special to set up my account or anything?"
+    },
+    {
+      "index": 3,
+      "speaker": "sage",
+      "text": "Nope \u2014 no setup, no account, no email needed. We just chat, and I'll quietly track your progress as we go.\n\nTotally optional: is there something I should call you? (or just say \"skip\")"
+    },
+    {
+      "index": 4,
+      "speaker": "learner",
+      "text": "Um, just call me Alex, I guess? Quick question though \u2014 is it okay if I use you to help me understand my sociology readings, or like, would that be cheating?"
+    },
+    {
+      "index": 5,
+      "speaker": "sage",
+      "text": "Nice to meet you, Alex! And great question \u2014 that's exactly the kind of judgment we'll work on together.\n\nShort answer: it depends on *how* you use it. Using AI to explain a confusing concept = usually fine. Having it summarize so you skip the reading = usually not. The line is whether you're still doing the thinking.\n\nQuick gut check \u2014 which feels closer to what you had in mind: (a) \"explain this paragraph I don't get,\" or (b) \"summarize this chapter so I don't have to read it\"?"
+    },
+    {
+      "index": 6,
+      "speaker": "learner",
+      "text": "Oh, definitely (a)! I actually read the stuff, I just get confused sometimes. Like, my professor mentioned \"social capital\" and I have no idea what that means. So I'd ask you to break it down?"
+    },
+    {
+      "index": 7,
+      "speaker": "sage",
+      "text": "Perfect \u2014 that's a great use case. You're using AI as a tutor, not a substitute for your own thinking.\n\nQuick orientation question to help me calibrate: have you used ChatGPT, Claude, or similar tools before? (yes-a-lot / yes-a-little / no)"
+    },
+    {
+      "index": 8,
+      "speaker": "learner",
+      "text": "No, not really \u2014 I've like, heard about them in class but never actually used one. Is that gonna be a problem or...?"
+    },
+    {
+      "index": 9,
+      "speaker": "sage",
+      "text": "Not at all \u2014 honestly, that's a great place to start. You get to learn the right habits from the beginning instead of unlearning bad ones.\n\nOne more quick one: what would you say is the #1 risk of using AI for important tasks? Just pick what feels right:\n(a) it makes stuff up\n(b) it's biased\n(c) privacy concerns\n(d) people stop thinking for themselves\n(e) something else / not sure"
+    },
+    {
+      "index": 10,
+      "speaker": "learner",
+      "text": "Um, probably (a)? Like, it just confidently says things that aren't true, right? That seems scary for an essay or something."
+    },
+    {
+      "index": 11,
+      "speaker": "sage",
+      "text": "Exactly right \u2014 that's called **hallucination**, and you just named the biggest day-to-day risk. Confident + wrong is a dangerous combo, especially for school.\n\nOkay, I've got enough to get you started. Here's your learning path:\n\n1. **What AI agents actually are** \u2014 and how they differ from a search engine\n2. **Asking good questions** (prompting) \u2014 so you get useful answers\n3. **Spotting when AI is wrong** \u2014 your hallucination defense kit\n\nWant to dive into lesson 1 now, or save that for later and just explore?"
+    },
+    {
+      "index": 12,
+      "speaker": "learner",
+      "text": "Yeah, let's do it now \u2014 I'm kind of curious. But like, can you explain it in a simple way? I'm not really a tech person."
+    },
+    {
+      "index": 13,
+      "speaker": "sage",
+      "text": "Totally \u2014 plain language, promise.\n\nBefore I explain, let me ask: when you've heard people talk about ChatGPT or AI, what do you imagine it actually *is*? Like a really smart search engine? A robot? A person typing back? Just your gut \u2014 no wrong answer."
+    },
+    {
+      "index": 14,
+      "speaker": "learner",
+      "text": "Oh, um... I guess like a really smart search engine? That like, reads everything on the internet and then answers your question? Or like, maybe it's predicting what words come next or something? I'm not really sure honestly."
+    },
+    {
+      "index": 15,
+      "speaker": "sage",
+      "text": "You actually nailed something most people miss \u2014 that \"predicting what words come next\" part is closer to the truth than the search engine idea.\n\nHere's the key difference: a search engine *finds* an existing answer someone wrote. AI like me *generates* a new answer by predicting what words probably come next, based on patterns it learned from tons of text. It's not looking anything up \u2014 it's writing.\n\nThat's why hallucination happens, by the way. If I don't know something, I might still predict words that *sound right* \u2014 because sounding right is what I was trained to do.\n\nQuick check \u2014 does this click? (yes / kinda / not really)"
+    },
+    {
+      "index": 16,
+      "speaker": "learner",
+      "text": "Kinda? Like, so you're basically guessing the next word over and over until you make a sentence? But how do you know what's actually true then if you're just... guessing?"
+    }
+  ]
+}

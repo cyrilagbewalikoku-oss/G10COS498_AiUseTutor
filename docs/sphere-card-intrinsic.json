@@ -1,0 +1,84 @@
+{
+  "sysname": "SAGE — Scaffolded AI Guidance for Engagement",
+  "card_type": "intrinsic",
+  "aspects": {
+    "S": {
+      "name": "System under evaluation",
+      "description": "A pedagogical tutor that teaches AI-agent literacy via a practice → scaffolded feedback → closing reflection loop. Implemented on the Anthropic SDK; decomposed into 18 skills under .claude/skills/. Runtime surfaces: Streamlit web app (sage-ui) and terminal CLI.",
+      "in_scope": [
+        "Question discipline (≤ 1 question mark per SAGE turn)",
+        "Front-loading discipline (≤ 4 sentences before first question)",
+        "Answer-first behaviour on direct learner questions"
+      ],
+      "out_of_scope": [
+        "Tool-call correctness (load_user_profile, save_user_profile, load_scenario)",
+        "Factual accuracy of pedagogical content delivered by SAGE",
+        "Long-horizon learner outcomes (learning retention, behaviour change)"
+      ]
+    },
+    "P": {
+      "name": "Population / participants",
+      "intrinsic": "Three persona-driven simulated learners: novice-curious (yes/no questions), skeptical-engineer (factual questions), fatigued-returner (short messages, wraps early). Plus 7 hand-authored gold transcripts (4 positive, 3 negative cases).",
+      "extrinsic": "≥ 3 university students outside the project team, recruited for a 15-minute session each."
+    },
+    "H": {
+      "name": "How it was evaluated",
+      "intrinsic_metric_1": {
+        "name": "Front-Loading Discipline",
+        "type": "rule-based",
+        "definition": "Per SAGE turn: question_marks ≤ 1 AND sentences_before_first_question_mark ≤ 4. Pass iff both sub-checks pass.",
+        "source_file": "evaluation/metrics/front_loading.py"
+      },
+      "intrinsic_metric_2": {
+        "name": "Answer-First Adherence",
+        "type": "LLM-as-judge (two-stage)",
+        "stage_1": "Haiku 4.5 classifies preceding learner message as yes_no | factual | open | not_a_question. Only yes_no and factual qualify.",
+        "stage_2": "Sonnet 4.6 grades the tutor reply as answered_first | answered_and_followed_up | redirected_without_answer | non_answer. Pass = first two.",
+        "source_file": "evaluation/metrics/answer_first.py"
+      },
+      "extrinsic": "Task-based user study; Likert satisfaction (1–5) + per-turn issue tagging (multi-question, didn't-answer-my-question). Transcripts exported from the Streamlit app feed back into the intrinsic harness via --exports-only."
+    },
+    "E": {
+      "name": "Evidence and results",
+      "intrinsic_final_agent_full_corpus": {
+        "front_loading": { "passed": 23, "applicable": 53, "rate": 0.434 },
+        "answer_first":  { "passed": 9,  "applicable": 13, "rate": 0.692 }
+      },
+      "intrinsic_4_16_agent_simulated_only": {
+        "front_loading": { "passed": 9, "applicable": 19, "rate": 0.474 },
+        "answer_first":  { "passed": 8, "applicable": 8,  "rate": 1.000 }
+      },
+      "intrinsic_final_agent_simulated_only": {
+        "front_loading": { "passed": 9, "applicable": 19, "rate": 0.474 },
+        "answer_first":  { "passed": 7, "applicable": 10, "rate": 0.700 }
+      },
+      "discriminative_validity": {
+        "positive_authored_fl_rate": 0.500,
+        "negative_authored_fl_rate": 0.333,
+        "interpretation": "Rule-based metric correctly separates positive (well-crafted) from negative (deliberately-flawed) authored transcripts."
+      }
+    },
+    "R": {
+      "name": "Risks and threats to validity",
+      "items": [
+        "Small persona corpus: 19 simulated SAGE turns per agent version produces fragile per-persona percentages.",
+        "Conversation-flow divergence: each agent version drives the persona LLM into a different applicable-turn set, confounding rate comparison on Answer-First.",
+        "Single LLM judge not cross-validated against human labellers; potential model-family bias on the grader.",
+        "Front-Loading is a strict rule; user study (extrinsic) will tell us whether the rule is too strict (i.e. multi-question turns are tolerable in some contexts)."
+      ]
+    },
+    "Empirical_strength": {
+      "level": "medium",
+      "rationale": "Two independent metrics (rule-based + LLM-judge); apples-to-apples comparison across two agent versions via the same persona prompts; deterministic + LLM-judge mix. Weaknesses: small corpus, no human-judge alignment study, single-judge ensemble."
+    }
+  },
+  "saved_artifacts": [
+    "evaluation/results/final-agent-2026-05-14T18-15Z-results.json",
+    "evaluation/results/agent-final-2026-05-14T18-20Z-results.json",
+    "evaluation/results/agent-4-16-2026-05-14T18-20Z-results.json",
+    "evaluation/fixtures/prompts/sage-prompt-4-16-7c5492d.txt",
+    "evaluation/fixtures/prompts/sage-prompt-final-AgentV2.1.txt",
+    "evaluation/fixtures/simulated/4-16-agent/",
+    "evaluation/fixtures/simulated/final-agent/"
+  ]
+}

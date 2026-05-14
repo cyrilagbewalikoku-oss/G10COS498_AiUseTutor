@@ -61,10 +61,10 @@ def _load_authored(authored_dir: Path = DEFAULT_AUTHORED_DIR) -> list[Transcript
     return out
 
 
-def _load_simulated() -> list[Transcript]:
+def _load_simulated(simulated_dir: Path = SIMULATED_DIR) -> list[Transcript]:
     """Load simulated transcripts; skip and warn on malformed files instead of aborting."""
     out: list[Transcript] = []
-    for path in sorted(SIMULATED_DIR.glob("*.json")):
+    for path in sorted(simulated_dir.glob("*.json")):
         try:
             out.append(parse_simulated_json(path))
         except ValueError as e:
@@ -243,6 +243,23 @@ def main(argv: list[str] | None = None) -> None:
             f"subdirs (default: {DEFAULT_AUTHORED_DIR.relative_to(REPO_ROOT) if DEFAULT_AUTHORED_DIR.is_relative_to(REPO_ROOT) else DEFAULT_AUTHORED_DIR})."
         ),
     )
+    parser.add_argument(
+        "--simulated-dir",
+        type=Path,
+        default=SIMULATED_DIR,
+        help=f"Directory containing persona-simulated *.json transcripts (default: {SIMULATED_DIR.relative_to(REPO_ROOT)}).",
+    )
+    parser.add_argument(
+        "--label",
+        type=str,
+        default=None,
+        help="Optional tag prepended to the run_id so results files are named e.g. final-agent-<ts>-results.json.",
+    )
+    parser.add_argument(
+        "--no-authored",
+        action="store_true",
+        help="Skip authored transcripts (useful when comparing two agent versions on simulated transcripts only).",
+    )
     args = parser.parse_args(argv)
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -256,7 +273,8 @@ def main(argv: list[str] | None = None) -> None:
                 "Export chat panel) and re-run."
             )
     else:
-        transcripts = _load_authored(args.authored_dir) + _load_simulated() + _load_exported()
+        authored = [] if args.no_authored else _load_authored(args.authored_dir)
+        transcripts = authored + _load_simulated(args.simulated_dir) + _load_exported()
         if not transcripts:
             raise SystemExit(
                 f"No transcripts found. Drop chats into evaluation/fixtures/exports/, "
@@ -279,7 +297,8 @@ def main(argv: list[str] | None = None) -> None:
 
     aggregates = _aggregate(scored)
     sage_version = _git_head()
-    run_id = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%MZ")
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%MZ")
+    run_id = f"{args.label}-{timestamp}" if args.label else timestamp
 
     raw = {
         "run_id": run_id,

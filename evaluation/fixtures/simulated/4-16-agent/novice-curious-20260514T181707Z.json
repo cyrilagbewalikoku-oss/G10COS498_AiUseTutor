@@ -1,0 +1,91 @@
+{
+  "source_id": "simulated/novice-curious",
+  "origin": "simulated",
+  "turns": [
+    {
+      "index": 0,
+      "speaker": "learner",
+      "text": "I'm new to AI agents. Where do I start?"
+    },
+    {
+      "index": 1,
+      "speaker": "sage",
+      "text": "Welcome! I'm SAGE \u2014 your AI agent use tutor. I'll help you get good at using AI tools thoughtfully and critically.\n\nLet me check if we've met before.\n{\"name\": \"load_user_profile\", \"arguments\": {}}"
+    },
+    {
+      "index": 2,
+      "speaker": "learner",
+      "text": "Oh cool, thanks! So like... does this mean you can remember what I've already asked you about before, or is this like a fresh start every time?"
+    },
+    {
+      "index": 3,
+      "speaker": "sage",
+      "text": "Great question \u2014 and actually really relevant to what you'll learn here.\n\nI use a tool to save and load your profile, so across sessions I *can* remember your level, progress, and what we've worked on. But within a single conversation, I rely on what's in front of me.\n\nQuick prediction before we start \u2014 when you've used AI chatbots before (if you have), did they seem to remember you across conversations, or did each chat feel like starting over?"
+    },
+    {
+      "index": 4,
+      "speaker": "learner",
+      "text": "Um, honestly I'm not totally sure? Like, I've used ChatGPT a few times for homework help, but I never really paid attention to whether it remembered me or not \u2014 I just kind of started typing what I needed each time. Does it matter?"
+    },
+    {
+      "index": 5,
+      "speaker": "sage",
+      "text": "Honest answer \u2014 and yes, it matters a lot! Most chatbots by default *don't* remember you between conversations. Each chat is a fresh start, which is why prompts that worked yesterday might feel like you're explaining yourself all over again today.\n\nThis is actually one of the first big things to understand about AI tools: knowing what they remember (and don't) changes how you use them.\n\nOkay, let's get you set up. I just learned you've used ChatGPT for homework \u2014 what kind of homework? (Just a quick example is fine.)"
+    },
+    {
+      "index": 6,
+      "speaker": "learner",
+      "text": "Oh, like essay outlines mostly, and sometimes I'd ask it to explain concepts from lectures that didn't make sense to me. Is that... like, a bad way to use it or something?"
+    },
+    {
+      "index": 7,
+      "speaker": "sage",
+      "text": "Not bad at all \u2014 those are actually two really common and reasonable uses! Asking for explanations of confusing concepts is one of the strongest uses of AI. Essay outlines can be great too, depending on *how* you use them (we'll get into that).\n\nNext question \u2014 in your own words, what do you think is the difference between an AI chatbot (like ChatGPT) and an AI agent?\n\nIt's totally fine to guess or say \"no idea.\""
+    },
+    {
+      "index": 8,
+      "speaker": "learner",
+      "text": "Hmm, honestly I'm not really sure \u2014 is an agent like, smarter? Or does it do more stuff on its own without me having to ask for each thing?"
+    },
+    {
+      "index": 9,
+      "speaker": "sage",
+      "text": "That second guess is really close! \ud83c\udfaf\n\nA chatbot mostly responds turn-by-turn \u2014 you ask, it answers. An *agent* can take multiple steps on its own toward a goal: like searching the web, using tools, writing files, or making decisions along the way without you prompting each step.\n\nSo it's less about being \"smarter\" and more about *autonomy* \u2014 how much it does without checking in.\n\nOne more question: what's one thing you think could go wrong when using AI for something important?"
+    },
+    {
+      "index": 10,
+      "speaker": "learner",
+      "text": "Like... could it just make stuff up and I wouldn't know? Or like, if I use an agent to do something, could it do the wrong thing without me catching it in time?"
+    },
+    {
+      "index": 11,
+      "speaker": "sage",
+      "text": "Both of those are *exactly* the right instincts \u2014 and you named two of the biggest risks in AI use:\n\n1. **Hallucination** \u2014 AI confidently making things up\n2. **Autonomy risk** \u2014 an agent taking actions you didn't intend before you can stop it\n\nThe fact that you're already thinking about these tells me you've got good critical instincts, even if you're new to the vocabulary.\n\nLast calibration question: on a scale of 1-10, how comfortable do you feel using AI tools right now?"
+    },
+    {
+      "index": 12,
+      "speaker": "learner",
+      "text": "Um, maybe like a 5? I can use ChatGPT okay, but I'm honestly worried about getting in trouble at university for using it wrong, or like, submitting something that's not actually my work without realizing it. Does that make sense?"
+    },
+    {
+      "index": 13,
+      "speaker": "sage",
+      "text": "That makes complete sense \u2014 and honestly, that worry is a *sign of good judgment*, not a weakness. A lot of people skip right past it. You're already thinking about authorship and integrity, which is exactly what good AI use requires.\n\nLet me set up your profile based on what I've learned.\n{\"name\": \"save_user_profile\", \"arguments\": {\"name\": \"Learner\", \"level\": \"Novice\", \"background\": \"University student. Has used ChatGPT for essay outlines and explaining lecture concepts. Self-rated comfort: 5/10. Concerned about academic integrity and unintentional misuse.\", \"dimensions\": {\"conceptual_understanding\": 2, \"prompting_skill\": 1, \"output_evaluation\": 1, \"ethical_reasoning\": 2, \"critical_thinking\": 2}, \"competencies\": {\"prompt_crafting\": 1, \"output_evaluation\": 1, \"appropriateness_judgment\": 2, \"workflow_design\": 1}, \"notes\": \"Strong intuition about hallucination and autonomy risks despite being new. Cares about doing things right.\"}}\n\nHere's a learning path I'd suggest for you \u2014 three modules, in this order:\n\n1. **Spotting when AI gets things wrong** \u2014 practice catching hallucinations and gaps\n2. **Writing prompts that actually work** \u2014 the CRAFT framework, so your AI does what you mean\n3. **Knowing when to use AI (and when not to)** \u2014 especially for schoolwork, the integrity question\n\nWant to start with module 1, or would you rather jump into something tied to your actual schoolwork right now?"
+    },
+    {
+      "index": 14,
+      "speaker": "learner",
+      "text": "I think module 1 sounds good \u2014 like, I need to know I can actually trust what it's telling me before I use it more, right? But um, how long does that usually take?"
+    },
+    {
+      "index": 15,
+      "speaker": "sage",
+      "text": "Exactly right \u2014 and that's mature thinking. Trust *first*, use *second*. A lot of people do it backwards.\n\nFor time: each module is flexible. We can do a short 10-15 minute practice today, or a longer 30-minute deep dive. Most people do bite-sized sessions and come back. No pressure to finish anything in one sitting.\n\nWant to start with a quick 10-15 minute practice \u2014 I'll show you some AI output and you try to spot what's off?"
+    },
+    {
+      "index": 16,
+      "speaker": "learner",
+      "text": "Yeah, okay, let's do the quick version \u2014 I've got a sociology reading due tomorrow so I can't spend too long right now. Should I like, have a notebook or something ready to write down what I find?"
+    }
+  ]
+}
